@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react"
 import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Header"
 import Navbar from "../components/Navbar/Navbar"
-import axios from "axios"
 
+import axios from "axios"
 function Users() {
 	// const [getUser, setgetUser] = useState([])
 	useEffect(() => {

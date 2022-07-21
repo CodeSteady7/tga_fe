@@ -95,7 +95,34 @@ function Navbar({ routes }) {
 							<>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/users">
+									<a className="d-flex align-items-center" href="/admin/periodeaudit">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Periode
+										</span>
+									</a>
+								</li>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/periode">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Program Studi
+										</span>
+									</a>
+								</li>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/periode">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Topik Instrumen
+										</span>
+									</a>
+								</li>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/users">
 										<i data-feather="user"></i>
 										<span className="menu-title text-truncate" data-i18n="Email">
 											User
@@ -104,10 +131,51 @@ function Navbar({ routes }) {
 								</li>
 
 								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/addimage">
+									<a className="d-flex align-items-center" href="/admin/addimage">
 										<i data-feather="image"></i>
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Add Image
+										</span>
+									</a>
+								</li>
+							</>
+						) : (
+							""
+						)}
+
+						{getAdmin === "auditi" ? (
+							<>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/addinstrumen">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Mengisi Instrumen
+										</span>
+									</a>
+								</li>
+							</>
+						) : (
+							""
+						)}
+
+						{getAdmin === "auditor" ? (
+							<>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/periode">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Istrument
+										</span>
+									</a>
+								</li>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/periode">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Pelaporan
 										</span>
 									</a>
 								</li>

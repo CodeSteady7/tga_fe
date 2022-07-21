@@ -2,12 +2,12 @@ import React from "react"
 import image from "../assets/img/pnl.jpg"
 // import "../assets/assetsLandingpages/vendor/animate.css/animate.min.css"
 // import "../assets/assetsLandingpages/vendor/bootstrap/css/bootstrap.min.css"
-import "../assets/assetsLandingpages/vendor/bootstrap-icons/bootstrap-icons.css"
+// import "../assets/assetsLandingpages/vendor/bootstrap-icons/bootstrap-icons.css"
 // import "../assets/assetsLandingpages/vendor/boxicons/css/boxicons.min.css"
 // import "../assets/assetsLandingpages/vendor/glightbox/css/glightbox.min.css"
 // import "../assets/assetsLandingpages/vendor/remixicon/remixicon.css"
 // import "../assets/assetsLandingpages/vendor/swiper/swiper-bundle.min.css"
-import "../assets/assetsLandingpages/css/style.css"
+// import "../assets/assetsLandingpages/css/style.css"
 
 function HalamanUtama() {
 	return (

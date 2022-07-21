@@ -17,22 +17,23 @@ import AuthRoute from "./Route/AuthRoute"
 import Url from "./utils/Url"
 import AddImage from "./views/AddImage"
 import Admin from "./layout/Admin"
+import PeriodeAudit from "views/Admin/PeriodeAudit"
+
 // <!-- END: Custom CSS-->
 function Pages() {
-	const data = new Url()
-
 	return (
 		<BrowserRouter>
 			<data />
 			<Routes>
 				{/* <Route path="/admin" element={<Admin />} /> */}
 				<Route path="/admin" element={<Home />} />
-				<Route path="/auditor" element={<Auditor />} />
-				<Route path="/audit" element={<Audit />} />
+				<Route path="/auditi" element={<Audit />} />
 				<Route path="/manager" element={<Manager />} />
+				<Route path="/auditor" element={<Auditor />} />
 
-				<Route path="/users" element={<Users />} />
-				<Route path="/addimage" element={<AddImage />} />
+				<Route path="/admin/periodeaudit" element={<PeriodeAudit />} />
+				<Route path="/admin/users" element={<Users />} />
+				<Route path="/admin/addimage" element={<AddImage />} />
 				<Route path="/login/*" element={<Login />} />
 				<Route path="/berita/*" element={<HalamanUtama />} />
 
