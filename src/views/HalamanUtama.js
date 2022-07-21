@@ -18,11 +18,8 @@ function HalamanUtama() {
 					<h3 className="logo me-auto">
 						<a href="/">AMI PNL</a>
 					</h3>
-					{/* <!-- Uncomment below if you prefer to use an image logo --> */}
 					{/* <!--  */}
-					<a href="index.html" className="logo me-auto">
-						{/* <img src={image} alt="" className="img-fluid" /> */}
-					</a>
+					<a href="index.html" className="logo me-auto"></a>
 					{/* --> */}
 
 					<nav id="navbar" className="navbar">

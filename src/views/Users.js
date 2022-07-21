@@ -65,7 +65,7 @@ function Users() {
 
 	return (
 		<>
-			{/* <Header /> */}
+			<Header />
 			<Navbar />
 			<div
 				class="vertical-layout vertical-menu-modern navbar-floating footer-static"

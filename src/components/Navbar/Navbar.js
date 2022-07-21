@@ -1,9 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { NavLink } from "react-router-dom"
 const url = window.location.pathname.split("/")[1]
 console.log("🚀 ~ file: Navbar.js ~ line 3 ~ url", url)
-
 function Navbar({ routes }) {
+	// useEffect(() => {
+	// 	feather.replace()
+	// }, [])
 	// const createLinks = routes => {
 	// 	return routes.map((prop, key) => {
 	// 		return (prop.layout === `/${url}` && !prop.api) || prop.use === true ? (
@@ -34,6 +36,11 @@ function Navbar({ routes }) {
 	// 	})
 	// }
 
+	let getHref = window.location.href
+	let split = getHref.split("/")
+	let getAdmin = split[3]
+	console.log("🚀 ~ file: Navbar.js ~ line 40 ~ Navbar ~ getHref", getHref)
+	console.log("getAdmin", getAdmin)
 	return (
 		<>
 			<div
@@ -71,8 +78,8 @@ function Navbar({ routes }) {
 					>
 						<li className="nav-item">
 							{/* {createLinks(routes)} */}
-							<a className="d-flex align-items-center" href="/nonakademik">
-								<i data-feather="home"></i>
+							<a className="d-flex align-items-center" href="/admin">
+								<i data-feather="feather" class="text-info"></i>
 								<span className="menu-title text-truncate" data-i18n="Dashboards">
 									Dashboards
 								</span>
@@ -83,24 +90,31 @@ function Navbar({ routes }) {
 							<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
 							<i data-feather="more-horizontal"></i>
 						</li>
-						<li className="nav-item">
-							{/* {createApiLinks(routes)} */}
-							<a className="d-flex align-items-center" href="/users">
-								<i data-feather="user"></i>
-								<span className="menu-title text-truncate" data-i18n="Email">
-									User
-								</span>
-							</a>
-						</li>
 
-						<li className="nav-item">
-							<a className="d-flex align-items-center" href="/addimage">
-								<i data-feather="image"></i>
-								<span className="menu-title text-truncate" data-i18n="Email">
-									Add Image
-								</span>
-							</a>
-						</li>
+						{getAdmin === "admin" ? (
+							<>
+								<li className="nav-item">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/users">
+										<i data-feather="user"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											User
+										</span>
+									</a>
+								</li>
+
+								<li className="nav-item">
+									<a className="d-flex align-items-center" href="/addimage">
+										<i data-feather="image"></i>
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Add Image
+										</span>
+									</a>
+								</li>
+							</>
+						) : (
+							""
+						)}
 					</ul>
 				</div>
 			</div>

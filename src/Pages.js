@@ -5,6 +5,9 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
 
 // <!-- BEGIN: Custom CSS-->
 import Home from "./views/Home"
+import Auditor from "./views/Auditor"
+import Audit from "./views/Audit"
+import Manager from "./views/Manager"
 import ImportScript from "./ImportScript"
 import Login from "./views/Login"
 import HalamanUtama from "./views/HalamanUtama"
@@ -22,18 +25,16 @@ function Pages() {
 		<BrowserRouter>
 			<data />
 			<Routes>
-				{console.log("data router", data)}
-				{/* <Route element={<PrivateRoute />}> */}
-				<Route path="/admin" element={<Admin />} />
-				{/* <Route path={data.path} element={<Home />} /> */}
-				<Route path="/nonakademik" element={<Home />} />
+				{/* <Route path="/admin" element={<Admin />} /> */}
+				<Route path="/admin" element={<Home />} />
+				<Route path="/auditor" element={<Auditor />} />
+				<Route path="/audit" element={<Audit />} />
+				<Route path="/manager" element={<Manager />} />
+
 				<Route path="/users" element={<Users />} />
 				<Route path="/addimage" element={<AddImage />} />
-				{/* </Route> */}
-				{/* <Route element={<AuthRoute />}> */}
 				<Route path="/login/*" element={<Login />} />
 				<Route path="/berita/*" element={<HalamanUtama />} />
-				{/* </Route> */}
 
 				<Route path="/" element={<Navigate from="/" to="/berita" />} />
 			</Routes>

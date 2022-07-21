@@ -1,42 +1,11 @@
 import React, { useState } from "react"
 import axios from "axios"
 
-import image from "../assets/img/pnl.jpg"
 function Login() {
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
 	})
-
-	const onChangeInput = e => {
-		const { name, value } = e.target
-		setUser({ ...user, [name]: value })
-	}
-
-	const loginSubmit = async e => {
-		e.preventDefault()
-		try {
-			const data = await axios.post(
-				"http://localhost:4000/users/login",
-				{ ...user },
-				{
-					withCredentials: true,
-				}
-			)
-			// console.log("🚀 ~ file: Login.js ~ line 19 ~ Login ~ data", data.data)
-
-			localStorage.setItem("user", data.data.user.name)
-			localStorage.setItem("token", data.data.accesstoken)
-			window.location.href = data.data.user.path
-			// console.log("masuk data", data.data.user.path)
-		} catch (err) {
-			alert(err.response.data.msg)
-		}
-	}
-
-	const tryLogin = async () => {
-		return
-	}
 
 	return (
 		<div
@@ -54,27 +23,23 @@ function Login() {
 					<div className="content-body">
 						<div className="auth-wrapper auth-cover">
 							<div className="auth-inner row m-0">
-								{/* <!-- Brand logo--> */}
-								{/* <!-- /Brand logo--> */}
-								{/* <!-- Left Text--> */}
 								<div className="d-none d-lg-flex col-lg-8 align-items-center p-5">
 									<div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
 										<img
 											className="img-fluid"
-											// src="../../../app-assets/images/pages/login-v2.svg"
 											src="../../../app-assets/images/pages/login-v2.svg"
 											alt="Login V2"
 										/>
 									</div>
 								</div>
-								{/* <!-- /Left Text--> */}
-								{/* <!-- Login--> */}
+
 								<div className="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
 									<div className="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
 										<h2 className="card-title fw-bold mb-1">
 											Selamat Datang di Aplikasi Audit Mutu Internal
 										</h2>
-										<form className="auth-login-form mt-2" onSubmit={loginSubmit}>
+										<form className="auth-login-form mt-2" href="/nonakademik">
+											<a href="/nonakademik" />
 											<div className="mb-1">
 												<label className="form-label" for="login-email">
 													Email
@@ -88,8 +53,6 @@ function Login() {
 													autofocus=""
 													tabindex="1"
 													name="email"
-													value={user.email}
-													onChange={onChangeInput}
 												/>
 											</div>
 											<div className="mb-1">
@@ -110,8 +73,6 @@ function Login() {
 														aria-describedby="login-password"
 														tabindex="2"
 														name="password"
-														value={user.password}
-														onChange={onChangeInput}
 													/>
 													<span className="input-group-text cursor-pointer">
 														<i data-feather="eye"></i>
@@ -132,13 +93,12 @@ function Login() {
 													</label>
 												</div>
 											</div>
-											<button className="btn btn-primary w-100" tabindex="4">
+											<a type="buttom" className="btn btn-primary w-100" tabindex="4" href="/admin">
 												Sign in
-											</button>
+											</a>
 										</form>
 									</div>
 								</div>
-								{/* <!-- /Login--> */}
 							</div>
 						</div>
 					</div>
