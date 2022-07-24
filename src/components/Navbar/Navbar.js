@@ -104,7 +104,7 @@ function Navbar({ routes }) {
 								</li>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/periode">
+									<a className="d-flex align-items-center" href="/admin/progamstudi">
 										<i data-feather="user"></i>
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Program Studi
@@ -113,7 +113,7 @@ function Navbar({ routes }) {
 								</li>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/periode">
+									<a className="d-flex align-items-center" href="/admin/topikinstrumen">
 										<i data-feather="user"></i>
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Topik Instrumen

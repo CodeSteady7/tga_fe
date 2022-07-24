@@ -2,10 +2,10 @@ import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
 import React from "react"
 
-function PeriodeAudit() {
+function ProgramStudi() {
 	return (
-		<>
-			<div className="loading">
+		<div>
+			<div>
 				<body
 					class="vertical-layout vertical-menu-modern  navbar-floating footer-static  "
 					data-open="click"
@@ -30,7 +30,7 @@ function PeriodeAudit() {
 													<table class="dt-multilingual table">
 														<thead>
 															<tr>
-																<th></th>
+																<th>No</th>
 																<th>Name</th>
 																<th>Position</th>
 																<th>Email</th>
@@ -77,8 +77,8 @@ function PeriodeAudit() {
 					</div>
 				</body>
 			</div>
-		</>
+		</div>
 	)
 }
 
-export default PeriodeAudit
+export default ProgramStudi
