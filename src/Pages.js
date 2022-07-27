@@ -13,6 +13,7 @@ import HalamanUtama from "./views/HalamanUtama"
 import Users from "./views/Users"
 import AddImage from "./views/AddImage"
 import PeriodeAudit from "views/Admin/PeriodeAudit"
+import TimAudit from "views/Admin/TimAudit"
 import ProgramStudi from "views/Admin/ProgramStudi"
 import TopikInstrumen from "views/Admin/TopikInstrumen"
 
@@ -28,8 +29,7 @@ function Pages() {
 				<Route path="/auditor" element={<Auditor />} />
 
 				<Route path="/admin/periodeaudit" element={<PeriodeAudit />} />
-				{/* <Route path="/admin/periodeaudit" element={<PeriodeAudit />} /> */}
-				{/* <Route path="/users" element={<Users />} /> */}
+				<Route path="/admin/timaudit" element={<TimAudit />} />
 				<Route path="/admin/users" element={<Users />} />
 				<Route path="/admin/addimage" element={<AddImage />} />
 				<Route path="/admin/progamstudi" element={<ProgramStudi />} />

@@ -104,6 +104,15 @@ function Navbar({ routes }) {
 										</span>
 									</a>
 								</li>
+								<li className="nav-">
+									{/* {createApiLinks(routes)} */}
+									<a className="d-flex align-items-center" href="/admin/timaudit">
+										<FileMinus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Tim Audit
+										</span>
+									</a>
+								</li>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/progamstudi">
