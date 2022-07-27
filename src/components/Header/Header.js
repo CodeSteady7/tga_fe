@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react"
 import { GlobalState } from "../../GlobalState"
+import { ShoppingCart, Bell } from "react-feather"
 
 function Header() {
 	const state = useContext(GlobalState)
@@ -31,34 +32,43 @@ function Header() {
 							</ul>
 						</li>
 
-						<li className="nav-item dropdown dropdown-user">
+						<li class="nav-item dropdown dropdown-user">
 							<a
-								className="nav-link dropdown-toggle dropdown-user-link"
+								class="nav-link dropdown-toggle dropdown-user-link"
 								id="dropdown-user"
 								href="#"
 								data-bs-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
 							>
-								<div className="user-nav d-sm-flex d-none">
-									<span className="user-name fw-bolder">{isUser.name}</span>
-									<span className="user-status">{isUser.role}</span>
+								<div class="user-nav d-sm-flex d-none">
+									<span class="user-name fw-bolder">Hello World</span>
+									<span class="user-status">Admin</span>
 								</div>
-								<span className="avatar">
+								<span class="avatar">
 									<img
-										className="round"
+										class="round"
 										src="../../../app-assets/images/portrait/small/avatar-s-11.jpg"
 										alt="avatar"
 										height="40"
 										width="40"
 									/>
-									<span className="avatar-status-online"></span>
+									<span class="avatar-status-online"></span>
 								</span>
 							</a>
-							<div
-								className="dropdown-menu dropdown-menu-end"
-								aria-labelledby="dropdown-user"
-							>
-								<a className="dropdown-item" href="page-profile.html">
-									<i className="me-50" data-feather="user"></i> Profile
+							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+								<a class="dropdown-item" href="page-profile.html">
+									<i class="me-50" data-feather="user"></i> Profile
+								</a>
+								<a class="dropdown-item" href="app-email.html">
+									<ShoppingCart color="#7367F0" size={20} />
+								</a>
+								<a class="dropdown-item" href="app-todo.html">
+									<i class="me-50" data-feather="check-square"></i> Task
+								</a>
+
+								<a class="dropdown-item" href="auth-login-cover.html">
+									<i class="me-50" data-feather="power"></i> Logout
 								</a>
 							</div>
 						</li>

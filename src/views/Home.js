@@ -23,17 +23,13 @@ function Home() {
 							<section id="dashboard-ecommerce">
 								<div className="row match-height">
 									{/* <!-- Medal Card --> */}
-									<div className="col-xl-4 col-md-6 col-12">
+									<div className="col-xl-12 col-md-12 col-12">
 										<div className="card card-congratulation-medal">
 											<div className="card-body">
-												<h5>Congratulations 🎉 John!</h5>
-												<p className="card-text font-small-3">You have won gold medal</p>
-												<h3 className="mb-75 mt-2 pt-50">
-													<a href="#">$48.9k</a>
-												</h3>
-												<button type="button" className="btn btn-primary">
-													View Sales
-												</button>
+												<h5>Halaman Utama</h5>
+												<p className="card-text font-small-3">
+													Selamat Datang di sistem Audit Mutu Internal Politeknik Negeri Lhokseumawe
+												</p>
 											</div>
 										</div>
 									</div>

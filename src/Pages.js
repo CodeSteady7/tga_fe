@@ -28,6 +28,7 @@ function Pages() {
 				<Route path="/auditor" element={<Auditor />} />
 
 				<Route path="/admin/periodeaudit" element={<PeriodeAudit />} />
+				{/* <Route path="/admin/periodeaudit" element={<PeriodeAudit />} /> */}
 				{/* <Route path="/users" element={<Users />} /> */}
 				<Route path="/admin/users" element={<Users />} />
 				<Route path="/admin/addimage" element={<AddImage />} />

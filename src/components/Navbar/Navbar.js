@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { NavLink } from "react-router-dom"
+import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
 const url = window.location.pathname.split("/")[1]
 console.log("🚀 ~ file: Navbar.js ~ line 3 ~ url", url)
 function Navbar({ routes }) {
@@ -79,7 +80,8 @@ function Navbar({ routes }) {
 						<li className="nav-item">
 							{/* {createLinks(routes)} */}
 							<a className="d-flex align-items-center" href="/admin">
-								<i data-feather="feather" class="text-info"></i>
+								{/* <i data-feather="feather" class="text-info"></i> */}
+								<Home color="#7367F0" size={48} />
 								<span className="menu-title text-truncate" data-i18n="Dashboards">
 									Dashboards
 								</span>
@@ -93,10 +95,10 @@ function Navbar({ routes }) {
 
 						{getAdmin === "admin" ? (
 							<>
-								<li className="nav-item">
+								<li className="nav-">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periodeaudit">
-										<i data-feather="user"></i>
+										<FileMinus color="#7367F0" size={10} />
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Periode
 										</span>
@@ -105,7 +107,7 @@ function Navbar({ routes }) {
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/progamstudi">
-										<i data-feather="user"></i>
+										<FilePlus color="#7367F0" size={20} />
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Program Studi
 										</span>
@@ -114,7 +116,7 @@ function Navbar({ routes }) {
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/topikinstrumen">
-										<i data-feather="user"></i>
+										<FileText color="#7367F0" size={20} />
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Topik Instrumen
 										</span>
@@ -123,7 +125,7 @@ function Navbar({ routes }) {
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/users">
-										<i data-feather="user"></i>
+										<User color="#7367F0" size={20} />
 										<span className="menu-title text-truncate" data-i18n="Email">
 											User
 										</span>
@@ -132,7 +134,7 @@ function Navbar({ routes }) {
 
 								<li className="nav-item">
 									<a className="d-flex align-items-center" href="/admin/addimage">
-										<i data-feather="image"></i>
+										<Image color="#7367F0" size={20} />
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Add Image
 										</span>
@@ -148,7 +150,8 @@ function Navbar({ routes }) {
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/addinstrumen">
-										<i data-feather="user"></i>
+										<FileText color="#7367F0" size={20} />
+
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Mengisi Instrumen
 										</span>
@@ -164,16 +167,18 @@ function Navbar({ routes }) {
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periode">
-										<i data-feather="user"></i>
+										<User color="#7367F0" size={20} />
+
 										<span className="menu-title text-truncate" data-i18n="Email">
-											Istrument
+											Instrumen
 										</span>
 									</a>
 								</li>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periode">
-										<i data-feather="user"></i>
+										<FilePlus color="#7367F0" size={20} />
+
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Pelaporan
 										</span>
