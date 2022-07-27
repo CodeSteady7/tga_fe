@@ -7,8 +7,12 @@ function TopikInstrumen() {
 	const [show, setShow] = useState(true)
 
 	const tryShow = () => {
-		// setShow(false)
-		console.log("masuks")
+		setShow(false)
+		// console.log("masuks")
+	}
+
+	const tryShowTrue = () => {
+		setShow(true)
 	}
 	return (
 		<div>
@@ -27,12 +31,6 @@ function TopikInstrumen() {
 						<div className="header-navbar-shadow"></div>
 						<div className="content-wrapper container-xxl p-0">
 							<div className="content-body">
-								<button class="btn btn-primary btn-round btn-sm " onClick={tryShow}>
-									<div className="d-flex align-items-center">
-										<Plus color="#ffff" size={15} />
-										Views
-									</div>
-								</button>
 								<section id="basic-datatable">
 									{show ? (
 										<div className="row">
@@ -70,10 +68,10 @@ function TopikInstrumen() {
 																	<td>
 																		<div className="d-flex">
 																			<div className="" style={{ padding: 3 }}>
-																				<button class="btn btn-primary btn-round btn-sm ">
+																				<button class="btn btn-primary btn-round btn-sm " onClick={tryShow}>
 																					<div className="d-flex align-items-center">
 																						<Plus color="#ffff" size={15} />
-																						Views
+																						View
 																					</div>
 																				</button>
 																			</div>
@@ -87,12 +85,7 @@ function TopikInstrumen() {
 																	<td>
 																		<div className="d-flex">
 																			<div className="" style={{ padding: 3 }}>
-																				<button
-																					class="btn btn-primary btn-round btn-sm "
-																					type="button"
-																					data-bs-target="#viewTimAudit"
-																					data-bs-toggle="modal"
-																				>
+																				<button class="btn btn-primary btn-round btn-sm " onClick={tryShow}>
 																					<div className="d-flex align-items-center">
 																						<Plus color="#ffff" size={15} />
 																						View
@@ -111,134 +104,48 @@ function TopikInstrumen() {
 									) : (
 										<div class="card">
 											<div class="card-header">
-												<h4 class="card-title">API Key List & Access</h4>
+												<h4 class="card-title">Pertanyaan</h4>
+												<div className="d-flex">
+													<div className="" style={{ padding: 3 }}>
+														<button
+															class="btn btn-primary btn-round btn-sm "
+															onClick={tryShowTrue}
+															type="button"
+														>
+															<div className="d-flex align-items-center">Back</div>
+														</button>
+													</div>
+													<div className="" style={{ padding: 3 }}>
+														<button
+															class="btn btn-primary btn-round btn-sm "
+															onClick={tryShowTrue}
+															type="button"
+														>
+															<div className="d-flex align-items-center">Tambah Pertanyaan</div>
+														</button>
+													</div>
+												</div>
 											</div>
 											<div class="card-body">
-												<p class="card-text">
-													An API key is a simple encrypted string that identifies an application without
-													any principal. They are useful for accessing public data anonymously, and are
-													used to associate API requests with your project for quota and billing.
-												</p>
-
 												<div class="row gy-2">
 													<div class="col-12">
 														<div class="bg-light-secondary position-relative rounded p-2">
-															<div class="dropdown dropstart btn-pinned">
-																<button
-																	class="btn btn-icon rounded-circle hide-arrow dropdown-toggle p-0"
-																	type="button"
-																	id="dropdownMenuButton1"
-																	data-bs-toggle="dropdown"
-																	aria-expanded="false"
-																>
-																	<i data-feather="more-vertical" class="font-medium-4"></i>
-																</button>
-																<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-																	<li>
-																		<a class="dropdown-item d-flex align-items-center" href="#">
-																			<i data-feather="edit-2" class="me-50"></i>
-																			<span>Edit</span>
-																		</a>
-																	</li>
-																	<li>
-																		<a class="dropdown-item d-flex align-items-center" href="#">
-																			<i data-feather="trash-2" class="me-50"></i>
-																			<span>Delete</span>
-																		</a>
-																	</li>
-																</ul>
-															</div>
 															<div class="d-flex align-items-center flex-wrap">
-																<h4 class="mb-1 me-1">Server Key 1</h4>
-																<span class="badge badge-light-primary mb-1">Full Access</span>
+																<ol>
+																	<h4>Visi Misi</h4>
+																	<li class="align-items-center fw-bolder p-1">
+																		Apakah UPPS memiliki visi, misi, tujuan, dan sasaran (VMTS) yang telah
+																		diverifikasi, divalidasi, disosialisasi, dan dipahami oleh staf.
+																	</li>
+																	<li class="align-items-center fw-bolder p-1">
+																		Apakah VMTS telah diimplementasi dan dievaluasi, dan upaya perbaikan yang telah
+																		dilakukan ?
+																	</li>
+																</ol>
 															</div>
 															<h6 class="d-flex align-items-center fw-bolder">
-																<span class="me-50">23eaf7f0-f4f7-495e-8b86-fad3261282ac</span>
-																<span>
-																	<i data-feather="copy" class="font-medium-4 cursor-pointer"></i>
-																</span>
+																<span class="me-50"></span>
 															</h6>
-															<span>Created on 28 Apr 2021, 18:20 GTM+4:10</span>
-														</div>
-													</div>
-													<div class="col-12">
-														<div class="bg-light-secondary position-relative rounded p-2">
-															<div class="dropdown dropstart btn-pinned">
-																<button
-																	class="btn btn-icon rounded-circle hide-arrow dropdown-toggle p-0"
-																	type="button"
-																	id="dropdownMenuButton2"
-																	data-bs-toggle="dropdown"
-																	aria-expanded="false"
-																>
-																	<i data-feather="more-vertical" class="font-medium-4"></i>
-																</button>
-																<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-																	<li>
-																		<a class="dropdown-item d-flex align-items-center" href="#">
-																			<i data-feather="edit-2" class="me-50"></i>
-																			<span>Edit</span>
-																		</a>
-																	</li>
-																	<li>
-																		<a class="dropdown-item d-flex align-items-center" href="#">
-																			<i data-feather="trash-2" class="me-50"></i>
-																			<span>Delete</span>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-															<div class="d-flex align-items-center flex-wrap">
-																<h4 class="mb-1 me-1">Server Key 2</h4>
-																<span class="badge badge-light-primary mb-1">Read Only</span>
-															</div>
-															<h6 class="d-flex align-items-center fw-bolder">
-																<span class="me-50">bb98e571-a2e2-4de8-90a9-2e231b5e99</span>
-																<span>
-																	<i data-feather="copy" class="font-medium-4 cursor-pointer"></i>
-																</span>
-															</h6>
-															<span>Created on 12 Feb 2021, 10:30 GTM+2:30</span>
-														</div>
-													</div>
-													<div class="col-12">
-														<div class="bg-light-secondary position-relative rounded p-2">
-															<div class="dropdown dropstart btn-pinned">
-																<button
-																	class="btn btn-icon rounded-circle hide-arrow dropdown-toggle p-0"
-																	type="button"
-																	id="dropdownMenuButton3"
-																	data-bs-toggle="dropdown"
-																	aria-expanded="false"
-																>
-																	<i data-feather="more-vertical" class="font-medium-4"></i>
-																</button>
-																<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-																	<li>
-																		<a class="dropdown-item d-flex align-items-center" href="#">
-																			<i data-feather="edit-2" class="me-50"></i>
-																			<span>Edit</span>
-																		</a>
-																	</li>
-																	<li>
-																		<a class="dropdown-item d-flex align-items-center" href="#">
-																			<i data-feather="trash-2" class="me-50"></i>
-																			<span>Delete</span>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-															<div class="d-flex align-items-center flex-wrap">
-																<h4 class="mb-1 me-1">Server Key 3</h4>
-																<span class="badge badge-light-primary mb-1">Full Access</span>
-															</div>
-															<h6 class="d-flex align-items-center fw-bolder">
-																<span class="me-50">2e915e59-3105-47f2-8838-6e46bf83b711</span>
-																<span>
-																	<i data-feather="copy" class="font-medium-4 cursor-pointer"></i>
-																</span>
-															</h6>
-															<span>Created on 28 Apr 2021, 12:21 GTM+4:10</span>
 														</div>
 													</div>
 												</div>
