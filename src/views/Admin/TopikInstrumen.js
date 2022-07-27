@@ -1,6 +1,6 @@
+import React, { useState } from "react"
 import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
-import React, { useState } from "react"
 import { Plus } from "react-feather"
 
 function TopikInstrumen() {
@@ -8,7 +8,7 @@ function TopikInstrumen() {
 
 	const tryShow = () => {
 		// setShow(false)
-		console.log("masuk")
+		console.log("masuks")
 	}
 	return (
 		<div>
@@ -27,6 +27,12 @@ function TopikInstrumen() {
 						<div className="header-navbar-shadow"></div>
 						<div className="content-wrapper container-xxl p-0">
 							<div className="content-body">
+								<button class="btn btn-primary btn-round btn-sm " onClick={tryShow}>
+									<div className="d-flex align-items-center">
+										<Plus color="#ffff" size={15} />
+										Views
+									</div>
+								</button>
 								<section id="basic-datatable">
 									{show ? (
 										<div className="row">
@@ -64,7 +70,7 @@ function TopikInstrumen() {
 																	<td>
 																		<div className="d-flex">
 																			<div className="" style={{ padding: 3 }}>
-																				<button class="btn btn-primary btn-round btn-sm " onClick={tryShow()}>
+																				<button class="btn btn-primary btn-round btn-sm ">
 																					<div className="d-flex align-items-center">
 																						<Plus color="#ffff" size={15} />
 																						Views
