@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import { DataProvider } from "./GlobalState"
 import bootstrap from "bootstrap"
 import Pages from "./Pages"
 import "./assets/css/bootstrap-extended.css"
@@ -34,9 +33,7 @@ function App() {
 	}, [])
 	return (
 		<div>
-			<DataProvider>
-				<Pages />
-			</DataProvider>
+			<Pages />
 		</div>
 	)
 }

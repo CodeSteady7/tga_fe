@@ -1,9 +1,19 @@
+import React, { useState } from "react"
 import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
-import React from "react"
 import { Plus } from "react-feather"
 
 function TopikInstrumen() {
+	const [show, setShow] = useState(true)
+
+	const tryShow = () => {
+		setShow(false)
+		// console.log("masuks")
+	}
+
+	const tryShowTrue = () => {
+		setShow(true)
+	}
 	return (
 		<div>
 			<div>
@@ -22,52 +32,127 @@ function TopikInstrumen() {
 						<div className="content-wrapper container-xxl p-0">
 							<div className="content-body">
 								<section id="basic-datatable">
-									<div className="row">
-										<div className="col-12">
-											<div className="card">
-												<div className="card-header border-bottom">
-													<h4 className="card-title">Data Topik Instrumen</h4>
-													<button
-														class="btn btn-primary btn-round btn-sm "
-														type="button"
-														data-bs-target="#modals-slide-in"
-														data-bs-toggle="modal"
-													>
-														<div className="d-flex align-items-center">
-															<Plus color="#ffff" size={15} />
-															Tambah Data
-														</div>
-													</button>
-												</div>
-												<div className="card-datatable">
-													<table className="dt-multilingual table">
-														<thead>
-															<tr>
-																<th>No</th>
-																<th>Nama </th>
-																<th>Periode</th>
-																<th>Aksi</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<th scope="row">1</th>
-																<td>Mark</td>
-																<td>Otto</td>
-																<td>@mdo</td>
-															</tr>
-															<tr>
-																<th scope="row">1</th>
-																<td>Mark</td>
-																<td>Otto</td>
-																<td>@mdo</td>
-															</tr>
-														</tbody>
-													</table>
+									{show ? (
+										<div className="row">
+											<div className="col-12">
+												<div className="card">
+													<div className="card-header border-bottom">
+														<h4 className="card-title">Data Topik Instrumen</h4>
+														<button
+															class="btn btn-primary btn-round btn-sm "
+															type="button"
+															data-bs-target="#modals-slide-in"
+															data-bs-toggle="modal"
+														>
+															<div className="d-flex align-items-center">
+																<Plus color="#ffff" size={15} />
+																Tambah Data
+															</div>
+														</button>
+													</div>
+													<div className="card-datatable">
+														<table className="dt-multilingual table">
+															<thead>
+																<tr>
+																	<th>No</th>
+																	<th>Nama </th>
+																	<th>Periode</th>
+																	<th>Aksi</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<th scope="row">1</th>
+																	<td>Standar Visi Misi </td>
+																	<td>10 November 2021</td>
+																	<td>
+																		<div className="d-flex">
+																			<div className="" style={{ padding: 3 }}>
+																				<button class="btn btn-primary btn-round btn-sm " onClick={tryShow}>
+																					<div className="d-flex align-items-center">
+																						<Plus color="#ffff" size={15} />
+																						View
+																					</div>
+																				</button>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row">2</th>
+																	<td>Standar Tata Pamong</td>
+																	<td>10 November 2021</td>
+																	<td>
+																		<div className="d-flex">
+																			<div className="" style={{ padding: 3 }}>
+																				<button class="btn btn-primary btn-round btn-sm " onClick={tryShow}>
+																					<div className="d-flex align-items-center">
+																						<Plus color="#ffff" size={15} />
+																						View
+																					</div>
+																				</button>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+									) : (
+										<div class="card">
+											<div class="card-header">
+												<h4 class="card-title">Pertanyaan</h4>
+												<div className="d-flex">
+													<div className="" style={{ padding: 3 }}>
+														<button
+															class="btn btn-primary btn-round btn-sm "
+															onClick={tryShowTrue}
+															type="button"
+														>
+															<div className="d-flex align-items-center">Back</div>
+														</button>
+													</div>
+													<div className="" style={{ padding: 3 }}>
+														<button
+															class="btn btn-primary btn-round btn-sm "
+															onClick={tryShowTrue}
+															type="button"
+														>
+															<div className="d-flex align-items-center">Tambah Pertanyaan</div>
+														</button>
+													</div>
+												</div>
+											</div>
+											<div class="card-body">
+												<div class="row gy-2">
+													<div class="col-12">
+														<div class="bg-light-secondary position-relative rounded p-2">
+															<div class="d-flex align-items-center flex-wrap">
+																<ol>
+																	<h4>Visi Misi</h4>
+																	<li class="align-items-center fw-bolder p-1">
+																		Apakah UPPS memiliki visi, misi, tujuan, dan sasaran (VMTS) yang telah
+																		diverifikasi, divalidasi, disosialisasi, dan dipahami oleh staf.
+																	</li>
+																	<li class="align-items-center fw-bolder p-1">
+																		Apakah VMTS telah diimplementasi dan dievaluasi, dan upaya perbaikan yang telah
+																		dilakukan ?
+																	</li>
+																</ol>
+															</div>
+															<h6 class="d-flex align-items-center fw-bolder">
+																<span class="me-50"></span>
+															</h6>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									)}
+
 									{/* <!-- Modal to add new record --> */}
 									<div class="modal modal-slide-in fade" id="modals-slide-in">
 										<div class="modal-dialog sidebar-sm">

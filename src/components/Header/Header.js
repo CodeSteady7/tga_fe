@@ -1,11 +1,7 @@
 import React, { useState, useContext } from "react"
-import { GlobalState } from "../../GlobalState"
 import { ShoppingCart, Bell } from "react-feather"
 
 function Header() {
-	const state = useContext(GlobalState)
-	const isUser = state.UserApi.isUser[0]
-	console.log("nilai user", isUser)
 	return (
 		<>
 			{/* <!-- BEGIN: Header--> */}
