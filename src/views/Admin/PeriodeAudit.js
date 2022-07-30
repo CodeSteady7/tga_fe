@@ -1,12 +1,49 @@
 import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
-import React from "react"
-import { Plus } from "react-feather"
+import React, { useEffect, useState } from "react"
+import { format } from 'date-fns';
+import { Plus, RefreshCw, Trash } from "react-feather"
+import Period from "../../services/Period.js"
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-function PeriodeAudit() {
+export default function PeriodeAudit() {
+	const [periods, setPeriods] = useState([])
+	const [period, setPeriod] = useState()
+	const [periodStart, setPeriodStart] = useState()
+	const [periodEnd, setPeriodEnd] = useState()
+
+	const fetchPeriods = async () => {
+		await Period.getAll().then((response) => {
+			setPeriods(response.data.result)
+		}).catch(error => {
+			console.log(error)
+		})
+	}
+
+	const submitCreate = () => {
+
+	}
+
+	const handleCreate = () => {
+
+	}
+
+	const handleEdit = () => {
+
+	}
+
+	const handleDelete = () => {
+
+	}
+
+	useEffect(() => {
+		fetchPeriods()
+	}, []);
+
 	return (
 		<>
-			<div classNameName="loading">
+			<div className="loading">
 				<body
 					className="vertical-layout vertical-menu-modern  navbar-floating footer-static  "
 					data-open="click"
@@ -28,14 +65,14 @@ function PeriodeAudit() {
 												<div className="card-header border-bottom">
 													<h4 className="card-title">Data Periode Audit</h4>
 													<button
-														class="btn btn-primary btn-round btn-sm "
+														className="btn btn-primary btn-round btn-sm "
 														type="button"
 														data-bs-target="#modals-slide-in"
 														data-bs-toggle="modal"
 													>
 														<div className="d-flex align-items-center">
 															<Plus color="#ffff" size={15} />
-															AddImage
+															Add Period
 														</div>
 													</button>
 												</div>
@@ -44,112 +81,97 @@ function PeriodeAudit() {
 														<thead>
 															<tr>
 																<th></th>
-																<th>Name</th>
-																<th>Position</th>
-																<th>Email</th>
-																<th>Date</th>
-																<th>Status</th>
+																<th>Description</th>
+																<th>Period Time</th>
+																<th>Created At</th>
+																<th>Updated At</th>
 																<th>Action</th>
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
-																<th scope="row">1</th>
-																<td>Mark</td>
-																<td>Otto</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-															</tr>
-															<tr>
-																<th scope="row">1</th>
-																<td>Mark</td>
-																<td>Otto</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-															</tr>
-															<tr>
-																<th scope="row">1</th>
-																<td>Mark</td>
-																<td>Otto</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-																<td>@mdo</td>
-															</tr>
+															{periods.map((data, i) => {
+																return (
+																	<tr key={data.id}>
+																		<td key={data.id}>{i+1}</td>
+																		<td>{data.name}</td>
+																		<td>
+																			{format(new Date(data.period_start), 'dd-MM-yyyy')}
+																			- 
+																			{format(new Date(data.period_end), 'dd-MM-yyyy')}
+																		</td>
+																		<td>{format(new Date(data.created_at), 'HH:ii, dd-MM-yyyy')}</td>
+																		<td>{format(new Date(data.updated_at), 'HH:ii, dd-MM-yyyy')}</td>
+																		<td>
+																			<button className="btn btn-success mx-1">
+																				<RefreshCw color="#ffff" size={15} />
+																			</button>
+																			<button className="btn btn-danger mx-1">
+																				<Trash color="#ffff" size={15} />
+																			</button>
+																		</td>
+																	</tr>
+																)
+															})}
 														</tbody>
 													</table>
-													<nav aria-label="Page navigation example" className="pt-1">
-														<ul class="pagination justify-content-center">
-															<li class="page-item disabled">
-																<a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-																	Previous
-																</a>
-															</li>
-															<li class="page-item">
-																<a class="page-link" href="#">
-																	1
-																</a>
-															</li>
-															<li class="page-item">
-																<a class="page-link" href="#">
-																	2
-																</a>
-															</li>
-															<li class="page-item">
-																<a class="page-link" href="#">
-																	3
-																</a>
-															</li>
-															<li class="page-item">
-																<a class="page-link" href="#">
-																	Next
-																</a>
-															</li>
-														</ul>
-													</nav>
 												</div>
 											</div>
 										</div>
 									</div>
+									
 									{/* <!-- Modal to add new record --> */}
-									<div class="modal modal-slide-in fade" id="modals-slide-in">
-										<div class="modal-dialog sidebar-sm">
-											<form class="add-new-record modal-content pt-0">
+									<div className="modal modal-slide-in fade" id="modals-slide-in">
+										<div className="modal-dialog sidebar-sm">
+											<form className="add-new-record modal-content pt-0">
 												<button
 													type="button"
-													class="btn-close"
+													className="btn-close"
 													data-bs-dismiss="modal"
 													aria-label="Close"
 												>
 													×
 												</button>
-												<div class="modal-header mb-1">
-													<h5 class="modal-title" id="exampleModalLabel">
+												<div className="modal-header mb-1">
+													<h5 className="modal-title" id="exampleModalLabel">
 														Tambah Data Periode
 													</h5>
 												</div>
-												<div class="modal-body flex-grow-1">
-													<div class="mb-1">
-														<label class="form-label" for="basic-icon-default-post">
-															Tahun
+												<div className="modal-body flex-grow-1">
+													<div className="mb-1">
+														<label className="form-label" for="basic-icon-default-post">
+															periode
 														</label>
 														<input
 															type="text"
 															id="basic-icon-default-post"
-															class="form-control dt-post"
+															className="form-control dt-post"
 															placeholder="Tahun Periode"
 															aria-label="Web Developer"
 														/>
 													</div>
+													<div className="mb-1">
+														<label>
+															Periode Awal
+														</label>
+														<ReactDatePicker 
+															className="form-control"
+															selected={periodStart} 
+															onChange={(date) => setPeriodStart(date)}  />
+													</div>
+													<div className="mb-1">
+														<label>
+															Periode Akhir
+														</label>
+														<ReactDatePicker 
+															className="form-control"
+															selected={periodEnd} 
+															onChange={(date) => setPeriodEnd(date)}  />
+													</div>
 
-													<button type="button" class="btn btn-primary data-submit me-1">
+													<button type="button" className="btn btn-primary data-submit me-1">
 														Submit
 													</button>
-													<button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+													<button type="reset" className="btn btn-outline-secondary" data-bs-dismiss="modal">
 														Cancel
 													</button>
 												</div>
@@ -165,5 +187,3 @@ function PeriodeAudit() {
 		</>
 	)
 }
-
-export default PeriodeAudit
