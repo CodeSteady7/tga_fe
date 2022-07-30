@@ -21,8 +21,18 @@ export default function PeriodeAudit() {
 		})
 	}
 
-	const submitCreate = () => {
+	const submitCreate = async (e) => {
+		e.preventDefault()
 
+		let data = {
+			name: period,
+			period_start: periodStart,
+			period_end: periodEnd
+		}
+
+		await Period.create(data).then((response) => {
+			fetchPeriods()
+		})
 	}
 
 	const handleCreate = () => {
@@ -122,7 +132,7 @@ export default function PeriodeAudit() {
 									{/* <!-- Modal to add new record --> */}
 									<div className="modal modal-slide-in fade" id="modals-slide-in">
 										<div className="modal-dialog sidebar-sm">
-											<form className="add-new-record modal-content pt-0">
+											<form className="add-new-record modal-content pt-0" >
 												<button
 													type="button"
 													className="btn-close"
@@ -147,6 +157,7 @@ export default function PeriodeAudit() {
 															className="form-control dt-post"
 															placeholder="Tahun Periode"
 															aria-label="Web Developer"
+															onChange={(e) => setPeriod(e.target.value)}
 														/>
 													</div>
 													<div className="mb-1">
@@ -168,7 +179,7 @@ export default function PeriodeAudit() {
 															onChange={(date) => setPeriodEnd(date)}  />
 													</div>
 
-													<button type="button" className="btn btn-primary data-submit me-1">
+													<button type="button" className="btn btn-primary data-submit me-1" onClick={(e) => submitCreate(e)} >
 														Submit
 													</button>
 													<button type="reset" className="btn btn-outline-secondary" data-bs-dismiss="modal">
