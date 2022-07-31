@@ -6,12 +6,14 @@ import { Plus, RefreshCw, Trash } from "react-feather"
 import Period from "../../services/Period.js"
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Modal } from "bootstrap";
 
 export default function PeriodeAudit() {
 	const [periods, setPeriods] = useState([])
 	const [period, setPeriod] = useState()
 	const [periodStart, setPeriodStart] = useState()
 	const [periodEnd, setPeriodEnd] = useState()
+	const [isOpen, setIsOpen]	= useState(false)
 
 	const fetchPeriods = async () => {
 		await Period.getAll().then((response) => {
@@ -32,6 +34,7 @@ export default function PeriodeAudit() {
 
 		await Period.create(data).then((response) => {
 			fetchPeriods()
+			setIsOpen(false)
 		})
 	}
 
@@ -77,8 +80,8 @@ export default function PeriodeAudit() {
 													<button
 														className="btn btn-primary btn-round btn-sm "
 														type="button"
-														data-bs-target="#modals-slide-in"
 														data-bs-toggle="modal"
+														onClick={() => setIsOpen(true)}
 													>
 														<div className="d-flex align-items-center">
 															<Plus color="#ffff" size={15} />
@@ -130,14 +133,14 @@ export default function PeriodeAudit() {
 									</div>
 									
 									{/* <!-- Modal to add new record --> */}
-									<div className="modal modal-slide-in fade" id="modals-slide-in">
+									<div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">
 										<div className="modal-dialog sidebar-sm">
 											<form className="add-new-record modal-content pt-0" >
 												<button
 													type="button"
 													className="btn-close"
-													data-bs-dismiss="modal"
 													aria-label="Close"
+													onClick={() => setIsOpen(true)}
 												>
 													×
 												</button>
@@ -182,7 +185,7 @@ export default function PeriodeAudit() {
 													<button type="button" className="btn btn-primary data-submit me-1" onClick={(e) => submitCreate(e)} >
 														Submit
 													</button>
-													<button type="reset" className="btn btn-outline-secondary" data-bs-dismiss="modal">
+													<button type="reset" className="btn btn-outline-secondary" onClick={() => setIsOpen(false)}>
 														Cancel
 													</button>
 												</div>
