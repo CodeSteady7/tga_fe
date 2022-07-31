@@ -14,7 +14,7 @@ import Users from "./views/Users"
 import AddImage from "./views/AddImage"
 import PeriodeAudit from "views/Admin/PeriodeAudit"
 import TimAudit from "views/Admin/TimAudit"
-import ProgramStudi from "views/Admin/ProgramStudi"
+import UnitLembaga from "views/Admin/UnitLembaga"
 import TopikInstrumen from "views/Admin/TopikInstrumen"
 import PrivateRoute from "Route/PrivateRoute"
 
@@ -33,7 +33,7 @@ function Pages() {
 				<Route path="/admin/timaudit" element={<TimAudit />} />
 				<Route path="/admin/users" element={<Users />} />
 				<Route path="/admin/addimage" element={<AddImage />} />
-				<Route path="/admin/progamstudi" element={<ProgramStudi />} />
+				<Route path="/admin/unit" element={<UnitLembaga />} />
 				<Route path="/admin/topikinstrumen" element={<TopikInstrumen />} />
 
 				<Route path="/login/*" element={<Login />} />

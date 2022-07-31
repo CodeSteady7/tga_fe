@@ -3,7 +3,7 @@ import Navbar from "components/Navbar/Navbar"
 import React from "react"
 import { Plus } from "react-feather"
 
-function ProgramStudi() {
+function UnitLembaga() {
 	return (
 		<div>
 			<div>
@@ -132,4 +132,4 @@ function ProgramStudi() {
 	)
 }
 
-export default ProgramStudi
+export default UnitLembaga

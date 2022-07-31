@@ -161,7 +161,7 @@ export default function PeriodeAudit() {
 															</tr>
 														</thead>
 														<tbody>
-															{periods.map((data, i) => {
+															{periods.length > 0 ?periods.map((data, i) => {
 																return (
 																	<tr key={data.id}>
 																		<td key={data.id}>{i + 1}</td>
@@ -182,7 +182,7 @@ export default function PeriodeAudit() {
 																		</td>
 																	</tr>
 																)
-															})}
+															}) : ''}
 														</tbody>
 													</table>
 												</div>

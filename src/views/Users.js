@@ -42,7 +42,6 @@ function Users() {
 			}
 		})
 	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		await User.create(user).then((response) => {
@@ -227,7 +226,8 @@ function Users() {
 											</tr>
 										</thead>
 										<tbody>
-											{users.data.map((prop, key) => {
+											
+											{typeof users.data != "undefined" ? users.data.map((prop, key) => {
 												return (
 													<tr key={key}>
 														<td>{key + 1}</td>
@@ -262,12 +262,12 @@ function Users() {
 														</td>
 													</tr>
 												)
-											})}
+											}) : ''}
 										</tbody>
 									</table>
 									<nav aria-label="Page navigation example" className="pt-1">
 										<ul class="pagination justify-content-center">
-											{users.links.map((prop, index) => {
+											{typeof users.links != "undefined" ? users.links.map((prop, index) => {
 												return (
 													<li key={index} className={`page item ${prop.active}`} tabIndex="-1">
 														<a className="page-link">
@@ -275,7 +275,7 @@ function Users() {
 														</a>
 													</li>
 												)
-											})}
+											}) : ''}
 										</ul>
 									</nav>
 								</div>

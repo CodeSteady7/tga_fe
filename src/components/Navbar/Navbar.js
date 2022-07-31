@@ -109,10 +109,10 @@ function Navbar({ routes }) {
 								</li>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/progamstudi">
+									<a className="d-flex align-items-center" href="/admin/unit">
 										<FilePlus color="#7367F0" size={20} />
 										<span className="menu-title text-truncate" data-i18n="Email">
-											Program Studi
+											Unit Kelembagaan
 										</span>
 									</a>
 								</li>
