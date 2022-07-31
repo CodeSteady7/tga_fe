@@ -1,54 +1,111 @@
 import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
 import React, { useEffect, useState } from "react"
-import { format } from 'date-fns';
+import { format } from "date-fns"
 import { Plus, RefreshCw, Trash } from "react-feather"
 import Period from "../../services/Period.js"
-import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Modal } from "bootstrap";
+import ReactDatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import { Modal } from "bootstrap"
 
 export default function PeriodeAudit() {
 	const [periods, setPeriods] = useState([])
-	const [period, setPeriod] = useState()
-	const [periodStart, setPeriodStart] = useState()
-	const [periodEnd, setPeriodEnd] = useState()
-	const [isOpen, setIsOpen]	= useState(false)
+	const [period, setPeriod] = useState("")
+	const [periodStart, setPeriodStart] = useState("")
+	const [periodEnd, setPeriodEnd] = useState("")
+	const [isOpen, setIsOpen] = useState(false)
+	const [update, setUpdate] = useState(false)
+	const [nampungData, setNampungData] = useState("")
 
 	const fetchPeriods = async () => {
-		await Period.getAll().then((response) => {
-			setPeriods(response.data.result)
-		}).catch(error => {
-			console.log(error)
-		})
+		await Period.getAll()
+			.then(response => {
+				setPeriods(response.data.result)
+			})
+			.catch(error => {
+				console.log(error)
+			})
 	}
 
-	const handleCreate = async (e) => {
+	const handleCreate = async e => {
 		e.preventDefault()
 
 		let data = {
 			name: period,
 			period_start: periodStart,
-			period_end: periodEnd
+			period_end: periodEnd,
 		}
 
-		await Period.create(data).then((response) => {
+		await Period.create(data).then(response => {
 			fetchPeriods()
 			setIsOpen(false)
 		})
 	}
 
-	const handleEdit = () => {
+	const handleOnEdit = async e => {
+		e.preventDefault()
 
+		if (period === "" && periodStart === "" && periodEnd === "") {
+			alert("harap di isi")
+		}
+
+		let data = {
+			id: nampungData.id,
+			name: period,
+			period_start: periodStart,
+			period_end: periodEnd,
+		}
+		await Period.update(data)
+			.then(response => {
+				fetchPeriods()
+				setIsOpen(false)
+				setUpdate(false)
+				console.log("response", response)
+			})
+			.catch(error => console.log("error", error))
 	}
 
-	const handleDelete = () => {
+	const handleEdit = async (data, e) => {
+		try {
+			e.preventDefault()
+			setUpdate(true)
+			setIsOpen(true)
+			setNampungData(data)
 
+			console.log("masuk update", data)
+		} catch (error) {}
+	}
+
+	const handleClose = () => {
+		console.log("masukkkk")
+		setUpdate(false)
+		setIsOpen(false)
+	}
+
+	console.log("nampungData", nampungData)
+	console.log("update", update)
+
+	const handleDelete = async (data, e) => {
+		try {
+			const datas = {
+				id: data.id,
+			}
+			console.log("masuk data", datas)
+			let info = await Period.destroy(datas)
+				.then(response => {
+					console.log("response", response)
+					fetchPeriods()
+					setIsOpen(false)
+				})
+				.catch(error => console.log("=>", error))
+		} catch (error) {
+			console.log("error", error)
+		}
 	}
 
 	useEffect(() => {
 		fetchPeriods()
-	}, []);
+	}, [])
 
 	return (
 		<>
@@ -101,20 +158,19 @@ export default function PeriodeAudit() {
 															{periods.map((data, i) => {
 																return (
 																	<tr key={data.id}>
-																		<td key={data.id}>{i+1}</td>
+																		<td key={data.id}>{i + 1}</td>
 																		<td>{data.name}</td>
 																		<td>
-																			{format(new Date(data.period_start), 'dd-MM-yyyy')}
-																			- 
-																			{format(new Date(data.period_end), 'dd-MM-yyyy')}
+																			{format(new Date(data.period_start), "dd-MM-yyyy")}-
+																			{format(new Date(data.period_end), "dd-MM-yyyy")}
 																		</td>
-																		<td>{format(new Date(data.created_at), 'HH:ii, dd-MM-yyyy')}</td>
-																		<td>{format(new Date(data.updated_at), 'HH:ii, dd-MM-yyyy')}</td>
+																		<td>{format(new Date(data.created_at), "HH:ii, dd-MM-yyyy")}</td>
+																		<td>{format(new Date(data.updated_at), "HH:ii, dd-MM-yyyy")}</td>
 																		<td>
-																			<button className="btn btn-success mx-1">
+																			<button className="btn btn-success mx-1" onClick={e => handleEdit(data, e)}>
 																				<RefreshCw color="#ffff" size={15} />
 																			</button>
-																			<button className="btn btn-danger mx-1">
+																			<button className="btn btn-danger mx-1" onClick={e => handleDelete(data, e)}>
 																				<Trash color="#ffff" size={15} />
 																			</button>
 																		</td>
@@ -127,11 +183,15 @@ export default function PeriodeAudit() {
 											</div>
 										</div>
 									</div>
-									
+
 									{/* <!-- Modal to add new record --> */}
-									<div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">
+									<div
+										className={`modal modal-slide-in fade ${isOpen ? "show" : ""}`}
+										style={{ display: isOpen ? "block" : "none" }}
+										id="modals-slide-in"
+									>
 										<div className="modal-dialog sidebar-sm">
-											<form className="add-new-record modal-content pt-0" >
+											<form className="add-new-record modal-content pt-0">
 												<button
 													type="button"
 													className="btn-close"
@@ -148,40 +208,48 @@ export default function PeriodeAudit() {
 												<div className="modal-body flex-grow-1">
 													<div className="mb-1">
 														<label className="form-label" for="basic-icon-default-post">
-															periode
+															Periode
 														</label>
 														<input
 															type="text"
 															id="basic-icon-default-post"
 															className="form-control dt-post"
-															placeholder="Tahun Periode"
+															placeholder={update ? nampungData.name : ""}
 															aria-label="Web Developer"
-															onChange={(e) => setPeriod(e.target.value)}
+															onChange={e => setPeriod(e.target.value)}
 														/>
 													</div>
 													<div className="mb-1">
-														<label>
-															Periode Awal
-														</label>
-														<ReactDatePicker 
+														<label>Periode Awal</label>
+														<ReactDatePicker
 															className="form-control"
-															selected={periodStart} 
-															onChange={(date) => setPeriodStart(date)}  />
+															selected={periodStart}
+															placeholderText={update ? nampungData.period_start : ""}
+															onChange={date => setPeriodStart(date)}
+														/>
 													</div>
 													<div className="mb-1">
-														<label>
-															Periode Akhir
-														</label>
-														<ReactDatePicker 
+														<label>Periode Akhir</label>
+														<ReactDatePicker
 															className="form-control"
-															selected={periodEnd} 
-															onChange={(date) => setPeriodEnd(date)}  />
+															placeholderText={update ? nampungData.period_end : ""}
+															selected={periodEnd}
+															onChange={date => setPeriodEnd(date)}
+														/>
 													</div>
 
-													<button type="button" className="btn btn-primary data-submit me-1" onClick={(e) => handleCreate(e)} >
-														Submit
+													<button
+														type="button"
+														className="btn btn-primary data-submit me-1"
+														onClick={update ? e => handleOnEdit(e) : e => handleCreate(e)}
+													>
+														{update ? "Update" : "Submit"}
 													</button>
-													<button type="reset" className="btn btn-outline-secondary" onClick={() => setIsOpen(false)}>
+													<button
+														type="reset"
+														className="btn btn-outline-secondary"
+														onClick={e => handleClose()}
+													>
 														Cancel
 													</button>
 												</div>

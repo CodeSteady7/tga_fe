@@ -4,44 +4,9 @@ import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
 const url = window.location.pathname.split("/")[1]
 console.log("🚀 ~ file: Navbar.js ~ line 3 ~ url", url)
 function Navbar({ routes }) {
-	// useEffect(() => {
-	// 	feather.replace()
-	// }, [])
-	// const createLinks = routes => {
-	// 	return routes.map((prop, key) => {
-	// 		return (prop.layout === `/${url}` && !prop.api) || prop.use === true ? (
-	// 			// <NavLink>
-	// 			<a className="d-flex align-items-center" href={prop.layout + prop.path}>
-	// 				<i data-feather="home"></i>
-	// 				<span className="menu-title text-truncate" data-i18n="Dashboards">
-	// 					{prop.name}
-	// 				</span>
-	// 			</a>
-	// 		) : // </NavLink>
-	// 		null
-	// 	})
-	// }
-
-	// const createApiLinks = routes => {
-	// 	return routes.map((prop, key) => {
-	// 		return prop.layout === `/${url}` && prop.api ? (
-	// 			<li className="nav-item">
-	// 				<a className="d-flex align-items-center" href={prop.layout + prop.path}>
-	// 					<i data-feather="user"></i>
-	// 					<span className="menu-title text-truncate" data-i18n="Email">
-	// 						{prop.name}
-	// 					</span>
-	// 				</a>
-	// 			</li>
-	// 		) : null
-	// 	})
-	// }
-
 	let getHref = window.location.href
 	let split = getHref.split("/")
 	let getAdmin = split[3]
-	console.log("🚀 ~ file: Navbar.js ~ line 40 ~ Navbar ~ getHref", getHref)
-	console.log("getAdmin", getAdmin)
 	return (
 		<>
 			<div
