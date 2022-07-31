@@ -161,28 +161,56 @@ export default function PeriodeAudit() {
 															</tr>
 														</thead>
 														<tbody>
-															{periods.length > 0 ?periods.map((data, i) => {
-																return (
-																	<tr key={data.id}>
-																		<td key={data.id}>{i + 1}</td>
-																		<td>{data.name}</td>
-																		<td>
-																			{format(new Date(data.period_start), "dd-MM-yyyy")}-
-																			{format(new Date(data.period_end), "dd-MM-yyyy")}
-																		</td>
-																		<td>{format(new Date(data.created_at), "HH:ii, dd-MM-yyyy")}</td>
-																		<td>{format(new Date(data.updated_at), "HH:ii, dd-MM-yyyy")}</td>
-																		<td>
-																			<button className="btn btn-success mx-1" onClick={e => handleEdit(data, e)}>
-																				<RefreshCw color="#ffff" size={15} />
-																			</button>
-																			<button className="btn btn-danger mx-1" onClick={e => handleDelete(data, e)}>
-																				<Trash color="#ffff" size={15} />
-																			</button>
-																		</td>
-																	</tr>
-																)
-															}) : ''}
+															{periods.length > 0
+																? periods.map((data, i) => {
+																		return (
+																			<tr key={data.id}>
+																				<td key={data.id}>{i + 1}</td>
+																				<td>{data.name}</td>
+																				<td>
+																					{format(new Date(data.period_start), "dd-MM-yyyy")}-
+																					{format(new Date(data.period_end), "dd-MM-yyyy")}
+																				</td>
+																				<td>{format(new Date(data.created_at), "HH:ii, dd-MM-yyyy")}</td>
+																				<td>{format(new Date(data.updated_at), "HH:ii, dd-MM-yyyy")}</td>
+																				<td>
+																					<div className="dropdown">
+																						<a
+																							type="button"
+																							className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																							data-bs-toggle="dropdown"
+																							id="dropdownMenuLink"
+																							aria-expanded="false"
+																						>
+																							<i data-feather="more-vertical">Click</i>
+																						</a>
+																						<div
+																							className="dropdown-menu dropdown-menu-end"
+																							aria-labelledby="dropdownMenuLink"
+																						>
+																							<a
+																								className="dropdown-item"
+																								href="#"
+																								type="button"
+																								onClick={e => handleEdit(data, e)}
+																							>
+																								<span>Edit</span>
+																							</a>
+																							<a
+																								className="dropdown-item"
+																								href="#"
+																								type="button"
+																								onClick={e => handleDelete(data, e)}
+																							>
+																								<span>Delete</span>
+																							</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																		)
+																  })
+																: ""}
 														</tbody>
 													</table>
 												</div>
@@ -193,7 +221,9 @@ export default function PeriodeAudit() {
 									{/* <!-- Modal to add new record --> */}
 									<div
 										className={`modal modal-slide-in fade ${isOpen ? "show" : ""}`}
-										style={{ display: isOpen ? "block" : "none" }}
+										style={{
+											display: isOpen ? "block" : "none",
+										}}
 										id="modals-slide-in"
 									>
 										<div className="modal-dialog sidebar-sm">

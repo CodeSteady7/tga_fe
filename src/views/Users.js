@@ -1,4 +1,8 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, {
+	useContext,
+	useEffect,
+	useState,
+} from "react"
 import { Navigate } from "react-router-dom"
 import User from "services/User"
 import Footer from "../components/Footer/Footer"
@@ -12,12 +16,14 @@ function Users() {
 		password: "",
 		role: "",
 		nip: "",
-		repassword: ""
+		repassword: "",
 	})
 
-	const [isOpen, setIsOpen] = useState(false)
-	const [validation, setValidation] = useState([]);
-	const [users, setUsers]	= useState([]) 
+	const [isOpen, setIsOpen] =
+		useState(false)
+	const [validation, setValidation] =
+		useState([])
+	const [users, setUsers] = useState([])
 
 	let manager = 0
 	let auditor = 0
@@ -31,33 +37,40 @@ function Users() {
 	}
 
 	const getUsers = async (params = {}) => {
-		await User.getAll(params).then(response => {
-			setUsers(response.data.result)
-		}).catch(error => {
-			if(error.response.status === 401) {
-				localStorage.removeItem('token');
-				localStorage.removeItem('role');
-				localStorage.removeItem('isLogIn', false);
-				window.location.href = '/login'
-			}
-		})
-	}
-	const handleSubmit = async (e) => {
-		e.preventDefault()
-		await User.create(user).then((response) => {
-			setUser({
-				name: "",
-				email: "",
-				password: "",
-				respassword: "",
-				role: "",
-				nip: "",
+		await User.getAll(params)
+			.then(response => {
+				setUsers(response.data.result)
 			})
-			setIsOpen(false)
-			getUsers()
-		}).catch(error => {
-			setValidation(error.response.data);
-		})
+			.catch(error => {
+				if (error.response.status === 401) {
+					localStorage.removeItem("token")
+					localStorage.removeItem("role")
+					localStorage.removeItem(
+						"isLogIn",
+						false
+					)
+					window.location.href = "/login"
+				}
+			})
+	}
+	const handleSubmit = async e => {
+		e.preventDefault()
+		await User.create(user)
+			.then(response => {
+				setUser({
+					name: "",
+					email: "",
+					password: "",
+					respassword: "",
+					role: "",
+					nip: "",
+				})
+				setIsOpen(false)
+				getUsers()
+			})
+			.catch(error => {
+				setValidation(error.response.data)
+			})
 	}
 
 	useEffect(() => {
@@ -76,7 +89,9 @@ function Users() {
 			>
 				<div
 					className="app-content content "
-					style={{ MarginBottom: "30px !important" }}
+					style={{
+						MarginBottom: "30px !important",
+					}}
 				>
 					<div className="content-overlay"></div>
 					<div className="header-navbar-shadow"></div>
@@ -91,7 +106,8 @@ function Users() {
 										<div className="card-body">
 											<div className="d-flex justify-content-between">
 												<span>
-													Total <strong>{manager} </strong> users Manager
+													Total <strong>{manager} </strong> users
+													Manager
 												</span>
 											</div>
 											<div className="d-flex justify-content-between align-items-end mt-1 pt-25">
@@ -113,7 +129,8 @@ function Users() {
 										<div className="card-body">
 											<div className="d-flex justify-content-between">
 												<span>
-													Total <strong> {auditor} </strong> users Auditor
+													Total <strong> {auditor} </strong> users
+													Auditor
 												</span>
 											</div>
 											<div className="d-flex justify-content-between align-items-end mt-1 pt-25">
@@ -135,12 +152,15 @@ function Users() {
 										<div className="card-body">
 											<div className="d-flex justify-content-between">
 												<span>
-													Total <strong> {prodi} </strong> users Prodi
+													Total <strong> {prodi} </strong> users
+													Prodi
 												</span>
 											</div>
 											<div className="d-flex justify-content-between align-items-end mt-1 pt-25">
 												<div className="role-heading">
-													<h4 className="fw-bolder">Unit Penunjang</h4>
+													<h4 className="fw-bolder">
+														Unit Penunjang
+													</h4>
 													<h6 className="fw-bolder">Prodi</h6>
 													<a
 														href="javascript:;"
@@ -158,13 +178,18 @@ function Users() {
 										<div className="card-body">
 											<div className="d-flex justify-content-between">
 												<span>
-													Total <strong> {nonakademik}</strong> users Non Akademik
+													Total <strong> {nonakademik}</strong>{" "}
+													users Non Akademik
 												</span>
 											</div>
 											<div className="d-flex justify-content-between align-items-end mt-1 pt-25">
 												<div className="role-heading">
-													<h4 className="fw-bolder">Unit Penunjang</h4>
-													<h6 className="fw-bolder">Non Akademik</h6>
+													<h4 className="fw-bolder">
+														Unit Penunjang
+													</h4>
+													<h6 className="fw-bolder">
+														Non Akademik
+													</h6>
 													<a
 														href="javascript:;"
 														className="role-edit-modal"
@@ -196,9 +221,13 @@ function Users() {
 														onClick={() => setIsOpen(true)}
 														className="stretched-link text-nowrap add-new-role"
 													>
-														<span className="btn btn-primary mb-1">Klik</span>
+														<span className="btn btn-primary mb-1">
+															Klik
+														</span>
 													</a>
-													<p className="mb-1">Tambahkan Users Baru</p>
+													<p className="mb-1">
+														Tambahkan Users Baru
+													</p>
 												</div>
 											</div>
 										</div>
@@ -207,8 +236,9 @@ function Users() {
 							</div>
 							{/* <!--/ Role cards --> */}
 
-							<h3 className="mt-50">List Keseleruhan Users</h3>
-							
+							<h3 className="mt-50">
+								List Keseleruhan Users
+							</h3>
 
 							<div className="card ">
 								<div className="table-responsive">
@@ -223,62 +253,90 @@ function Users() {
 											</tr>
 										</thead>
 										<tbody>
-											{typeof users.data != "undefined" ? users.data.map((prop, key) => {
-												return (
-													<tr key={key}>
-														<td>{users.from++}</td>
-														<td>{prop.name}</td>
-														<td>{prop.nip}</td>
-														<td>{prop.role}</td>
-														<td>
-															<div className="dropdown">
-																<a
-																	type="button"
-																	className="btn btn-sm dropdown-toggle hide-arrow py-0"
-																	data-bs-toggle="dropdown"
-																	id="dropdownMenuLink"
-																	aria-expanded="false"
-																>
-																	<i data-feather="more-vertical">Click</i>
-																</a>
-																<div
-																	className="dropdown-menu dropdown-menu-end"
-																	aria-labelledby="dropdownMenuLink"
-																>
-																	<a className="dropdown-item" href="#">
-																		<i data-feather="edit-2" className="me-50"></i>
-																		<span>Edit</span>
-																	</a>
-																	<a className="dropdown-item" href="#">
-																		<i data-feather="trash" className="me-50"></i>
-																		<span>Delete</span>
-																	</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-												)
-											}) : ''}
+											{typeof users.data != "undefined"
+												? users.data.map((prop, key) => {
+														return (
+															<tr key={key}>
+																<td>{users.from++}</td>
+																<td>{prop.name}</td>
+																<td>{prop.nip}</td>
+																<td>{prop.role}</td>
+																<td>
+																	<div className="dropdown">
+																		<a
+																			type="button"
+																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																			data-bs-toggle="dropdown"
+																			id="dropdownMenuLink"
+																			aria-expanded="false"
+																		>
+																			<i data-feather="more-vertical">
+																				Click
+																			</i>
+																		</a>
+																		<div
+																			className="dropdown-menu dropdown-menu-end"
+																			aria-labelledby="dropdownMenuLink"
+																		>
+																			<a className="dropdown-item" href="#">
+																				<i
+																					data-feather="edit-2"
+																					className="me-50"
+																				></i>
+																				<span>Edit</span>
+																			</a>
+																			<a className="dropdown-item" href="#">
+																				<i
+																					data-feather="trash"
+																					className="me-50"
+																				></i>
+																				<span>Delete</span>
+																			</a>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														)
+												  })
+												: ""}
 										</tbody>
 									</table>
-									<nav aria-label="Page navigation example" className="pt-1">
+									<nav
+										aria-label="Page navigation example"
+										className="pt-1"
+									>
 										<ul class="pagination justify-content-center">
-											{typeof users.links != "undefined" ? users.links.map((prop, index) => {
-												return (
-													<li key={index} className={`page item ${prop.active}`} tabIndex="-1">
-														<a className="page-link">
-															{prop.label}
-														</a>
-													</li>
-												)
-											}) : ''}
+											{typeof users.links != "undefined"
+												? users.links.map((prop, index) => {
+														return (
+															<li
+																key={index}
+																className={`page item ${prop.active}`}
+																tabIndex="-1"
+															>
+																<a className="page-link">
+																	{prop.label}
+																</a>
+															</li>
+														)
+												  })
+												: ""}
 										</ul>
 									</nav>
 								</div>
 							</div>
 							{/* <!-- table --> */}
 							{/* <!-- Add Role Modal --> */}
-							<div className={`modal fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="" aria-hidden="true">
+							<div
+								className={`modal fade ${
+									isOpen ? "show" : ""
+								}`}
+								style={{
+									display: isOpen ? "block" : "none",
+								}}
+								id=""
+								aria-hidden="true"
+							>
 								<div className="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
 									<div className="modal-content">
 										<div className="modal-header bg-transparent">
@@ -292,20 +350,27 @@ function Users() {
 										</div>
 										<div className="modal-body px-5 pb-5">
 											<div className="text-center mb-4">
-												<h1 className="role-title">Add New Users</h1>
+												<h1 className="role-title">
+													Add New Users
+												</h1>
 												<p>Set role permissions</p>
 											</div>
-											{
-												validation.message && (
-													<div className="alert alert-danger">
-														{validation.message}
-													</div>
-												)
-											}
-											<form id="addRoleForm" className="row" onSubmit={handleSubmit}>
+											{validation.message && (
+												<div className="alert alert-danger">
+													{validation.message}
+												</div>
+											)}
+											<form
+												id="addRoleForm"
+												className="row"
+												onSubmit={handleSubmit}
+											>
 												<div className="row">
 													<div className="col-4 ">
-														<label className="form-label" for="modalRoleName">
+														<label
+															className="form-label"
+															for="modalRoleName"
+														>
 															Username
 														</label>
 														<input
@@ -318,7 +383,10 @@ function Users() {
 														/>
 													</div>
 													<div className="col-4">
-														<label className="form-label" for="modalRoleName">
+														<label
+															className="form-label"
+															for="modalRoleName"
+														>
 															Email
 														</label>
 														<input
@@ -331,7 +399,10 @@ function Users() {
 														/>
 													</div>
 													<div className="col-4">
-														<label className="form-label" for="modalRoleName">
+														<label
+															className="form-label"
+															for="modalRoleName"
+														>
 															NIP
 														</label>
 														<input
@@ -346,7 +417,10 @@ function Users() {
 												</div>
 												<div className="row mt-1">
 													<div className="col-6">
-														<label className="form-label" for="modalRoleName">
+														<label
+															className="form-label"
+															for="modalRoleName"
+														>
 															Password
 														</label>
 														<input
@@ -359,7 +433,10 @@ function Users() {
 														/>
 													</div>
 													<div className="col-6">
-														<label className="form-label" for="modalRoleName">
+														<label
+															className="form-label"
+															for="modalRoleName"
+														>
 															Check Password
 														</label>
 														<input
@@ -380,7 +457,9 @@ function Users() {
 														<table className="table table-flush-spacing">
 															<tbody>
 																<tr>
-																	<td className="text-nowrap fw-bolder">Akses Role</td>
+																	<td className="text-nowrap fw-bolder">
+																		Akses Role
+																	</td>
 																	<td>
 																		<div className="d-flex">
 																			<div className="form-check me-3 me-lg-5">
@@ -391,7 +470,10 @@ function Users() {
 																					onChange={onChangeInput}
 																					value="manager"
 																				/>
-																				<label className="form-check-label" for="userManagementRead">
+																				<label
+																					className="form-check-label"
+																					for="userManagementRead"
+																				>
 																					{" "}
 																					Manager{" "}
 																				</label>
@@ -404,7 +486,10 @@ function Users() {
 																					onChange={onChangeInput}
 																					value="auditor"
 																				/>
-																				<label className="form-check-label" for="userManagementWrite">
+																				<label
+																					className="form-check-label"
+																					for="userManagementWrite"
+																				>
 																					{" "}
 																					Auditor{" "}
 																				</label>
@@ -417,7 +502,10 @@ function Users() {
 																					onChange={onChangeInput}
 																					value="auditee"
 																				/>
-																				<label className="form-check-label" for="userManagementWrite">
+																				<label
+																					className="form-check-label"
+																					for="userManagementWrite"
+																				>
 																					{" "}
 																					Auditee{" "}
 																				</label>
