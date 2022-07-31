@@ -1,8 +1,6 @@
 import React, { useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
-const url = window.location.pathname.split("/")[1]
-console.log("🚀 ~ file: Navbar.js ~ line 3 ~ url", url)
 function Navbar({ routes }) {
 	// useEffect(() => {
 	// 	feather.replace()
@@ -37,11 +35,10 @@ function Navbar({ routes }) {
 	// 	})
 	// }
 
-	let getHref = window.location.href
-	let split = getHref.split("/")
-	let getAdmin = split[3]
-	console.log("🚀 ~ file: Navbar.js ~ line 40 ~ Navbar ~ getHref", getHref)
-	console.log("getAdmin", getAdmin)
+
+	let role = localStorage.getItem("role")
+	// console.log("🚀 ~ file: Navbar.js ~ line 40 ~ Navbar ~ getHref", getHref)
+	// console.log("role", role)
 	return (
 		<>
 			<div
@@ -93,7 +90,7 @@ function Navbar({ routes }) {
 							<i data-feather="more-horizontal"></i>
 						</li>
 
-						{getAdmin === "admin" ? (
+						{role === "admin" ? (
 							<>
 								<li className="nav-">
 									{/* {createApiLinks(routes)} */}
@@ -154,7 +151,7 @@ function Navbar({ routes }) {
 							""
 						)}
 
-						{getAdmin === "auditi" ? (
+						{role === "auditi" ? (
 							<>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}
@@ -171,7 +168,7 @@ function Navbar({ routes }) {
 							""
 						)}
 
-						{getAdmin === "auditor" ? (
+						{role === "auditor" ? (
 							<>
 								<li className="nav-item">
 									{/* {createApiLinks(routes)} */}

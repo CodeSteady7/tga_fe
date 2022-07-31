@@ -1,67 +1,69 @@
 import React, { useContext, useEffect, useState } from "react"
-
+import { Navigate } from "react-router-dom"
+import User from "services/User"
 import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Header"
 import Navbar from "../components/Navbar/Navbar"
 
-import axios from "axios"
 function Users() {
-	// const [getUser, setgetUser] = useState([])
-	useEffect(() => {
-		const UserAll = async () => {
-			const user = await axios.get("http://localhost:4000/users/getall")
-			// setgetUser(user.data)
-		}
-		UserAll()
-	}, [])
-	// console.log("=>", getUser)
+	const [user, setUser] = useState({
+		name: "",
+		email: "",
+		password: "",
+		role: "",
+		nip: "",
+		repassword: ""
+	})
+
+	const [isOpen, setIsOpen] = useState(false)
+	const [validation, setValidation] = useState([]);
+	const [users, setUsers]	= useState([]) 
 
 	let manager = 0
 	let auditor = 0
 	let prodi = 0
 	let nonakademik = 0
 
-	// getUser.map((prop, key) => {
-	// 	if (prop.role === "Manager") {
-	// 		manager++
-	// 	} else if (prop.role === "Auditor") {
-	// 		auditor++
-	// 	} else if (prop.role === "Prodi") {
-	// 		prodi++
-	// 	} else if (prop.role === "Non Akademi") {
-	// 		nonakademik++
-	// 	}
-	// })
-	console.log(manager)
-
-	console.log("=======")
-
-	const [user, setUser] = useState({
-		name: "",
-		email: "",
-		password: "",
-		role: "",
-		path: "",
-		nip: "",
-	})
-
 	const onChangeInput = e => {
 		const { name, value } = e.target
+		console.log(name, value)
 		setUser({ ...user, [name]: value })
 	}
 
-	const tryPost = async e => {
-		e.preventDefault()
-		try {
-			const data = await axios.post("http://localhost:4000/users/register", {
-				...user,
-			})
-
-			console.log("data => ", data)
-		} catch (error) {
-			console.log(error)
-		}
+	const getUsers = async () => {
+		await User.getAll().then(response => {
+			setUsers(response.data.result)
+		}).catch(error => {
+			if(error.response.status === 401) {
+				localStorage.removeItem('token');
+				localStorage.removeItem('role');
+				localStorage.removeItem('isLogIn', false);
+				window.location.href = '/login'
+			}
+		})
 	}
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		await User.create(user).then((response) => {
+			setUser({
+				name: "",
+				email: "",
+				password: "",
+				respassword: "",
+				role: "",
+				nip: "",
+			})
+			setIsOpen(false)
+			getUsers()
+		}).catch(error => {
+			setValidation(error.response.data);
+		})
+	}
+
+	useEffect(() => {
+		getUsers()
+	}, [])
 
 	return (
 		<>
@@ -83,9 +85,6 @@ function Users() {
 						<div className="content-header row"></div>
 						<div className="content-body">
 							<h3>Users List</h3>
-							{/* <button type="submit" className="btn btn-outline-success" id="type-success">
-							Success
-						</button> */}
 							{/* <!-- Role cards --> */}
 							<div className="row">
 								<div className="col-xl-4 col-lg-6 col-md-6">
@@ -196,8 +195,9 @@ function Users() {
 												<div className="card-body text-sm-end text-center ps-sm-0">
 													<a
 														// href="javascript:void(0)"
-														data-bs-target="#addRoleModal"
-														data-bs-toggle="modal"
+														// data-bs-target="#addRoleModal"
+														// data-bs-toggle="modal"
+														onClick={() => setIsOpen(true)}
 														className="stretched-link text-nowrap add-new-role"
 													>
 														<span className="btn btn-primary mb-1">Klik</span>
@@ -212,34 +212,28 @@ function Users() {
 							{/* <!--/ Role cards --> */}
 
 							<h3 className="mt-50">List Keseleruhan Users</h3>
-							{/* <p className="mb-2"> */}
-							{/* Find all of your company’s administrator accounts and their associate roles. */}
-							{/* </p> */}
-							{/* <!-- table --> */}
+							
+
 							<div className="card ">
 								<div className="table-responsive">
 									<table className="user-list-table table">
 										<thead className="table-light">
 											<tr>
-												<th>ID</th>
+												<th>#</th>
 												<th>Name</th>
 												<th>Nip</th>
 												<th>Role</th>
-												<th>Path</th>
-												<th>Password</th>
 												<th>Actions</th>
 											</tr>
 										</thead>
 										<tbody>
-											{/* {getUser.map((prop, key) => {
+											{users.data.map((prop, key) => {
 												return (
-													<tr>
+													<tr key={key}>
 														<td>{key + 1}</td>
 														<td>{prop.name}</td>
 														<td>{prop.nip}</td>
 														<td>{prop.role}</td>
-														<td>/{prop.path}</td>
-														<td>{prop.password}</td>
 														<td>
 															<div className="dropdown">
 																<a
@@ -268,14 +262,27 @@ function Users() {
 														</td>
 													</tr>
 												)
-											})} */}
+											})}
 										</tbody>
 									</table>
+									<nav aria-label="Page navigation example" className="pt-1">
+										<ul class="pagination justify-content-center">
+											{users.links.map((prop, index) => {
+												return (
+													<li key={index} className={`page item ${prop.active}`} tabIndex="-1">
+														<a className="page-link">
+															{prop.label}
+														</a>
+													</li>
+												)
+											})}
+										</ul>
+									</nav>
 								</div>
 							</div>
 							{/* <!-- table --> */}
 							{/* <!-- Add Role Modal --> */}
-							<div className="modal fade" id="addRoleModal" aria-hidden="true">
+							<div className={`modal fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="" aria-hidden="true">
 								<div className="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
 									<div className="modal-content">
 										<div className="modal-header bg-transparent">
@@ -284,6 +291,7 @@ function Users() {
 												className="btn-close"
 												data-bs-dismiss="modal"
 												aria-label="Close"
+												onClick={() => setIsOpen(false)}
 											></button>
 										</div>
 										<div className="modal-body px-5 pb-5">
@@ -291,8 +299,14 @@ function Users() {
 												<h1 className="role-title">Add New Users</h1>
 												<p>Set role permissions</p>
 											</div>
-											{/* <!-- Add role form --> */}
-											<form id="addRoleForm" className="row" onSubmit={tryPost}>
+											{
+												validation.message && (
+													<div className="alert alert-danger">
+														{validation.message}
+													</div>
+												)
+											}
+											<form id="addRoleForm" className="row" onSubmit={handleSubmit}>
 												<div className="row">
 													<div className="col-4 ">
 														<label className="form-label" for="modalRoleName">
@@ -354,11 +368,11 @@ function Users() {
 														</label>
 														<input
 															type="text"
-															name="path"
+															name="repassword"
 															className="form-control"
 															placeholder="Enter Check Password"
 															onChange={onChangeInput}
-															value={user.path}
+															value={user.repassword}
 														/>
 													</div>
 												</div>
@@ -379,7 +393,7 @@ function Users() {
 																					type="radio"
 																					name="role"
 																					onChange={onChangeInput}
-																					value="Manager"
+																					value="manager"
 																				/>
 																				<label className="form-check-label" for="userManagementRead">
 																					{" "}
@@ -392,7 +406,7 @@ function Users() {
 																					type="radio"
 																					name="role"
 																					onChange={onChangeInput}
-																					value="Auditor"
+																					value="auditor"
 																				/>
 																				<label className="form-check-label" for="userManagementWrite">
 																					{" "}
@@ -405,24 +419,11 @@ function Users() {
 																					type="radio"
 																					name="role"
 																					onChange={onChangeInput}
-																					value="Non Akademik"
+																					value="auditee"
 																				/>
 																				<label className="form-check-label" for="userManagementWrite">
 																					{" "}
-																					Non Akademik{" "}
-																				</label>
-																			</div>
-																			<div className="form-check">
-																				<input
-																					className="form-check-input"
-																					type="radio"
-																					name="role"
-																					onChange={onChangeInput}
-																					value="Prodi"
-																				/>
-																				<label className="form-check-label" for="userManagementCreate">
-																					{" "}
-																					Prodi{" "}
+																					Auditee{" "}
 																				</label>
 																			</div>
 																		</div>
@@ -448,6 +449,7 @@ function Users() {
 														className="btn btn-outline-secondary"
 														data-bs-dismiss="modal"
 														aria-label="Close"
+														onClick={() => setIsOpen(false)}
 													>
 														Discard
 													</button>
