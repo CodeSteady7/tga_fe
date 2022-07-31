@@ -17,6 +17,7 @@ function Login() {
             //set token on localStorage
             localStorage.setItem('token', response.data.access_token);
             localStorage.setItem('role', response.data.user.role);
+			localStorage.setItem('isLogIn', true);
 
 			switch (response.data.user.role) {
 				case 'admin':

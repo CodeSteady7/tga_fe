@@ -16,6 +16,7 @@ import PeriodeAudit from "views/Admin/PeriodeAudit"
 import TimAudit from "views/Admin/TimAudit"
 import ProgramStudi from "views/Admin/ProgramStudi"
 import TopikInstrumen from "views/Admin/TopikInstrumen"
+import PrivateRoute from "Route/PrivateRoute"
 
 // <!-- END: Custom CSS-->
 function Pages() {
@@ -23,10 +24,10 @@ function Pages() {
 		<BrowserRouter>
 			<Routes>
 				{/* <Route path="/admin" element={<Admin />} /> */}
-				<Route path="/admin" element={<Home />} />
-				<Route path="/auditi" element={<Audit />} />
-				<Route path="/manager" element={<Manager />} />
-				<Route path="/auditor" element={<Auditor />} />
+				<Route path="/admin" element={<PrivateRoute><Home /></PrivateRoute> } />
+				<Route path="/auditi" element={<PrivateRoute><Audit /></PrivateRoute>} />
+				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
+				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute> } />
 
 				<Route path="/admin/periodeaudit" element={<PeriodeAudit />} />
 				<Route path="/admin/timaudit" element={<TimAudit />} />
