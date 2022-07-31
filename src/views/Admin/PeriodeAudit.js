@@ -23,7 +23,7 @@ export default function PeriodeAudit() {
 		})
 	}
 
-	const submitCreate = async (e) => {
+	const handleCreate = async (e) => {
 		e.preventDefault()
 
 		let data = {
@@ -36,10 +36,6 @@ export default function PeriodeAudit() {
 			fetchPeriods()
 			setIsOpen(false)
 		})
-	}
-
-	const handleCreate = () => {
-
 	}
 
 	const handleEdit = () => {
@@ -182,7 +178,7 @@ export default function PeriodeAudit() {
 															onChange={(date) => setPeriodEnd(date)}  />
 													</div>
 
-													<button type="button" className="btn btn-primary data-submit me-1" onClick={(e) => submitCreate(e)} >
+													<button type="button" className="btn btn-primary data-submit me-1" onClick={(e) => handleCreate(e)} >
 														Submit
 													</button>
 													<button type="reset" className="btn btn-outline-secondary" onClick={() => setIsOpen(false)}>
