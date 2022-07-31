@@ -1,14 +1,15 @@
 import axios from "axios"
 import { format } from 'date-fns';
 
-const getAll = async () => {
+const getAll = async (params = {}) => {
 
     return axios.get(
         `${process.env.REACT_APP_API_URL}users`,
     {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
+        },
+        params: params
     })
 }
 

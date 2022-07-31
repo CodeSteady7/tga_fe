@@ -30,8 +30,8 @@ function Users() {
 		setUser({ ...user, [name]: value })
 	}
 
-	const getUsers = async () => {
-		await User.getAll().then(response => {
+	const getUsers = async (params = {}) => {
+		await User.getAll(params).then(response => {
 			setUsers(response.data.result)
 		}).catch(error => {
 			if(error.response.status === 401) {
@@ -193,9 +193,6 @@ function Users() {
 											<div className="col-sm-7">
 												<div className="card-body text-sm-end text-center ps-sm-0">
 													<a
-														// href="javascript:void(0)"
-														// data-bs-target="#addRoleModal"
-														// data-bs-toggle="modal"
 														onClick={() => setIsOpen(true)}
 														className="stretched-link text-nowrap add-new-role"
 													>
@@ -226,11 +223,10 @@ function Users() {
 											</tr>
 										</thead>
 										<tbody>
-											
 											{typeof users.data != "undefined" ? users.data.map((prop, key) => {
 												return (
 													<tr key={key}>
-														<td>{key + 1}</td>
+														<td>{users.from++}</td>
 														<td>{prop.name}</td>
 														<td>{prop.nip}</td>
 														<td>{prop.role}</td>
