@@ -21,15 +21,15 @@ import "./assets/css/themes/bordered-layout.css"
 
 function App() {
 	useEffect(() => {
-		const script = document.createElement("script")
+		// const script = document.createElement("script")
 		// script.src = "./app-assets/vendors/js/vendors.min.js"
-		script.src = "./assets/vendors/js/vendors.min.js"
+		// script.src = "./assets/vendors/js/vendors.min.js"
 		// script.src = "../public/app-assets/vendors/js/vendors.min.js"
 
-		document.body.appendChild(script)
-		return () => {
-			document.body.removeChild(script)
-		}
+		// document.body.appendChild(script)
+		// return () => {
+		// 	document.body.removeChild(script)
+		// }
 	}, [])
 	return (
 		<div>

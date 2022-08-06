@@ -104,7 +104,7 @@ function TopikInstrumen() {
 	
 	return (
 		<>
-			<body
+			<div
 				className="vertical-layout vertical-menu-modern  navbar-floating footer-static  "
 				data-open="click"
 				data-menu="vertical-menu-modern"
@@ -147,7 +147,7 @@ function TopikInstrumen() {
 						</div>
 					</div>
 				</div>
-			</body>
+			</div>
 
 			{/* <!-- Modal to add new record --> */}
 			<div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">

@@ -237,7 +237,7 @@ export default function InstrumentList({subTopicID, setIsMainPage}) {
                                 <h4>{subTopic.topic} - {subTopic.name} </h4>
                                 { subTopic.instruments.length > 0 ? subTopic.instruments.map((instrument, index) => {
                                     return (
-                                        <li className="align-items-center fw-bolder p-1">
+                                        <li key={index} className="align-items-center fw-bolder p-1">
                                             {instrument.scope_type.replace('_', ' ').toUpperCase()} : {instrument.matrix}
                                         </li>
                                     )

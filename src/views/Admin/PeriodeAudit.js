@@ -116,7 +116,7 @@ export default function PeriodeAudit() {
 	return (
 		<>
 			<div className="loading">
-				<body
+				<div
 					className="vertical-layout vertical-menu-modern  navbar-floating footer-static  "
 					data-open="click"
 					data-menu="vertical-menu-modern"
@@ -296,7 +296,7 @@ export default function PeriodeAudit() {
 							</div>
 						</div>
 					</div>
-				</body>
+				</div>
 			</div>
 		</>
 	)

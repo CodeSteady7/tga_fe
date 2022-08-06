@@ -82,7 +82,7 @@ function Users() {
 			<Header />
 			<Navbar />
 			<div
-				class="vertical-layout vertical-menu-modern navbar-floating footer-static"
+				className="vertical-layout vertical-menu-modern navbar-floating footer-static"
 				data-open="click"
 				data-menu="vertical-menu-modern"
 				data-col=""
@@ -305,7 +305,7 @@ function Users() {
 										aria-label="Page navigation example"
 										className="pt-1"
 									>
-										<ul class="pagination justify-content-center">
+										<ul className="pagination justify-content-center">
 											{typeof users.links != "undefined"
 												? users.links.map((prop, index) => {
 														return (
@@ -369,7 +369,7 @@ function Users() {
 													<div className="col-4 ">
 														<label
 															className="form-label"
-															for="modalRoleName"
+															htmlFor="modalRoleName"
 														>
 															Username
 														</label>
@@ -385,7 +385,7 @@ function Users() {
 													<div className="col-4">
 														<label
 															className="form-label"
-															for="modalRoleName"
+															htmlFor="modalRoleName"
 														>
 															Email
 														</label>
@@ -401,7 +401,7 @@ function Users() {
 													<div className="col-4">
 														<label
 															className="form-label"
-															for="modalRoleName"
+															htmlFor="modalRoleName"
 														>
 															NIP
 														</label>
@@ -419,7 +419,7 @@ function Users() {
 													<div className="col-6">
 														<label
 															className="form-label"
-															for="modalRoleName"
+															htmlFor="modalRoleName"
 														>
 															Password
 														</label>
@@ -435,7 +435,7 @@ function Users() {
 													<div className="col-6">
 														<label
 															className="form-label"
-															for="modalRoleName"
+															htmlFor="modalRoleName"
 														>
 															Check Password
 														</label>
@@ -472,7 +472,7 @@ function Users() {
 																				/>
 																				<label
 																					className="form-check-label"
-																					for="userManagementRead"
+																					htmlFor="userManagementRead"
 																				>
 																					{" "}
 																					Manager{" "}
@@ -488,7 +488,7 @@ function Users() {
 																				/>
 																				<label
 																					className="form-check-label"
-																					for="userManagementWrite"
+																					htmlFor="userManagementWrite"
 																				>
 																					{" "}
 																					Auditor{" "}
@@ -504,7 +504,7 @@ function Users() {
 																				/>
 																				<label
 																					className="form-check-label"
-																					for="userManagementWrite"
+																					htmlFor="userManagementWrite"
 																				>
 																					{" "}
 																					Auditee{" "}

@@ -2,39 +2,6 @@ import React, { useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
 function Navbar({ routes }) {
-	// useEffect(() => {
-	// 	feather.replace()
-	// }, [])
-	// const createLinks = routes => {
-	// 	return routes.map((prop, key) => {
-	// 		return (prop.layout === `/${url}` && !prop.api) || prop.use === true ? (
-	// 			// <NavLink>
-	// 			<a className="d-flex align-items-center" href={prop.layout + prop.path}>
-	// 				<i data-feather="home"></i>
-	// 				<span className="menu-title text-truncate" data-i18n="Dashboards">
-	// 					{prop.name}
-	// 				</span>
-	// 			</a>
-	// 		) : // </NavLink>
-	// 		null
-	// 	})
-	// }
-
-	// const createApiLinks = routes => {
-	// 	return routes.map((prop, key) => {
-	// 		return prop.layout === `/${url}` && prop.api ? (
-	// 			<li className="nav-item">
-	// 				<a className="d-flex align-items-center" href={prop.layout + prop.path}>
-	// 					<i data-feather="user"></i>
-	// 					<span className="menu-title text-truncate" data-i18n="Email">
-	// 						{prop.name}
-	// 					</span>
-	// 				</a>
-	// 			</li>
-	// 		) : null
-	// 	})
-	// }
-
 	let role = localStorage.getItem("role")
 	return (
 		<>
@@ -74,7 +41,7 @@ function Navbar({ routes }) {
 						<li className="nav-item">
 							{/* {createLinks(routes)} */}
 							<a className="d-flex align-items-center" href="/admin">
-								{/* <i data-feather="feather" class="text-info"></i> */}
+								{/* <i data-feather="feather" className="text-info"></i> */}
 								<Home color="#7367F0" size={48} />
 								<span className="menu-title text-truncate" data-i18n="Dashboards">
 									Dashboards

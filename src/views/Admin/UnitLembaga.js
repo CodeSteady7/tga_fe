@@ -114,7 +114,7 @@ function UnitLembaga() {
 	return (
 		<div>
 			<div>
-				<body
+				<div
 					className="vertical-layout vertical-menu-modern  navbar-floating footer-static  "
 					data-open="click"
 					data-menu="vertical-menu-modern"
@@ -334,7 +334,7 @@ function UnitLembaga() {
 							</div>
 						</div>
 					</div>
-				</body>
+				</div>
 			</div>
 		</div>
 	)
