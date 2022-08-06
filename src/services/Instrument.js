@@ -25,9 +25,38 @@ const createTopic = async ({ name, period_id, sub_topics }) => {
 	)
 }
 
+const getInstrumentBySubTopic = async (sub_topic_id) => {
+	return axios.get(
+		`${process.env.REACT_APP_API_URL}sub-topics/${sub_topic_id}`,
+		{
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		}
+	)
+}
+
+const addInstrumentListBySubTopic = async ({instrument_sub_topic_id, scope_type, instruments}) => {
+	return axios.post(
+		`${process.env.REACT_APP_API_URL}instruments`,
+		{
+			instrument_sub_topic_id: instrument_sub_topic_id,
+			scope_type: scope_type,
+            instruments: instruments
+		},
+		{
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		}
+	)
+}
+
 const Instrument = {
     getAllTopic,
-    createTopic
+    createTopic,
+	getInstrumentBySubTopic,
+	addInstrumentListBySubTopic
 }
 
 export default Instrument

@@ -290,7 +290,7 @@ function UnitLembaga() {
 																					className="form-check-input"
 																					type="radio"
 																					name="type"
-																					onChange={e => setInput({...input, user_id: e.target.value})}
+																					onChange={e => setInput({...input, type: e.target.value})}
 																					defaultChecked
 																					value="academic"
 																				/>
@@ -304,7 +304,7 @@ function UnitLembaga() {
 																					className="form-check-input"
 																					type="radio"
 																					name="type"
-																					onChange={e => setInput({...input, user_id: e.target.value})}
+																					onChange={e => setInput({...input, type: e.target.value})}
 																					value="non_academic"
 																				/>
 																				<label className="form-check-label" htmlFor="userManagementWrite">
