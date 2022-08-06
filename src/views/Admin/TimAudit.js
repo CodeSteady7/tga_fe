@@ -1,11 +1,18 @@
 import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Plus } from "react-feather"
 import List from "./TimAudit/List"
 import ModalCreate from "./TimAudit/ModalCreate"
 
+
+
 function TimAudit() {
+    const [isOpen, setIsOpen] = useState(false)
+
+	useEffect(() => {
+	}, [])
+	
 	return (
 		<div>
 			<div>
@@ -32,8 +39,7 @@ function TimAudit() {
 													<button
 														className="btn btn-primary btn-round btn-sm "
 														type="button"
-														data-bs-target="#viewTimAudit"
-														data-bs-toggle="modal"
+														onClick={() => setIsOpen(true)}
 													>
 														<div className="d-flex align-items-center">
 															<Plus color="#ffff" size={15} />
@@ -45,7 +51,7 @@ function TimAudit() {
 											</div>
 										</div>
 									</div>
-									<ModalCreate />
+									<ModalCreate isOpen={isOpen} setIsOpen={setIsOpen} />
 									{/* <!--/ View Tim Audit Modal --> */}
 								</section>
 							</div>

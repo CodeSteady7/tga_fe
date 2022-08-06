@@ -23,9 +23,18 @@ const create = async ({name, user_id, level, type}) => {
         })
 }
 
+const show = async (ID) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}departments/${ID}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+} 
+
 const Unit = {
     getAll,
-    create
+    create,
+    show
 }
 
 export default Unit

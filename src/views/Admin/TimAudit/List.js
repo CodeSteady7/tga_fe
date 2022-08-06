@@ -2,6 +2,7 @@ import React from 'react'
 import { Plus } from 'react-feather'
 
 export default function List() {
+    
   return (
     <div className="card-datatable">
         <table className="dt-multilingual table">
@@ -18,7 +19,7 @@ export default function List() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                {/* <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
@@ -60,7 +61,7 @@ export default function List() {
                             </div>
                         </div>
                     </td>
-                </tr>
+                </tr> */}
             </tbody>
         </table>
     </div>
