@@ -42,15 +42,7 @@ function Users() {
 				setUsers(response.data.result)
 			})
 			.catch(error => {
-				if (error.response.status === 401) {
-					localStorage.removeItem("token")
-					localStorage.removeItem("role")
-					localStorage.removeItem(
-						"isLogIn",
-						false
-					)
-					window.location.href = "/login"
-				}
+				
 			})
 	}
 	const handleSubmit = async e => {
@@ -311,7 +303,7 @@ function Users() {
 														return (
 															<li
 																key={index}
-																className={`page item ${prop.active}`}
+																className={`page-item ${prop.active ? 'active' : ''}`}
 																tabIndex="-1"
 															>
 																<a className="page-link">

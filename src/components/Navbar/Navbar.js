@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
 function Navbar({ routes }) {
 	let role = localStorage.getItem("role")
@@ -39,14 +39,12 @@ function Navbar({ routes }) {
 						data-menu="menu-navigation"
 					>
 						<li className="nav-item">
-							{/* {createLinks(routes)} */}
-							<a className="d-flex align-items-center" href="/admin">
-								{/* <i data-feather="feather" className="text-info"></i> */}
-								<Home color="#7367F0" size={48} />
-								<span className="menu-title text-truncate" data-i18n="Dashboards">
-									Dashboards
+							<Link to={'/admin'} className="d-flex align-items-center">
+								<Home color="#7367F0" size={10} />
+								<span className="menu-title text-truncate" >
+									Dashboard
 								</span>
-							</a>
+							</Link>
 						</li>
 
 						<li className="navigation-header">
@@ -56,69 +54,54 @@ function Navbar({ routes }) {
 
 						{role === "admin" ? (
 							<>
-								<li className="nav-">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/periodeaudit">
+								<li className="nav-item">
+									<Link to={'/admin/periodeaudit'} className="d-flex align-items-center">
 										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" data-i18n="Email">
+										<span className="menu-title text-truncate" >
 											Periode
 										</span>
-									</a>
+									</Link>
 								</li>
-								<li className="nav-">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/timaudit">
+								<li className="nav-item">
+									<Link to={'/admin/timaudit'} className="d-flex align-items-center">
 										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" data-i18n="Email">
+										<span className="menu-title text-truncate" >
 											Tim Audit
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/unit">
-										<FilePlus color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
+									<Link to={'/admin/unit'} className="d-flex align-items-center">
+										<FilePlus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
 											Unit Kelembagaan
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/topikinstrumen">
-										<FileText color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
+									<Link to={'/admin/topikinstrumen'} className="d-flex align-items-center">
+										<FileText color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
 											Topik Instrumen
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/users">
-										<User color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
+									<Link to={'/admin/users'} className="d-flex align-items-center">
+										<User color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
 											User
 										</span>
-									</a>
-								</li>
-
-								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/admin/addimage">
-										<Image color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Add Image
-										</span>
-									</a>
+									</Link>
 								</li>
 							</>
 						) : (
 							""
 						)}
 
-						{role === "auditi" ? (
+						{role === "auditee" ? (
 							<>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/addinstrumen">
 										<FileText color="#7367F0" size={20} />
 
@@ -135,7 +118,6 @@ function Navbar({ routes }) {
 						{role === "auditor" ? (
 							<>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periode">
 										<User color="#7367F0" size={20} />
 
@@ -145,7 +127,6 @@ function Navbar({ routes }) {
 									</a>
 								</li>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periode">
 										<FilePlus color="#7367F0" size={20} />
 

@@ -32,12 +32,7 @@ function UnitLembaga() {
 		await User.getAll(params).then(res => {
 			setUsers(res.data.result.data)
 		}).catch(error => {
-			if(error.response.status === 401) {
-				localStorage.removeItem('token');
-				localStorage.removeItem('role');
-				localStorage.removeItem('isLogIn', false);
-				window.location.href = '/login'
-			}
+			
 		})
 	}
 
@@ -85,12 +80,7 @@ function UnitLembaga() {
 		await Unit.getAll(params).then(res => {
 			setUnits(res.data.result)
 		}).catch(error => {
-			if(error.response.status === 401) {
-				localStorage.removeItem('token');
-				localStorage.removeItem('role');
-				localStorage.removeItem('isLogIn', false);
-				window.location.href = '/login'
-			}
+			
 		})
 	}
 
@@ -197,10 +187,10 @@ function UnitLembaga() {
 														</tbody>
 													</table>
 													<nav aria-label="Page navigation example" className="pt-1">
-														<ul class="pagination justify-content-center">
+														<ul className="pagination justify-content-center">
 															{typeof units.links != "undefined" ? units.links.map((prop, index) => {
 																return (
-																	<li key={index} className={`page item ${prop.active}`} tabIndex="-1">
+																	<li key={index} className={`page-item ${prop.active ? 'active' : ''}`} tabIndex="-1">
 																		<a className="page-link" data-page={`${prop.url !== null ? prop.url.split('=')[1] : null}`} onClick={e => paginationLink(e)} >
 																			{prop.label}
 																		</a>

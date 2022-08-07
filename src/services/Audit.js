@@ -20,8 +20,13 @@ const create = ({department_id, period_id, auditor_id, document_no, auditor_memb
         })   
 }
 
-const getAll = () => {
-
+const getAll = (params = {}) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}audits`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        params: params
+    })
 }
 
 const Audit = {

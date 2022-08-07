@@ -2,6 +2,7 @@ import Header from "components/Header/Header"
 import Navbar from "components/Navbar/Navbar"
 import React, { useState, useEffect } from "react"
 import { Plus } from "react-feather"
+import Audit from "services/Audit"
 import List from "./TimAudit/List"
 import ModalCreate from "./TimAudit/ModalCreate"
 
@@ -9,8 +10,18 @@ import ModalCreate from "./TimAudit/ModalCreate"
 
 function TimAudit() {
     const [isOpen, setIsOpen] = useState(false)
+	const [audits, setAudits] = useState([]) 
+	
+	const getAudits = async () => {
+		await Audit.getAll().then(res => {
+			setAudits(res.data.result)
+		}).catch(err => {
+			
+		})
+	}
 
 	useEffect(() => {
+		getAudits()
 	}, [])
 	
 	return (
@@ -47,12 +58,11 @@ function TimAudit() {
 														</div>
 													</button>
 												</div>
-												<List />
+												<List audits={audits} />
 											</div>
 										</div>
 									</div>
-									<ModalCreate isOpen={isOpen} setIsOpen={setIsOpen} />
-									{/* <!--/ View Tim Audit Modal --> */}
+									<ModalCreate isOpen={isOpen} setIsOpen={setIsOpen} fecthDataAudit={getAudits} />
 								</section>
 							</div>
 						</div>

@@ -23,13 +23,6 @@ export default function PeriodeAudit() {
 				setPeriods(response.data.result)
 			})
 			.catch(error => {
-				console.log(error)
-				if (error.response.status === 401) {
-					localStorage.removeItem("token")
-					localStorage.removeItem("role")
-					localStorage.removeItem("isLogIn", false)
-					window.location.href = "/login"
-				}
 			})
 	}
 
@@ -87,9 +80,6 @@ export default function PeriodeAudit() {
 		setUpdate(false)
 		setIsOpen(false)
 	}
-
-	console.log("nampungData", nampungData)
-	console.log("update", update)
 
 	const handleDelete = async (data, e) => {
 		try {

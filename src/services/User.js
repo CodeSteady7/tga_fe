@@ -28,9 +28,20 @@ const create = async ({name, email, nip, role, password}) => {
         })
 }
 
+const getProfile = async () => {
+    return axios.get(
+        `${process.env.REACT_APP_API_URL}profile`,
+    {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+}
+
 const User = {
     getAll, 
-    create
+    create,
+    getProfile
 }
 
 export default User

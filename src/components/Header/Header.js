@@ -1,7 +1,27 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { ShoppingCart, Bell } from "react-feather"
+import User from "services/User"
 
 function Header() {
+	const [user, setUser] = useState('')
+
+	const userProfile = async () => {
+		await User.getProfile().then(res => {
+			setUser(res.data.result)
+		}).catch(error => {
+			if (error.response.status === 401) {
+				localStorage.removeItem("token")
+				localStorage.removeItem("role")
+				localStorage.removeItem("isLogIn", false)
+				window.location.href = "/login"
+			}
+		})
+	}
+
+	useEffect(() => {
+	    userProfile()
+	}, [])
+	
 	return (
 		<>
 			<nav className="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
@@ -37,8 +57,8 @@ function Header() {
 								aria-expanded="false"
 							>
 								<div className="user-nav d-sm-flex d-none">
-									<span className="user-name fw-bolder">Hello World</span>
-									<span className="user-status">Admin</span>
+									<span className="user-name fw-bolder">Welcome!</span>
+									<span className="user-status">{user.name}</span>
 								</div>
 								<span className="avatar">
 									<img
@@ -51,21 +71,6 @@ function Header() {
 									<span className="avatar-status-online"></span>
 								</span>
 							</a>
-							<div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-								<a className="dropdown-item" href="page-profile.html">
-									<i className="me-50" data-feather="user"></i> Profile
-								</a>
-								<a className="dropdown-item" href="app-email.html">
-									<ShoppingCart color="#7367F0" size={20} />
-								</a>
-								<a className="dropdown-item" href="app-todo.html">
-									<i className="me-50" data-feather="check-square"></i> Task
-								</a>
-
-								<a className="dropdown-item" href="auth-login-cover.html">
-									<i className="me-50" data-feather="power"></i> Logout
-								</a>
-							</div>
 						</li>
 					</ul>
 				</div>

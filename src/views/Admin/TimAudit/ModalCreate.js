@@ -8,7 +8,7 @@ import User from 'services/User'
 import { format } from "date-fns"
 
 
-export default function ModalCreate({isOpen, setIsOpen}) {
+export default function ModalCreate({isOpen, setIsOpen, fecthDataAudit}) {
     const [unitOption, setUnitOption] = useState([])
     const [auditorOption, setAuditorOption] = useState([])
 	const [periodOption, setPeriodOption] = useState([])
@@ -36,12 +36,7 @@ export default function ModalCreate({isOpen, setIsOpen}) {
     
             setAuditorOption(options)
 		}).catch(error => {
-			if(error.response.status === 401) {
-				localStorage.removeItem('token');
-				localStorage.removeItem('role');
-				localStorage.removeItem('isLogIn', false);
-				window.location.href = '/login'
-			}
+			
 		})
 	}
 
@@ -73,12 +68,7 @@ export default function ModalCreate({isOpen, setIsOpen}) {
 			setPeriodOption(periods)
 
 		}).catch((error) => {
-			if(error.response.status === 401) {
-				localStorage.removeItem('token');
-				localStorage.removeItem('role');
-				localStorage.removeItem('isLogIn', false);
-				window.location.href = '/login'
-			}
+			
 		});
 	}
 
@@ -108,21 +98,21 @@ export default function ModalCreate({isOpen, setIsOpen}) {
             "audit_standart"            : auditStandart
         }
         
-        console.log(data)
 
         Audit.create(data).then(res => {
             setIsOpen(false)
-            setPeriod('')
-            setDocumentNo('')
-            setAuditType('')
-            setAuditStandart('')
-            setAuditTitle('')
-            setUnit('')
-            setScope('')
-            setAuditee('')
-            setAuditDate('')
-            setAuditor('')
-            setAuditorMembers([])
+            // setPeriod('')
+            // setDocumentNo('')
+            // setAuditType('')
+            // setAuditStandart('')
+            // setAuditTitle('')
+            // setUnit('')
+            // setScope('')
+            // setAuditee('')
+            // setAuditDate('')
+            // setAuditor('')
+            //setAuditorMembers([])
+            fecthDataAudit()
         }).catch(err => {
 
         })
@@ -143,7 +133,7 @@ export default function ModalCreate({isOpen, setIsOpen}) {
     
 
     return (
-    <div className={`modal  fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} tabindex="-1" aria-hidden="true">
+    <div className={`modal  fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} tabIndex="-1" aria-hidden="true">
         <div className="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
             <div className="modal-content">
                 <div className="modal-header bg-transparent">
@@ -157,7 +147,7 @@ export default function ModalCreate({isOpen, setIsOpen}) {
                     <div className="text-center mb-2">
                         <h1 className="mb-1">Tampilan Data Tim Audit</h1>
                     </div>
-                    <form id="" onsubmit="return false">
+                    <form id="">
                         <div className="row gy-1 pt-75">
                             <div className="col-12 col-md-6">
 								<label className="form-label" htmlFor="basic-icon-default-post">
@@ -184,25 +174,30 @@ export default function ModalCreate({isOpen, setIsOpen}) {
                                 <label className="form-label" htmlFor="modalviewTimAuditName">
                                     Judul Audit
                                 </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder='ex. Mutu Internal'
-                                    value={auditTitle}
-                                    onChange={e => setAuditTitle(e.target.value)}
+                                <Select 
+                                    options={[
+                                        {
+                                            label: "Mutu Internal",
+                                            value: "Mutu Internal"
+                                        }
+                                    ]}
+                                    onChange={e => setAuditTitle(e.value)}
                                 />
                             </div>
                             <div className="col-12 col-md-6">
                                 <label className="form-label" htmlFor="modalviewTimAuditLastName">
                                     Tipe Audit
                                 </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="ex. Lapangan"
-                                    value={auditType}
-                                    onChange={e => setAuditType(e.target.value)}
+                                <Select 
+                                    options={[
+                                        {
+                                            label: "Lapangan",
+                                            value: "Lapangan"
+                                        }
+                                    ]}
+                                    onChange={e => setAuditType(e.value)}
                                 />
+
                             </div>
                             <div className="col-12 col-md-6">
                                 <label className="form-label" htmlFor="modalviewTimAuditName">
