@@ -29,12 +29,11 @@ function Pages() {
 				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute> } />
 
-				<Route path="/admin/periodeaudit" element={<PeriodeAudit />} />
-				<Route path="/admin/timaudit" element={<TimAudit />} />
-				<Route path="/admin/users" element={<Users />} />
-				<Route path="/admin/addimage" element={<AddImage />} />
-				<Route path="/admin/unit" element={<UnitLembaga />} />
-				<Route path="/admin/topikinstrumen" element={<TopikInstrumen />} />
+				<Route path="/admin/periodeaudit" element={<PrivateRoute><PeriodeAudit /></PrivateRoute> } />
+				<Route path="/admin/timaudit" element={<PrivateRoute><TimAudit /></PrivateRoute> } />
+				<Route path="/admin/users" element={<PrivateRoute><Users /></PrivateRoute> } />
+				<Route path="/admin/unit" element={<PrivateRoute><UnitLembaga /></PrivateRoute> }/>
+				<Route path="/admin/topikinstrumen" element={<PrivateRoute><TopikInstrumen /></PrivateRoute> } />
 
 				<Route path="/login/*" element={<Login />} />
 				<Route path="/berita/*" element={<HalamanUtama />} />
