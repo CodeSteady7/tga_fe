@@ -20,7 +20,7 @@ export default function List({topicList, showInstrument}) {
             ? topicList.data.map((topic, key) => {
               return (
                 <tr key={key}>
-                  <td>{key++}</td>
+                  <td>{key + 1}</td>
                   <td>{topic.name}</td>
                   <td>
                     <ul>
@@ -80,6 +80,28 @@ export default function List({topicList, showInstrument}) {
             }
         </tbody>
       </table>
+      <nav
+          aria-label="Page navigation example"
+          className="pt-1"
+      >
+          <ul className="pagination justify-content-center">
+              {typeof topicList.links != "undefined"
+                  ? topicList.links.map((prop, index) => {
+                          return (
+                              <li
+                                  key={index}
+                                  className={`page-item ${prop.active ? 'active' : ''}`}
+                                  tabIndex="-1"
+                              >
+                                  <a className="page-link">
+                                      {prop.label}
+                                  </a>
+                              </li>
+                          )
+                      })
+                  : ""}
+          </ul>
+      </nav>
     </div>
   )
 }

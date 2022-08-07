@@ -1,8 +1,16 @@
 import React, { useEffect } from "react"
 import { Link, NavLink } from "react-router-dom"
-import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
-function Navbar({ routes }) {
+import { Home, FileMinus, FilePlus, FileText, User, Image, LogOut } from "react-feather"
+function Navbar({ routes = '' }) {
 	let role = localStorage.getItem("role")
+
+	const handleSignOut = (e) => {
+		localStorage.removeItem("token")
+		localStorage.removeItem("role")
+		localStorage.removeItem("isLogIn")
+		window.location.href = "/login"
+	}
+
 	return (
 		<>
 			<div
@@ -38,59 +46,60 @@ function Navbar({ routes }) {
 						id="main-menu-navigation"
 						data-menu="menu-navigation"
 					>
-						<li className="nav-item">
-							<Link to={'/admin'} className="d-flex align-items-center">
-								<Home color="#7367F0" size={10} />
-								<span className="menu-title text-truncate" >
-									Dashboard
-								</span>
-							</Link>
-						</li>
-
-						<li className="navigation-header">
-							<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
-							<i data-feather="more-horizontal"></i>
-						</li>
 
 						{role === "admin" ? (
 							<>
 								<li className="nav-item">
-									<Link to={'/admin/periodeaudit'} className="d-flex align-items-center">
-										<FileMinus color="#7367F0" size={10} />
+									<Link to={'/admin'} className="d-flex align-items-center">
+										<Home color="#7367F0" size={10} />
 										<span className="menu-title text-truncate" >
-											Periode
+											Dashboard
 										</span>
 									</Link>
 								</li>
-								<li className="nav-item">
-									<Link to={'/admin/timaudit'} className="d-flex align-items-center">
-										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Tim Audit
-										</span>
-									</Link>
+
+								<li className="navigation-header">
+									<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
+									<i data-feather="more-horizontal"></i>
 								</li>
-								<li className="nav-item">
-									<Link to={'/admin/unit'} className="d-flex align-items-center">
-										<FilePlus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Unit Kelembagaan
-										</span>
-									</Link>
-								</li>
-								<li className="nav-item">
-									<Link to={'/admin/topikinstrumen'} className="d-flex align-items-center">
-										<FileText color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Topik Instrumen
-										</span>
-									</Link>
-								</li>
+
 								<li className="nav-item">
 									<Link to={'/admin/users'} className="d-flex align-items-center">
 										<User color="#7367F0" size={10} />
 										<span className="menu-title text-truncate" >
-											User
+											Data User
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/periods'} className="d-flex align-items-center">
+										<FileMinus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Periode
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/units'} className="d-flex align-items-center">
+										<FilePlus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Unit Kelembagaan
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/instruments'} className="d-flex align-items-center">
+										<FileText color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Instrumen
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/audits'} className="d-flex align-items-center">
+										<FileMinus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Input Data Audit
 										</span>
 									</Link>
 								</li>
@@ -102,14 +111,26 @@ function Navbar({ routes }) {
 						{role === "auditee" ? (
 							<>
 								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/admin/addinstrumen">
-										<FileText color="#7367F0" size={20} />
+									<Link to={'/auditee'} className="d-flex align-items-center">
+										<Home color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Dashboard
+										</span>
+									</Link>
+								</li>
 
-										<span className="menu-title text-truncate" data-i18n="Email">
+								<li className="navigation-header">
+									<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
+									<i data-feather="more-horizontal"></i>
+								</li>
+								{/* <li className="nav-item">
+									<Link to={'/auditee/form-audit'} className="d-flex align-items-center">
+										<FileText color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
 											Mengisi Instrumen
 										</span>
-									</a>
-								</li>
+									</Link>
+								</li> */}
 							</>
 						) : (
 							""
@@ -139,6 +160,14 @@ function Navbar({ routes }) {
 						) : (
 							""
 						)}
+						<li className="nav-item">
+							<a className="d-flex align-items-center" onClick={handleSignOut}>
+								<LogOut color="#7367F0" size={10} />
+								<span className="menu-title text-truncate" >
+									Sign Out
+								</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>

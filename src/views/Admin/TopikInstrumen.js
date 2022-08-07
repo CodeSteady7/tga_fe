@@ -8,11 +8,12 @@ import Instrument from "services/Instrument"
 import List from "./Topic/List"
 import InstrumentList from "./Topic/InstrumentList"
 import id from "date-fns/locale/id/index"
+import Modal from "./Topic/Modal"
 
 function TopikInstrumen() {
 	const [isMainPage, setIsMainPage ] = useState(true)
 	const [periodOptions, setPeriodOptions] = useState([])
-	const [subTopicInput, setSubTopicInput] = useState()
+	const [subTopicInput, setSubTopicInput] = useState('')
 	const [subTopicList, setSubTopicList] = useState([])
 	const [name, setName] = useState('')
 	const [period, setPeriod] = useState('') 
@@ -46,7 +47,6 @@ function TopikInstrumen() {
 	const getInstrumentTopics = async () => {
 		await Instrument.getAllTopic()
 		.then((response) => {
-			console.log(response)
 			setTopicList(response.data.result)
 		}).catch((error) => {
 			
@@ -138,99 +138,21 @@ function TopikInstrumen() {
 					</div>
 				</div>
 			</div>
-
-			{/* <!-- Modal to add new record --> */}
-			<div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">
-				<div className="modal-dialog sidebar-sm">
-					<form className="add-new-record modal-content pt-0">
-						<button
-							type="button"
-							className="btn-close"
-							aria-label="Close"
-							onClick={ () => setIsOpen(false)}
-							>
-							×
-						</button>
-						<div className="modal-header mb-1">
-							<h5 className="modal-title" id="exampleModalLabel">
-								Tambah Data
-							</h5>
-						</div>
-						{validation.message && (
-							<div className="alert alert-danger">
-								{validation.message}
-							</div>
-						)}
-						<div className="modal-body flex-grow-1">
-							<div className="mb-1">
-								<label className="form-label" htmlFor="basic-icon-default-post">
-									Topik
-								</label>
-								<input
-									type="text"
-									id="basic-icon-default-post"
-									className="form-control dt-post"
-									placeholder="Topik "
-									value={name}
-									onChange={e => setName(e.target.value)}
-								/>
-							</div>
-
-							<div className="mb-1">
-								<label className="form-label" htmlFor="basic-icon-default-post">
-									Periode
-								</label>
-								<Select 
-									options={periodOptions} 
-									onChange={e => setPeriod(e.value)}
-								/>
-							</div>
-
-							<div className="mb-1">
-								<label className="form-label" htmlFor="basic-icon-default-post">
-									Sub Topik
-								</label>
-								<div className="input-group mb-3">
-									<input type="text" className="form-control" placeholder="Sub Topik" value={subTopicInput} onChange={e => setSubTopicInput(e.target.value)} />
-									<div className="input-group-append">
-										<button className="input-group-text" id="basic-addon1" onClick={e => addSubTopicList(e)}>
-											<Plus color="#28c76f" />
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<div className="mb-5" >
-								<table className="dt-multilingual table">
-									<tbody>
-										{
-											subTopicList.map(((prop, index) => {
-												return (
-													<tr key={index}>
-														<td>{prop}</td>
-														<td align="right">
-															<button className="btn btn-sm btn-outline-danger" onClick={e => removeSubTopicList(e, index)} >
-																<Trash color="red" size={15} />
-															</button>
-														</td>
-													</tr>
-												)
-											}))
-										}
-									</tbody>
-								</table>
-							</div>
-
-							<button type="button" className="btn btn-primary data-submit me-1" onClick={e => handleSubmit(e)}>
-								Submit
-							</button>
-							<button type="reset" className="btn btn-outline-secondary" onClick={ () => setIsOpen(false)} data-bs-dismiss="modal">
-								Cancel
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
+			<Modal 
+				isOpen = {isOpen}
+				setIsOpen = {setIsOpen}
+				validation = {validation}
+				name = {name}
+				setName = {setName}
+				periodOptions = {periodOptions}
+				setPeriod = {setPeriod}
+				subTopicInput = {subTopicInput}
+				setSubTopicInput = {setSubTopicInput}
+				addSubTopicList = {addSubTopicList}
+				subTopicList = {subTopicList}
+				removeSubTopicList = {removeSubTopicList}
+				handleSubmit = {handleSubmit}
+			/>
 		</>	
 	)
 }

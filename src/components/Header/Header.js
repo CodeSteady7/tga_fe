@@ -52,9 +52,6 @@ function Header() {
 								className="nav-link dropdown-toggle dropdown-user-link"
 								id="dropdown-user"
 								href="#"
-								data-bs-toggle="dropdown"
-								aria-haspopup="true"
-								aria-expanded="false"
 							>
 								<div className="user-nav d-sm-flex d-none">
 									<span className="user-name fw-bolder">Welcome!</span>

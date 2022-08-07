@@ -11,12 +11,12 @@ import Manager from "./views/Manager"
 import Login from "./views/Login"
 import HalamanUtama from "./views/HalamanUtama"
 import Users from "./views/Users"
-import AddImage from "./views/AddImage"
 import PeriodeAudit from "views/Admin/PeriodeAudit"
 import TimAudit from "views/Admin/TimAudit"
 import UnitLembaga from "views/Admin/UnitLembaga"
 import TopikInstrumen from "views/Admin/TopikInstrumen"
 import PrivateRoute from "Route/PrivateRoute"
+import FormAudit from "views/FormAudit"
 
 // <!-- END: Custom CSS-->
 function Pages() {
@@ -25,15 +25,19 @@ function Pages() {
 			<Routes>
 				{/* <Route path="/admin" element={<Admin />} /> */}
 				<Route path="/admin" element={<PrivateRoute><Home /></PrivateRoute> } />
-				<Route path="/auditi" element={<PrivateRoute><Audit /></PrivateRoute>} />
+				<Route path="/admin/users" element={<PrivateRoute><Users /></PrivateRoute> } />
+				<Route path="/admin/periods" element={<PrivateRoute><PeriodeAudit /></PrivateRoute> } />
+				<Route path="/admin/units" element={<PrivateRoute><UnitLembaga /></PrivateRoute> }/>
+				<Route path="/admin/instruments" element={<PrivateRoute><TopikInstrumen /></PrivateRoute> } />
+				<Route path="/admin/audits" element={<PrivateRoute><TimAudit /></PrivateRoute> } />
+				
+				<Route path="/auditee" element={<PrivateRoute><FormAudit /></PrivateRoute>} />
+				<Route path="/auditee/form-audit" element={<PrivateRoute><FormAudit /></PrivateRoute> } />
+
 				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
+
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute> } />
 
-				<Route path="/admin/periodeaudit" element={<PrivateRoute><PeriodeAudit /></PrivateRoute> } />
-				<Route path="/admin/timaudit" element={<PrivateRoute><TimAudit /></PrivateRoute> } />
-				<Route path="/admin/users" element={<PrivateRoute><Users /></PrivateRoute> } />
-				<Route path="/admin/unit" element={<PrivateRoute><UnitLembaga /></PrivateRoute> }/>
-				<Route path="/admin/topikinstrumen" element={<PrivateRoute><TopikInstrumen /></PrivateRoute> } />
 
 				<Route path="/login/*" element={<Login />} />
 				<Route path="/berita/*" element={<HalamanUtama />} />

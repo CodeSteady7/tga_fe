@@ -2,6 +2,7 @@ import axios from "axios"
 
 const getAll = async (params = {}) => {
     return axios.get(`${process.env.REACT_APP_API_URL}departments`, {
+        timeout: 1000 * 5,
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         },
@@ -15,8 +16,9 @@ const create = async ({name, user_id, level, type}) => {
             name: name, 
             user_id: user_id,
             level: level === '' ? null : level,
-            type: type
+            scope_type: type
         },{
+            timeout: 1000 * 5,
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -25,6 +27,7 @@ const create = async ({name, user_id, level, type}) => {
 
 const show = async (ID) => {
     return axios.get(`${process.env.REACT_APP_API_URL}departments/${ID}`, {
+        timeout: 1000 * 5,
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }

@@ -8,7 +8,7 @@ import User from 'services/User'
 import { format } from "date-fns"
 
 
-export default function ModalCreate({isOpen, setIsOpen, fecthDataAudit}) {
+export default function Modal({isOpen, setIsOpen, fecthDataAudit}) {
     const [unitOption, setUnitOption] = useState([])
     const [auditorOption, setAuditorOption] = useState([])
 	const [periodOption, setPeriodOption] = useState([])
@@ -101,17 +101,6 @@ export default function ModalCreate({isOpen, setIsOpen, fecthDataAudit}) {
 
         Audit.create(data).then(res => {
             setIsOpen(false)
-            // setPeriod('')
-            // setDocumentNo('')
-            // setAuditType('')
-            // setAuditStandart('')
-            // setAuditTitle('')
-            // setUnit('')
-            // setScope('')
-            // setAuditee('')
-            // setAuditDate('')
-            // setAuditor('')
-            //setAuditorMembers([])
             fecthDataAudit()
         }).catch(err => {
 
@@ -136,13 +125,6 @@ export default function ModalCreate({isOpen, setIsOpen, fecthDataAudit}) {
     <div className={`modal  fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} tabIndex="-1" aria-hidden="true">
         <div className="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
             <div className="modal-content">
-                <div className="modal-header bg-transparent">
-                    <button
-                        type="button"
-                        aria-label="Close"
-                        onClick={() => setIsOpen(false)}
-                    ></button>
-                </div>
                 <div className="modal-body pb-5 px-sm-5 pt-50">
                     <div className="text-center mb-2">
                         <h1 className="mb-1">Tampilan Data Tim Audit</h1>

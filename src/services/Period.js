@@ -22,8 +22,6 @@ const create = async ({ name, period_start, period_end }) => {
 		`${process.env.REACT_APP_API_URL}periods`,
 		{
 			name: name,
-			period_start: format(new Date(period_start), "yyyy-MM-dd"),
-			period_end: format(new Date(period_end), "yyyy-MM-dd"),
 		},
 		{
 			headers: {
@@ -45,8 +43,6 @@ const update = async ({ id, name, period_start, period_end }) => {
 		`${process.env.REACT_APP_API_URL}periods/${id}`,
 		{
 			name: name,
-			period_start: format(new Date(period_start), "yyyy-MM-dd"),
-			period_end: format(new Date(period_end), "yyyy-MM-dd"),
 		},
 		{
 			headers: {

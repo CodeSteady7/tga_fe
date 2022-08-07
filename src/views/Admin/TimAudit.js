@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import { Plus } from "react-feather"
 import Audit from "services/Audit"
 import List from "./TimAudit/List"
-import ModalCreate from "./TimAudit/ModalCreate"
+import Modal from "./TimAudit/Modal"
 
 
 
@@ -62,7 +62,7 @@ function TimAudit() {
 											</div>
 										</div>
 									</div>
-									<ModalCreate isOpen={isOpen} setIsOpen={setIsOpen} fecthDataAudit={getAudits} />
+									<Modal isOpen={isOpen} setIsOpen={setIsOpen} fecthDataAudit={getAudits} />
 								</section>
 							</div>
 						</div>

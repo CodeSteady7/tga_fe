@@ -55,16 +55,9 @@ function Modal({subTopicID, getSubTopic, isOpen, setIsOpen}) {
     return(
         <>
             {/* <!-- Modal to add new record --> */}
-			<div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">
-				<div className="modal-dialog sidebar-lg">
+			<div className={`modal fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">
+				<div className="modal-dialog modal-lg">
 					<form className="add-new-record modal-content pt-0">
-						<button
-							type="button"
-							className="btn-close"
-							aria-label="Close"
-							>
-							×
-						</button>
 						<div className="modal-header mb-1">
 							<h5 className="modal-title" id="exampleModalLabel">
 								Data Instrument
@@ -142,6 +135,7 @@ function Modal({subTopicID, getSubTopic, isOpen, setIsOpen}) {
 											instrumentList.map(((prop, index) => {
 												return (
 													<tr key={index}>
+														<td>{index + 1}</td>
 														<td>{prop}</td>
 														<td align="right">
 															<button className="btn btn-sm btn-outline-danger" onClick={e => removeInstrumentList(e, index)} >
@@ -183,10 +177,8 @@ export default function InstrumentList({subTopicID, setIsMainPage}) {
     }
 
     const getSubTopic = async (id) => {
-        console.log(id)
         
         await Instrument.getInstrumentBySubTopic(id).then(res => {
-            console.log(res.data.result)
             if(typeof res.data.result != "undefined") {
                 setSubTopic({
                     name: res.data.result.name,
