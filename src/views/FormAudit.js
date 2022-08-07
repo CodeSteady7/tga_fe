@@ -4,11 +4,19 @@ import Header from "../components/Header/Header"
 import { Plus, Search } from "react-feather"
 import Select from "react-select"
 import Period from "services/Period"
+import Audit from "services/Audit"
+import { format } from "date-fns"
+import HTMLReactParser from "html-react-parser"
 
 export default function FormAudit() {
 	const [periodOption, setPeriodOption] = useState([])
     const [period, setPeriod] = useState('')
-
+	const [audits, setAudits] = useState([]) 
+	const [badge, setBadge] = useState({
+		unavaiable: '<span className="badge alert-warning">Belum Dibuka</span>',
+		open: '<span className="badge alert-primary">Open</span>',
+		finish: '<span className="badge alert-success">Selesai</span>',
+	})
 
 	const getPeriods = async () => {
 		await Period.getAll()
@@ -25,6 +33,25 @@ export default function FormAudit() {
 		}).catch((error) => {
 			
 		});
+	}
+
+	const getAudits = async (params) => {
+		await Audit.getAll(params).then(res => {
+			setAudits(res.data.result)
+		}).catch(err => {
+			
+		})
+	}
+
+	const handleSelectPeriod = (event) => {
+		console.log(event.value)
+		let params = {
+			period_id: event.value,
+			pagination: 0
+		}
+
+		getAudits(params)
+
 	}
 
 	useEffect(() => {
@@ -54,7 +81,7 @@ export default function FormAudit() {
 												<div className="col-4">
 													<Select 
 														options={periodOption}
-														onChange={e => setPeriod(e.value)}
+														onChange={handleSelectPeriod}
 													/>
 												</div>
 												
@@ -69,13 +96,58 @@ export default function FormAudit() {
 														<th>Tipe Audit</th>
 														<th>Tanggal Audit</th>
 														<th>Ketua Auditor</th>
+														<th>Status</th>
 														<th>Aksi</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td colSpan={6} align="center"> -- Belum Tersedia --</td>
+													{console.log(audits)}
+													{typeof audits !== 'undefined' && audits.length > 0 
+													? audits.map((prop, index) => {
+														console.log(new Date() < new Date(prop.audit_at))
+														return (
+															<tr key={index}>
+																<td>{index + 1} </td>
+																<td>{prop.document_no} </td>
+																<td>{prop.audit_type}</td>
+																<td>{format(new Date(prop.audit_at), "dd-MM-yyyy")}</td>
+																<td>{prop.auditor.name}</td>
+																<td>{ HTMLReactParser(badge.open) } </td>
+																<td>{ new Date() < new Date(prop.audit_at) 
+																	? HTMLReactParser(badge.unavaiable)
+																	: HTMLReactParser(
+																		<div className="dropdown">
+																			<a
+																				type="button"
+																				className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																				data-bs-toggle="dropdown"
+																				id="dropdownMenuLink"
+																				aria-expanded="false"
+																			>
+																				<i data-feather="more-vertical">
+																					Click
+																				</i>
+																			</a>
+																			<div
+																				className="dropdown-menu dropdown-menu-end"
+																				aria-labelledby="dropdownMenuLink"
+																			>
+																				<a className="dropdown-item" href="#">
+																					<span>Lakukan Pengisian </span>
+																				</a>
+																				<a className="dropdown-item" href="#">
+																					<span>Detail Form</span>
+																				</a>
+																			</div>
+																		</div>
+																	) } </td>
+															</tr>
+														)
+													})  
+													: <tr>
+														<td colSpan={7} align="center"> -- Belum Tersedia --</td>
 													</tr>
+													}
 												</tbody>
 											</table>
 										</div>

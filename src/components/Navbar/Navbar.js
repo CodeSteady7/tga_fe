@@ -123,14 +123,6 @@ function Navbar({ routes = '' }) {
 									<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
 									<i data-feather="more-horizontal"></i>
 								</li>
-								{/* <li className="nav-item">
-									<Link to={'/auditee/form-audit'} className="d-flex align-items-center">
-										<FileText color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Mengisi Instrumen
-										</span>
-									</Link>
-								</li> */}
 							</>
 						) : (
 							""

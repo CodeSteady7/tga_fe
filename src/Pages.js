@@ -32,12 +32,10 @@ function Pages() {
 				<Route path="/admin/audits" element={<PrivateRoute><TimAudit /></PrivateRoute> } />
 				
 				<Route path="/auditee" element={<PrivateRoute><FormAudit /></PrivateRoute>} />
-				<Route path="/auditee/form-audit" element={<PrivateRoute><FormAudit /></PrivateRoute> } />
-
-				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
 
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute> } />
 
+				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
 
 				<Route path="/login/*" element={<Login />} />
 				<Route path="/berita/*" element={<HalamanUtama />} />
