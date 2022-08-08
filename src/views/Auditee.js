@@ -7,8 +7,9 @@ import Period from "services/Period"
 import Audit from "services/Audit"
 import { format } from "date-fns"
 import HTMLReactParser from "html-react-parser"
+import { Link } from "react-router-dom"
 
-export default function FormAudit() {
+export default function Auditee() {
 	const [periodOption, setPeriodOption] = useState([])
     const [period, setPeriod] = useState('')
 	const [audits, setAudits] = useState([]) 
@@ -16,6 +17,7 @@ export default function FormAudit() {
 		unavaiable: '<span className="badge alert-warning">Belum Dibuka</span>',
 		open: '<span className="badge alert-primary">Open</span>',
 		finish: '<span className="badge alert-success">Selesai</span>',
+		close: '<span className="badge alert-danger">Ditutup</span>',
 	})
 
 	const getPeriods = async () => {
@@ -44,13 +46,16 @@ export default function FormAudit() {
 	}
 
 	const handleSelectPeriod = (event) => {
-		console.log(event.value)
 		let params = {
 			period_id: event.value,
 			pagination: 0
 		}
 
 		getAudits(params)
+
+	}
+
+	const handleDetail = (event) => {
 
 	}
 
@@ -101,7 +106,6 @@ export default function FormAudit() {
 													</tr>
 												</thead>
 												<tbody>
-													{console.log(audits)}
 													{typeof audits !== 'undefined' && audits.length > 0 
 													? audits.map((prop, index) => {
 														console.log(new Date() < new Date(prop.audit_at))
@@ -112,35 +116,36 @@ export default function FormAudit() {
 																<td>{prop.audit_type}</td>
 																<td>{format(new Date(prop.audit_at), "dd-MM-yyyy")}</td>
 																<td>{prop.auditor.name}</td>
-																<td>{ HTMLReactParser(badge.open) } </td>
 																<td>{ new Date() < new Date(prop.audit_at) 
-																	? HTMLReactParser(badge.unavaiable)
-																	: HTMLReactParser(
-																		<div className="dropdown">
-																			<a
-																				type="button"
-																				className="btn btn-sm dropdown-toggle hide-arrow py-0"
-																				data-bs-toggle="dropdown"
-																				id="dropdownMenuLink"
-																				aria-expanded="false"
+																	? HTMLReactParser(badge.unavaiable ) 
+																	: HTMLReactParser(badge.open) }</td>
+																<td><div className="dropdown">
+																		<a
+																			type="button"
+																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																			data-bs-toggle="dropdown"
+																			id="dropdownMenuLink"
+																			aria-expanded="false"
+																		>
+																			<i data-feather="more-vertical">
+																				Click
+																			</i>
+																		</a>
+																		<div
+																			className="dropdown-menu dropdown-menu-end"
+																			aria-labelledby="dropdownMenuLink"
+																		>
+																			<Link
+																				className="dropdown-item"
+																				to={`/auditee/form-audit/${prop.id}`}
 																			>
-																				<i data-feather="more-vertical">
-																					Click
-																				</i>
+																				<span>Lakukan Pengisian </span>
+																			</Link>
+																			<a className="dropdown-item" onClick={handleDetail}>
+																				<span>Detail Form</span>
 																			</a>
-																			<div
-																				className="dropdown-menu dropdown-menu-end"
-																				aria-labelledby="dropdownMenuLink"
-																			>
-																				<a className="dropdown-item" href="#">
-																					<span>Lakukan Pengisian </span>
-																				</a>
-																				<a className="dropdown-item" href="#">
-																					<span>Detail Form</span>
-																				</a>
-																			</div>
 																		</div>
-																	) } </td>
+																	</div></td>
 															</tr>
 														)
 													})  
@@ -158,6 +163,7 @@ export default function FormAudit() {
 					</div>
 				</div>
 			</div>
+			
 		</>
 	)
 }

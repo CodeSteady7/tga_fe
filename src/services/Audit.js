@@ -29,9 +29,18 @@ const getAll = (params = {}) => {
     })
 }
 
+const getDetail = (auditID) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}audits/${auditID}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+}
+
 const Audit = {
     create,
-    getAll
+    getAll,
+    getDetail
 }
 
 export default Audit

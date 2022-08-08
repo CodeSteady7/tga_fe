@@ -16,7 +16,8 @@ import TimAudit from "views/Admin/TimAudit"
 import UnitLembaga from "views/Admin/UnitLembaga"
 import TopikInstrumen from "views/Admin/TopikInstrumen"
 import PrivateRoute from "Route/PrivateRoute"
-import FormAudit from "views/FormAudit"
+import Auditee from "views/Auditee"
+import Form from "views/Auditee/Form"
 
 // <!-- END: Custom CSS-->
 function Pages() {
@@ -31,7 +32,8 @@ function Pages() {
 				<Route path="/admin/instruments" element={<PrivateRoute><TopikInstrumen /></PrivateRoute> } />
 				<Route path="/admin/audits" element={<PrivateRoute><TimAudit /></PrivateRoute> } />
 				
-				<Route path="/auditee" element={<PrivateRoute><FormAudit /></PrivateRoute>} />
+				<Route path="/auditee" element={<PrivateRoute><Auditee /></PrivateRoute>} />
+				<Route path="/auditee/form-audit/:id" element={<PrivateRoute><Form /></PrivateRoute>} />
 
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute> } />
 
