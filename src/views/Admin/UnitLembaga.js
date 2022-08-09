@@ -8,6 +8,8 @@ import List from "./Unit/List"
 import Modal from "./Unit/Modal"
 
 function UnitLembaga() {
+	const [edit, setEdit] = useState(false)
+	const [dataUpdate, setDataUpdate] = useState()
 	const [units, setUnits] = useState([])
 	const [input, setInput] = useState({
 		level: '',
@@ -15,6 +17,8 @@ function UnitLembaga() {
 		user_id: '',
 		type: 'academic'
 	})
+
+
 	const [isOpen, setIsOpen] = useState(false)
 
 	const [levelOptions, setLevelOptions] = useState([
@@ -22,9 +26,9 @@ function UnitLembaga() {
 		{ value: 'D2', label: 'D2' },
 		{ value: 'D3', label: 'D3' },
 		{ value: 'D4', label: 'D4' },
-		{ value: '' , label: '-- Tidak Ada Jenjang --' }
+		{ value: '', label: '-- Tidak Ada Jenjang --' }
 	])
-	
+
 	const [userOptions, setUserOptions] = useState([])
 	const [validation, setValidation] = useState('')
 
@@ -40,10 +44,10 @@ function UnitLembaga() {
 					label: `${prop.name}: ${prop.email}`
 				}
 			})
-	
-			setUserOptions(options)	
+
+			setUserOptions(options)
 		}).catch(error => {
-			
+
 		})
 	}
 
@@ -65,15 +69,34 @@ function UnitLembaga() {
 		})
 	}
 
-	const mappingUserOption = () => {
-		
+	const submitUpdate = async e => {
+		e.preventDefault()
+		console.log('update', input, dataUpdate.id)
+		await Unit.update({ id: dataUpdate.id, input }).then((response) => {
+			setInput({
+				level: '',
+				name: '',
+				user_id: '',
+				type: 'academic'
+			})
+			setIsOpen(false)
+			getUnits()
+			setEdit(true)
+		}).catch(error => {
+			console.log(error)
+			setValidation(error.response.data);
+		})
 	}
-	
+
+
+	const mappingUserOption = () => {
+	}
+
 	const getUnits = async (params = {}) => {
 		await Unit.getAll(params).then(res => {
 			setUnits(res.data.result)
 		}).catch(error => {
-			
+
 		})
 	}
 
@@ -84,10 +107,22 @@ function UnitLembaga() {
 		getUnits(params)
 	}
 
+	const showEdit = (prop, e) => {
+		console.log('masuk', prop)
+		setIsOpen(true)
+		setEdit(true)
+		setDataUpdate(prop)
+	}
+
+	const funcOnCancel = () => {
+		setIsOpen(false)
+		setEdit(false)
+	}
+
 	useEffect(() => {
 		getUnits()
 		getUsers()
-	},[])
+	}, [])
 
 	return (
 		<div>
@@ -123,7 +158,7 @@ function UnitLembaga() {
 														</div>
 													</button>
 												</div>
-												<List units={units} paginationLink={paginationLink} />
+												<List units={units} paginationLink={paginationLink} showEdit={showEdit} />
 											</div>
 										</div>
 									</div>
@@ -133,7 +168,21 @@ function UnitLembaga() {
 					</div>
 				</div>
 			</div>
-			<Modal isOpen={isOpen} setIsOpen={setIsOpen} validation={validation} input={input} setInput={setInput} userOptions={userOptions} levelOptions={levelOptions} submitCreate={submitCreate} getUnits={getUnits}/>
+			<Modal
+				submitUpdate={submitUpdate}
+				onCancel={funcOnCancel}
+				valueUpdate={dataUpdate}
+				valEdit={edit}
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				validation={validation}
+				input={input}
+				setInput={setInput}
+				userOptions={userOptions}
+				levelOptions={levelOptions}
+				submitCreate={submitCreate}
+				getUnits={getUnits}
+			/>
 		</div>
 	)
 }
