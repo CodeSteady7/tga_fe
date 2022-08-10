@@ -11,17 +11,17 @@ import id from "date-fns/locale/id/index"
 import Modal from "./Topic/Modal"
 
 function TopikInstrumen() {
-	const [isMainPage, setIsMainPage ] = useState(true)
+	const [isMainPage, setIsMainPage] = useState(true)
 	const [periodOptions, setPeriodOptions] = useState([])
 	const [subTopicInput, setSubTopicInput] = useState('')
 	const [subTopicList, setSubTopicList] = useState([])
 	const [name, setName] = useState('')
-	const [period, setPeriod] = useState('') 
+	const [period, setPeriod] = useState('')
 	const [topicList, setTopicList] = useState([])
 	const [validation, setValidation] = useState([])
 	const [isOpen, setIsOpen] = useState(false)
 	const [subTopicID, setSubTopicID] = useState('')
-	
+
 	const showInstrument = (id) => {
 		setIsMainPage(false)
 		setSubTopicID(id)
@@ -29,28 +29,28 @@ function TopikInstrumen() {
 
 	const getPeriods = async () => {
 		await Period.getAll()
-		.then((response) => {
-			const periods = response.data.result.map((prop, index) => {
-				return {
-					value: prop.id,
-					label: `Periode ${prop.name}`
-				}
-			})
+			.then((response) => {
+				const periods = response.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `Periode ${prop.name}`
+					}
+				})
 
-			setPeriodOptions(periods)
+				setPeriodOptions(periods)
 
-		}).catch((error) => {
-			
-		});
+			}).catch((error) => {
+
+			});
 	}
 
 	const getInstrumentTopics = async () => {
 		await Instrument.getAllTopic()
-		.then((response) => {
-			setTopicList(response.data.result)
-		}).catch((error) => {
-			
-		});
+			.then((response) => {
+				setTopicList(response.data.result)
+			}).catch((error) => {
+
+			});
 	}
 
 	const addSubTopicList = (e) => {
@@ -84,14 +84,14 @@ function TopikInstrumen() {
 		}).catch(error => {
 			setValidation(error.response.data)
 		})
-		
+
 	}
 
 	useEffect(() => {
-	  getPeriods()
-	  getInstrumentTopics()
+		getPeriods()
+		getInstrumentTopics()
 	}, [])
-	
+
 	return (
 		<>
 			<div
@@ -138,22 +138,22 @@ function TopikInstrumen() {
 					</div>
 				</div>
 			</div>
-			<Modal 
-				isOpen = {isOpen}
-				setIsOpen = {setIsOpen}
-				validation = {validation}
-				name = {name}
-				setName = {setName}
-				periodOptions = {periodOptions}
-				setPeriod = {setPeriod}
-				subTopicInput = {subTopicInput}
-				setSubTopicInput = {setSubTopicInput}
-				addSubTopicList = {addSubTopicList}
-				subTopicList = {subTopicList}
-				removeSubTopicList = {removeSubTopicList}
-				handleSubmit = {handleSubmit}
+			<Modal
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				validation={validation}
+				name={name}
+				setName={setName}
+				periodOptions={periodOptions}
+				setPeriod={setPeriod}
+				subTopicInput={subTopicInput}
+				setSubTopicInput={setSubTopicInput}
+				addSubTopicList={addSubTopicList}
+				subTopicList={subTopicList}
+				removeSubTopicList={removeSubTopicList}
+				handleSubmit={handleSubmit}
 			/>
-		</>	
+		</>
 	)
 }
 

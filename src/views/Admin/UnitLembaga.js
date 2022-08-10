@@ -119,6 +119,15 @@ function UnitLembaga() {
 		setEdit(false)
 	}
 
+	const onDelete = async (prop) => {
+		await Unit.destroy({ id: prop.id }).then(res => {
+			getUnits()
+		}).catch(err => {
+			alert(err)
+			console.log(err)
+		})
+	}
+
 	useEffect(() => {
 		getUnits()
 		getUsers()
@@ -158,7 +167,7 @@ function UnitLembaga() {
 														</div>
 													</button>
 												</div>
-												<List units={units} paginationLink={paginationLink} showEdit={showEdit} />
+												<List units={units} paginationLink={paginationLink} showEdit={showEdit} onDelete={onDelete} />
 											</div>
 										</div>
 									</div>

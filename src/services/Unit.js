@@ -35,7 +35,6 @@ const show = async (ID) => {
 }
 
 const update = async ({ id, input }) => {
-    console.log('===', id, input)
     return axios.put(`${process.env.REACT_APP_API_URL}departments/${id}`, {
         name: input.name,
         user_id: input.user_id,
@@ -49,7 +48,7 @@ const update = async ({ id, input }) => {
     })
 }
 
-const destroy = async (id) => {
+const destroy = async ({ id }) => {
     return axios.delete(`${process.env.REACT_APP_API_URL}departments/${id}`, {
         timeout: 1000 * 5,
         headers: {

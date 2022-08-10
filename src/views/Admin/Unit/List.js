@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function List({ units, paginationLink, showEdit }) {
+export default function List({ units, paginationLink, showEdit, onDelete }) {
+
     return (
         <div className="card-datatable">
             <table className="dt-multilingual table">
@@ -40,7 +41,7 @@ export default function List({ units, paginationLink, showEdit }) {
                                                 <i data-feather="edit-2" className="me-50"></i>
                                                 <span>Edit</span>
                                             </a>
-                                            <a className="dropdown-item" href="#">
+                                            <a className="dropdown-item" href="#" onClick={e => onDelete(prop)} >
                                                 <i data-feather="trash" className="me-50"></i>
                                                 <span>Delete</span>
                                             </a>
