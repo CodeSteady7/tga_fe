@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import User from 'services/User'
 
-export default function Modal({ isOpen, setIsOpen, getUsers }) {
+export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDataUpdate, openClose }) {
+
+    // console.log('setDataUpdate', setDataUpdate)
     const [user, setUser] = useState({
         name: "",
         email: "",
         password: "",
         role: "manager",
         nip: "",
-        // repassword: "",
     })
 
 
@@ -29,7 +30,6 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                     password: "",
                     role: "manager",
                     nip: "",
-                    // repassword: "",
                 })
                 setIsOpen(false)
                 getUsers()
@@ -37,6 +37,17 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
             .catch(error => {
                 setValidation(error.response.data)
             })
+    }
+
+    const handleUpdate = async e => {
+        e.preventDefault()
+        await User.update({ id: setDataUpdate.id, user }).then(response => {
+            // console.log(response)
+            setIsOpen(false)
+            getUsers()
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     return (
@@ -75,7 +86,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                         <form
                             id="addRoleForm"
                             className="row"
-                            onSubmit={handleSubmit}
+                            onSubmit={setOpenEdit ? handleUpdate : handleSubmit}
                         >
                             <div className="row">
                                 <div className="col-6">
@@ -89,7 +100,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                         type="text"
                                         name="name"
                                         className="form-control"
-                                        placeholder="Enter Username"
+                                        placeholder={setOpenEdit ? setDataUpdate.name : "Enter Username"}
                                         onChange={onChangeInput}
                                         value={user.name}
                                     />
@@ -105,7 +116,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                         type="text"
                                         name="email"
                                         className="form-control"
-                                        placeholder="Enter Email"
+                                        placeholder={setOpenEdit ? setDataUpdate.email : "Enter Email"}
                                         onChange={onChangeInput}
                                         value={user.email}
                                     />
@@ -124,7 +135,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                         type="text"
                                         name="nip"
                                         className="form-control"
-                                        placeholder="Enter NIM"
+                                        placeholder={setOpenEdit ? setDataUpdate.nip : "Enter NIM"}
                                         onChange={onChangeInput}
                                         value={user.nip}
                                     />
@@ -140,27 +151,12 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                         type="text"
                                         name="password"
                                         className="form-control"
-                                        placeholder="Enter Password"
+                                        placeholder={setOpenEdit ? '*************' : "Enter Password"}
+
                                         onChange={onChangeInput}
                                         value={user.password}
                                     />
                                 </div>
-                                {/* <div className="col-6">
-                                <label
-                                    className="form-label"
-                                    htmlFor="modalRoleName"
-                                >
-                                    Check Password
-                                </label>
-                                <input
-                                    type="text"
-                                    name="repassword"
-                                    className="form-control"
-                                    placeholder="Enter Check Password"
-                                    onChange={onChangeInput}
-                                    value={user.repassword}
-                                />
-                            </div> */}
                             </div>
 
                             <div className="col-12">
@@ -181,7 +177,6 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                                                 type="radio"
                                                                 name="role"
                                                                 onChange={onChangeInput}
-                                                                defaultChecked
                                                                 value="manager"
                                                             />
                                                             <label
@@ -239,7 +234,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                     id="type-success"
                                 // data-bs-dismiss="modal"
                                 >
-                                    Submit
+                                    {setOpenEdit ? "Update" : "Submit"}
                                 </button>
 
                                 <button
@@ -247,9 +242,9 @@ export default function Modal({ isOpen, setIsOpen, getUsers }) {
                                     className="btn btn-outline-secondary"
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={(e) => openClose()}
                                 >
-                                    Discard
+                                    Cancel
                                 </button>
                             </div>
                         </form>

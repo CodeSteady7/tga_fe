@@ -11,10 +11,19 @@ import Card from "./Admin/User/Card"
 import List from "./Admin/User/List"
 
 function Users() {
-	
-	const [users, setUsers] = useState([])
 
+	const [users, setUsers] = useState([])
+	const [dataUpdate, setDataUpdate] = useState()
+	const [openEdit, setOpenEdit] = useState(false)
 	const [isOpen, setIsOpen] = useState(false)
+
+	const setShowUpdate = (prop) => {
+		setDataUpdate(prop)
+		setOpenEdit(true)
+		setIsOpen(true)
+		console.log('masuk show update', prop)
+	}
+
 
 	const getUsers = async (params = {}) => {
 		await User.getAll(params)
@@ -22,13 +31,34 @@ function Users() {
 				setUsers(response.data.result)
 			})
 			.catch(error => {
-				
+
 			})
+	}
+
+	const openClose = () => {
+		setIsOpen(false)
+		setOpenEdit(false)
+		setUser({
+			name: "",
+			email: "",
+			password: "",
+			role: "manager",
+			nip: "",
+		})
+	}
+
+	const onDelete = async (prop) => {
+		await User.destroy({ id: prop.id }).then(response => {
+			console.log(response)
+			setIsOpen(false)
+			getUsers()
+		})
+			.catch(error => { console.log(error) });
 	}
 
 	useEffect(() => {
 		getUsers()
-	}, [])
+	}, [getUsers])
 
 	return (
 		<>
@@ -56,12 +86,12 @@ function Users() {
 								List Data Users
 							</h3>
 
-							<List users={users} />
+							<List users={users} setShowUpdate={setShowUpdate} onDelete={onDelete} />
 						</div>
 					</div>
 				</div>
 			</div>
-			<Modal isOpen={isOpen} setIsOpen={setIsOpen} getUsers={getUsers} />
+			<Modal isOpen={isOpen} setIsOpen={setIsOpen} getUsers={getUsers} setOpenEdit={openEdit} setDataUpdate={dataUpdate} openClose={openClose} />
 		</>
 	)
 }
