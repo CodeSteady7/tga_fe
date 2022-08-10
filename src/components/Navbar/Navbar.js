@@ -152,6 +152,21 @@ function Navbar({ routes = '' }) {
 						) : (
 							""
 						)}
+						{role === "manager" ? (
+							<>
+								<li className="nav-item">
+									<a className="d-flex align-items-center" href="/manager/laporanaudit">
+										<User color="#7367F0" size={20} />
+
+										<span className="menu-title text-truncate" data-i18n="Email">
+											Laporan Audit
+										</span>
+									</a>
+								</li>
+							</>
+						) : (
+							""
+						)}
 						<li className="nav-item">
 							<a className="d-flex align-items-center" onClick={handleSignOut}>
 								<LogOut color="#7367F0" size={10} />
