@@ -1,19 +1,10 @@
-import React, { useState, useContext } from "react"
-import { Navigate, Outlet } from "react-router-dom"
-import { GlobalState } from "../GlobalState"
+import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
 
-function PrivateRoute() {
-	const state = useContext(GlobalState)
-	const [isUser] = state.UserApi.isUser
-	console.log("PrivateRoute UserApi", isUser)
+export default function PrivateRoute({children}) {
+	if(!localStorage.getItem('isLogIn')) {
+		return <Navigate to="/berita" />
+	}
 
-	return localStorage.getItem("token") && localStorage.getItem("user") ? (
-		<Outlet />
-	) : (
-		<Navigate to="/berita" />
-	)
+	return children ? children : <Outlet />;
 }
-
-export default PrivateRoute
-
-// return token[0] && localStorage.getItem("user") ? (

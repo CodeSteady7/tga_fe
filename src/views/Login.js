@@ -1,11 +1,46 @@
 import React, { useState } from "react"
-import axios from "axios"
+import { useNavigate  } from 'react-router-dom';
+import Auth from "../services/Auth.js"
 
 function Login() {
-	const [user, setUser] = useState({
-		email: "",
-		password: "",
-	})
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
+	const [validation, setValidation] = useState([]);
+
+	const navigate = useNavigate();
+
+	const loginHandler = async (e) => {
+		e.preventDefault();
+		
+		await Auth.authLogin(email, password)
+        .then((response) => {
+            //set token on localStorage
+            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('role', response.data.user.role);
+			localStorage.setItem('isLogIn', true);
+
+			switch (response.data.user.role) {
+				case 'admin':
+					navigate('/admin');
+					break;
+				case 'auditee':
+					navigate('/auditee');
+					break;
+				case 'auditor':
+					navigate('/auditor');
+					break;
+				case 'manager':
+					navigate('/manager');
+					break;
+				default: 
+					break;
+			}
+        })
+        .catch((error) => {
+            setValidation(error.response.data);
+        })
+
+	}
 
 	return (
 		<div
@@ -38,10 +73,16 @@ function Login() {
 										<h2 className="card-title fw-bold mb-1">
 											Selamat Datang di Aplikasi Audit Mutu Internal
 										</h2>
-										<form className="auth-login-form mt-2" href="/nonakademik">
-											<a href="/nonakademik" />
+										{
+											validation.message && (
+												<div className="alert alert-danger">
+													{validation.message}
+												</div>
+											)
+										}
+										<form className="auth-login-form mt-2" onSubmit={(e) => loginHandler(e)} >
 											<div className="mb-1">
-												<label className="form-label" for="login-email">
+												<label className="form-label">
 													Email
 												</label>
 												<input
@@ -50,14 +91,14 @@ function Login() {
 													type="text"
 													placeholder="john@example.com"
 													aria-describedby="login-email"
-													autofocus=""
-													tabindex="1"
+													tabIndex="1"
 													name="email"
+													onChange={(e) => setEmail(e.target.value)}
 												/>
 											</div>
 											<div className="mb-1">
 												<div className="d-flex justify-content-between">
-													<label className="form-label" for="login-password">
+													<label className="form-label">
 														Password
 													</label>
 													<a href="auth-forgot-password-cover.html">
@@ -71,8 +112,9 @@ function Login() {
 														type="password"
 														placeholder="············"
 														aria-describedby="login-password"
-														tabindex="2"
+														tabIndex="2"
 														name="password"
+														onChange={(e) => setPassword(e.target.value)}
 													/>
 													<span className="input-group-text cursor-pointer">
 														<i data-feather="eye"></i>
@@ -85,17 +127,15 @@ function Login() {
 														className="form-check-input"
 														id="remember-me"
 														type="checkbox"
-														tabindex="3"
+														tabIndex="3"
 													/>
-													<label className="form-check-label" for="remember-me">
+													<label className="form-check-label">
 														{" "}
 														Remember Me
 													</label>
 												</div>
 											</div>
-											<a type="buttom" className="btn btn-primary w-100" tabindex="4" href="/admin">
-												Sign in
-											</a>
+											<button className="btn btn-primary w-100">Sign in</button>
 										</form>
 									</div>
 								</div>

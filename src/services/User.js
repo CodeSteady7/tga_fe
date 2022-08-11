@@ -1,0 +1,47 @@
+import axios from "axios"
+import { format } from 'date-fns';
+
+const getAll = async (params = {}) => {
+
+    return axios.get(
+        `${process.env.REACT_APP_API_URL}users`,
+    {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        params: params
+    })
+}
+
+const create = async ({name, email, nip, role, password}) => {
+    return axios.post(
+        `${process.env.REACT_APP_API_URL}users`,{
+            name: name, 
+            email: email,
+            nip: nip,
+            role: role,
+            password: password
+        },{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+}
+
+const getProfile = async () => {
+    return axios.get(
+        `${process.env.REACT_APP_API_URL}profile`,
+    {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+}
+
+const User = {
+    getAll, 
+    create,
+    getProfile
+}
+
+export default User

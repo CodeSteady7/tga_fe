@@ -1,47 +1,16 @@
 import React, { useEffect } from "react"
-import { NavLink } from "react-router-dom"
-import { Home, FileMinus, FilePlus, FileText, User, Image } from "react-feather"
-const url = window.location.pathname.split("/")[1]
-console.log("🚀 ~ file: Navbar.js ~ line 3 ~ url", url)
-function Navbar({ routes }) {
-	// useEffect(() => {
-	// 	feather.replace()
-	// }, [])
-	// const createLinks = routes => {
-	// 	return routes.map((prop, key) => {
-	// 		return (prop.layout === `/${url}` && !prop.api) || prop.use === true ? (
-	// 			// <NavLink>
-	// 			<a className="d-flex align-items-center" href={prop.layout + prop.path}>
-	// 				<i data-feather="home"></i>
-	// 				<span className="menu-title text-truncate" data-i18n="Dashboards">
-	// 					{prop.name}
-	// 				</span>
-	// 			</a>
-	// 		) : // </NavLink>
-	// 		null
-	// 	})
-	// }
+import { Link, NavLink } from "react-router-dom"
+import { Home, FileMinus, FilePlus, FileText, User, Image, LogOut } from "react-feather"
+function Navbar({ routes = '' }) {
+	let role = localStorage.getItem("role")
 
-	// const createApiLinks = routes => {
-	// 	return routes.map((prop, key) => {
-	// 		return prop.layout === `/${url}` && prop.api ? (
-	// 			<li className="nav-item">
-	// 				<a className="d-flex align-items-center" href={prop.layout + prop.path}>
-	// 					<i data-feather="user"></i>
-	// 					<span className="menu-title text-truncate" data-i18n="Email">
-	// 						{prop.name}
-	// 					</span>
-	// 				</a>
-	// 			</li>
-	// 		) : null
-	// 	})
-	// }
+	const handleSignOut = (e) => {
+		localStorage.removeItem("token")
+		localStorage.removeItem("role")
+		localStorage.removeItem("isLogIn")
+		window.location.href = "/login"
+	}
 
-	let getHref = window.location.href
-	let split = getHref.split("/")
-	let getAdmin = split[3]
-	console.log("🚀 ~ file: Navbar.js ~ line 40 ~ Navbar ~ getHref", getHref)
-	console.log("getAdmin", getAdmin)
 	return (
 		<>
 			<div
@@ -77,104 +46,91 @@ function Navbar({ routes }) {
 						id="main-menu-navigation"
 						data-menu="menu-navigation"
 					>
-						<li className="nav-item">
-							{/* {createLinks(routes)} */}
-							<a className="d-flex align-items-center" href="/admin">
-								{/* <i data-feather="feather" class="text-info"></i> */}
-								<Home color="#7367F0" size={48} />
-								<span className="menu-title text-truncate" data-i18n="Dashboards">
-									Dashboards
-								</span>
-							</a>
-						</li>
 
-						<li className="navigation-header">
-							<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
-							<i data-feather="more-horizontal"></i>
-						</li>
-
-						{getAdmin === "admin" ? (
+						{role === "admin" ? (
 							<>
-								<li className="nav-">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/periodeaudit">
-										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Periode
-										</span>
-									</a>
-								</li>
-								<li className="nav-">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/timaudit">
-										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Tim Audit
-										</span>
-									</a>
-								</li>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/progamstudi">
-										<FilePlus color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Program Studi
+									<Link to={'/admin'} className="d-flex align-items-center">
+										<Home color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Dashboard
 										</span>
-									</a>
+									</Link>
 								</li>
-								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/topikinstrumen">
-										<FileText color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Topik Instrumen
-										</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/users">
-										<User color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											User
-										</span>
-									</a>
+
+								<li className="navigation-header">
+									<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
+									<i data-feather="more-horizontal"></i>
 								</li>
 
 								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/admin/addimage">
-										<Image color="#7367F0" size={20} />
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Add Image
+									<Link to={'/admin/users'} className="d-flex align-items-center">
+										<User color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data User
 										</span>
-									</a>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/periods'} className="d-flex align-items-center">
+										<FileMinus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Periode
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/units'} className="d-flex align-items-center">
+										<FilePlus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Unit Kelembagaan
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/instruments'} className="d-flex align-items-center">
+										<FileText color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Instrumen
+										</span>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/admin/audits'} className="d-flex align-items-center">
+										<FileMinus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Input Data Audit
+										</span>
+									</Link>
 								</li>
 							</>
 						) : (
 							""
 						)}
 
-						{getAdmin === "auditi" ? (
+						{role === "auditee" ? (
 							<>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
-									<a className="d-flex align-items-center" href="/admin/addinstrumen">
-										<FileText color="#7367F0" size={20} />
-
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Mengisi Instrumen
+									<Link to={'/auditee'} className="d-flex align-items-center">
+										<Home color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Dashboard
 										</span>
-									</a>
+									</Link>
+								</li>
+
+								<li className="navigation-header">
+									<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
+									<i data-feather="more-horizontal"></i>
 								</li>
 							</>
 						) : (
 							""
 						)}
 
-						{getAdmin === "auditor" ? (
+						{role === "auditor" ? (
 							<>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periode">
 										<User color="#7367F0" size={20} />
 
@@ -184,7 +140,6 @@ function Navbar({ routes }) {
 									</a>
 								</li>
 								<li className="nav-item">
-									{/* {createApiLinks(routes)} */}
 									<a className="d-flex align-items-center" href="/admin/periode">
 										<FilePlus color="#7367F0" size={20} />
 
@@ -197,6 +152,14 @@ function Navbar({ routes }) {
 						) : (
 							""
 						)}
+						<li className="nav-item">
+							<a className="d-flex align-items-center" onClick={handleSignOut}>
+								<LogOut color="#7367F0" size={10} />
+								<span className="menu-title text-truncate" >
+									Sign Out
+								</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
