@@ -1,6 +1,8 @@
+import AuditLib from 'components/Library/AuditLib'
+import HTMLReactParser from 'html-react-parser'
 import React from 'react'
 
-export default function FormDetail({auditForm}) {
+export default function Detail({auditForm}) {
   return (
     <div className="card">
         <div className="card-header border-bottom">
@@ -8,11 +10,16 @@ export default function FormDetail({auditForm}) {
         </div>
         <div className="card-body pt-2">
             <div className='row pb-2'>
-                <div className='col-12'>
+                <div className='col-6'>
                     <label className="form-label" >
                         No Dokumen
                     </label>
                     <p>{auditForm.document_no}</p>
+                </div>
+                <div className='col-6'>
+                    <label className="form-label" >
+                        { HTMLReactParser(AuditLib.formattedText(AuditLib.isOpen(auditForm.audit_at), AuditLib.auditStatus(auditForm.audit_status))) }
+                    </label>
                 </div>
             </div>
             <div className="row pb-2">

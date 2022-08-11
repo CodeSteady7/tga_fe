@@ -38,6 +38,14 @@ const getDetail = async (auditID) => {
     })
 }
 
+const getResult = async (auditID) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}audits/${auditID}/result`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+}
+
 const submitfulfillment = async (auditID, InstrumentID, {description, file}) => {
     return axios.postForm(`${process.env.REACT_APP_API_URL}audits/${auditID}/instrument/${InstrumentID}/fulfillment`, {description:description, file: file
     }, {
@@ -60,7 +68,8 @@ const Audit = {
     getAll,
     getDetail,
     submitfulfillment,
-    finishFulFillment
+    finishFulFillment,
+    getResult
 }
 
 export default Audit

@@ -18,6 +18,7 @@ import TopikInstrumen from "views/Admin/TopikInstrumen"
 import PrivateRoute from "Route/PrivateRoute"
 import Auditee from "views/Auditee"
 import Form from "views/Auditee/Form"
+import Approval from "views/Auditor/Approval"
 
 // <!-- END: Custom CSS-->
 function Pages() {
@@ -35,6 +36,7 @@ function Pages() {
 				<Route path="/auditee/form-audit/:id" element={<PrivateRoute><Form /></PrivateRoute>} />
 
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute> } />
+				<Route path="/auditor/form-approval/:id" element={<PrivateRoute><Approval /></PrivateRoute> } />
 
 				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
 

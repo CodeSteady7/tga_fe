@@ -1,45 +1,35 @@
-import React, { Component, useCallback, useEffect, useState } from 'react'
 import Header from 'components/Header/Header';
 import Navbar from 'components/Navbar/Navbar';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Audit from 'services/Audit';
-import Detail from './Detail';
+import Detail from './Detail'
 import InstrumentList from './InstrumentList';
 
-export default function Form() {
+export default function Approval() {
     const { id } = useParams();
     const [auditForm, setAuditForm] = useState({})
-    const [topics, setTopics] = useState([])
+    const [auditResult, setAuditResult] = useState([])
     const [input, setInput] = useState([])
 
 
     const getDetail = async () => {
-        await Audit.getDetail(id).then((res) => {
+        await Audit.getResult(id).then((res) => {
             setAuditForm(res.data.result.audit)
-            setTopics(res.data.result.topic)
+            setAuditResult(res.data.result.result)
 
             let defaultInput = []
             
-            for(let topic in res.data.result.topic) {
-                for (let subTopic in res.data.topic[topic].sub_topics) {
-                    for (let instrument in res.data.topic[topic].sub_topics[subTopic].instruments) {
-                        defaultInput = [...defaultInput, {
-                                        ID: res.data.topic[topic].sub_topics[subTopic].instruments[instrument].id, 
-                                        description: '', 
-                                        file: []
-                                    }]
-                    }
-                }
+            for(let i in res.data.result.result) {
+                defaultInput = [...defaultInput, {ID: res.data.result.result[i].id, approve: 1}]
             }
             
             setInput(defaultInput)
-
         }).catch(err => {
 
         })
     }
 
-    
     useEffect(() => {
         getDetail()
     }, [])
@@ -58,7 +48,7 @@ export default function Form() {
 								<div className="col-12">
                                     <Detail auditForm={auditForm} />
                                     <p className='text-danger'>Anda hanya dapat mengisi instrument satu kali. Pastikan mengisi dengan benar!</p>
-                                    <InstrumentList auditID={id}  setInput={setInput} input={input} getDetail={getDetail} topics={topics} />
+                                    <InstrumentList auditID={id}  setInput={setInput} input={input} getDetail={getDetail} auditResult={auditResult} />
                                 </div>
                             </div>
                         </section>

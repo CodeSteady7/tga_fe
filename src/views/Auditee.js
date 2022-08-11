@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from "react"
 import Navbar from "../components/Navbar/Navbar"
 import Header from "../components/Header/Header"
-import { Plus, Search } from "react-feather"
 import Select from "react-select"
 import Period from "services/Period"
 import Audit from "services/Audit"
 import { format } from "date-fns"
 import HTMLReactParser from "html-react-parser"
 import { Link } from "react-router-dom"
-import Modal from "./Auditee/Modal"
+import AuditLib from "components/Library/AuditLib"
 
 export default function Auditee() {
 	const [periodOption, setPeriodOption] = useState([])
-    const [period, setPeriod] = useState('')
 	const [audits, setAudits] = useState([]) 
-	const [badge, setBadge] = useState({
-		unavaiable: '<span className="badge alert-warning">Belum Dibuka</span>',
-		open: '<span className="badge alert-primary">Open</span>',
-		finish: '<span className="badge alert-success">Selesai</span>',
-		close: '<span className="badge alert-danger">Ditutup</span>',
-	})
+	
 	const [isOpen, setIsOpen] = useState(false)
 
 	const getPeriods = async () => {
@@ -55,6 +48,13 @@ export default function Auditee() {
 
 		getAudits(params)
 
+	}
+
+	const formattedStatus = (date, status) => {
+		let auditStatus = AuditLib.auditStatus(status)
+		let isOpen 		= AuditLib.isOpen(date)
+
+		return HTMLReactParser(AuditLib.formattedText(isOpen, auditStatus))
 	}
 
 	const handleDetail = (event) => {
@@ -118,13 +118,7 @@ export default function Auditee() {
 																<td>{prop.audit_type}</td>
 																<td>{format(new Date(prop.audit_at), "dd-MM-yyyy")}</td>
 																<td>{prop.auditor.name}</td>
-																<td>{ new Date() >= new Date(prop.audit_at) 
-																	? prop.audit_status === 1 
-																		? HTMLReactParser(badge.open ) 
-																		: prop.audit_status === 3 
-																			? HTMLReactParser(badge.finish )  
-																			: HTMLReactParser(badge.close )
-																	: HTMLReactParser(badge.unavaiable) }</td>
+																<td>{ formattedStatus(prop.audit_at, prop.audit_status) }</td>
 																<td><div className="dropdown">
 																		<a
 																			type="button"
@@ -141,7 +135,7 @@ export default function Auditee() {
 																			className="dropdown-menu dropdown-menu-end"
 																			aria-labelledby="dropdownMenuLink"
 																		>
-																			{prop.audit_status === 1 ? (
+																			{AuditLib.isAuditeeMenuShown(prop.audit_status) ? (
 																				<Link
 																					className="dropdown-item"
 																					to={`/auditee/form-audit/${prop.id}`}
@@ -171,7 +165,6 @@ export default function Auditee() {
 					</div>
 				</div>
 			</div>
-			<Modal isOpen={isOpen} setIsOpen={setIsOpen} />
 		</>
 	)
 }
