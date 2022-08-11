@@ -24,7 +24,6 @@ function Pages() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				{/* <Route path="/admin" element={<Admin />} /> */}
 				<Route path="/admin" element={<PrivateRoute><Home /></PrivateRoute> } />
 				<Route path="/admin/users" element={<PrivateRoute><Users /></PrivateRoute> } />
 				<Route path="/admin/periods" element={<PrivateRoute><PeriodeAudit /></PrivateRoute> } />

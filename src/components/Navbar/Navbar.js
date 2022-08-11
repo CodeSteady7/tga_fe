@@ -118,11 +118,6 @@ function Navbar({ routes = '' }) {
 										</span>
 									</Link>
 								</li>
-
-								<li className="navigation-header">
-									<span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span>
-									<i data-feather="more-horizontal"></i>
-								</li>
 							</>
 						) : (
 							""
@@ -131,22 +126,12 @@ function Navbar({ routes = '' }) {
 						{role === "auditor" ? (
 							<>
 								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/admin/periode">
-										<User color="#7367F0" size={20} />
-
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Instrumen
+									<Link to={'/auditor'} className="d-flex align-items-center">
+										<Home color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Dashboard
 										</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/admin/periode">
-										<FilePlus color="#7367F0" size={20} />
-
-										<span className="menu-title text-truncate" data-i18n="Email">
-											Pelaporan
-										</span>
-									</a>
+									</Link>
 								</li>
 							</>
 						) : (
