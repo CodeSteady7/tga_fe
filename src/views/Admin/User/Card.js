@@ -10,6 +10,7 @@ export default function Card({ setIsOpen }) {
     })
     const totalData = async () => {
         await Report.totalData().then(res => {
+            console.log('res', res.data.result)
             let total = res.data.result
 
             setTotal({
@@ -86,7 +87,7 @@ export default function Card({ setIsOpen }) {
                             <div className="d-flex justify-content-between align-items-end mt-1 pt-25">
                                 <div className="role-heading">
                                     <h4 className="fw-bolder">
-                                        Unit Penunjang
+                                        Auditee
                                     </h4>
                                     <h6 className="fw-bolder">Prodi</h6>
                                     <a
@@ -111,7 +112,7 @@ export default function Card({ setIsOpen }) {
                             <div className="d-flex justify-content-between align-items-end mt-1 pt-25">
                                 <div className="role-heading">
                                     <h4 className="fw-bolder">
-                                        Unit Penunjang
+                                        Auditee
                                     </h4>
                                     <h6 className="fw-bolder">
                                         Non Akademik
@@ -146,7 +147,7 @@ export default function Card({ setIsOpen }) {
                                         onClick={() => setIsOpen(true)}
                                         className="stretched-link text-nowrap add-new-role"
                                     >
-                                        <span className="btn btn-primary mb-1">
+                                        <span className="btn btn-primary ">
                                             Klik
                                         </span>
                                     </a>
