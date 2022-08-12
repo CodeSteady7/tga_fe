@@ -1,7 +1,7 @@
 .pdf-page {
 	position: relative;
 	margin: 0 auto;
-	padding: 0.4in 0.3in;
+	padding: 30 50 30 50;
 	color: #333;
 	background-color: #fff;
 	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
@@ -11,14 +11,95 @@
 		Use the DejaVu Sans font for display and embedding in the PDF file.
 		The standard PDF fonts have no support for Unicode characters.
 	*/
-	font-family: "DejaVu Sans", "Arial", sans-serif;
+	font-family: 'DejaVu Sans', 'Arial', sans-serif;
 }
+
+.column02 h4 {
+	text-align: center;
+	color: #000000 !important;
+}
+.column03 h4 {
+	text-align: center;
+	font-size: 10;
+	font-weight: bold;
+	color: #000000 !important;
+}
+
+.column01 {
+	border: 1px solid #000000;
+	float: left;
+	/* width: 100; */
+	width: 20%;
+	padding: 10px;
+	height: 70px;
+}
+
+.column02 {
+	border: 1px solid #000000;
+	float: left;
+	width: 80%;
+	/* width: 350; */
+	padding: 10px;
+	height: 70px;
+}
+.column03 {
+	border: 1px solid #000000;
+	float: left;
+	/* width: 200; */
+	width: 40%;
+	padding: 10px;
+	height: 70px;
+}
+.column04 {
+	border: 1px solid #000000;
+	width: 60%;
+	float: left;
+	/* width: 250; */
+
+	padding: 5px;
+	height: 70px;
+}
+
+.column04 span {
+	color: #000000 !important;
+	font-size: 10;
+}
+/* Table */
+
 table,
 th,
+td,
+tr {
+	border: 1px solid black !important;
+	padding: 5;
+}
+.part_i span {
+	margin-top: 80 !important;
+}
 td {
-	border: 1px solid black;
-	color: black;
-	/* font-family: "DejaVu Sans", "Arial", sans-serif; */
+	color: black !important;
+	font-size: 12 !important;
+}
+
+.columnform {
+	font-weight: 500 !important;
+}
+
+.table {
+	padding: 10 !important;
+}
+.columnform {
+	width: 30% !important;
+	background-color: #a8a8a8 !important;
+}
+
+.columnformvalue {
+	width: 50% !important;
+	font-weight: 400 !important;
+}
+
+.colformtd {
+	width: 20% !important;
 }
 
 /*
@@ -28,31 +109,31 @@ td {
     https://dejavu-fonts.github.io/.
 */
 @font-face {
-	font-family: "DejaVu Sans";
-	src: url("https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans.ttf")
-		format("truetype");
+	font-family: 'DejaVu Sans';
+	src: url('https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans.ttf')
+		format('truetype');
 }
 
 @font-face {
-	font-family: "DejaVu Sans";
+	font-family: 'DejaVu Sans';
 	font-weight: bold;
-	src: url("https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Bold.ttf")
-		format("truetype");
+	src: url('https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Bold.ttf')
+		format('truetype');
 }
 
 @font-face {
-	font-family: "DejaVu Sans";
+	font-family: 'DejaVu Sans';
 	font-style: italic;
-	src: url("https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf")
-		format("truetype");
+	src: url('https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf')
+		format('truetype');
 }
 
 @font-face {
-	font-family: "DejaVu Sans";
+	font-family: 'DejaVu Sans';
 	font-weight: bold;
 	font-style: italic;
-	src: url("https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf")
-		format("truetype");
+	src: url('https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf')
+		format('truetype');
 }
 
 .pdf-header {
@@ -84,7 +165,7 @@ td {
 
 .addresses:after {
 	display: block;
-	content: "";
+	content: '';
 	clear: both;
 }
 
