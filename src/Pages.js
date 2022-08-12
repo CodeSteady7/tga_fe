@@ -19,6 +19,7 @@ import PrivateRoute from "Route/PrivateRoute"
 import Auditee from "views/Auditee"
 import Form from "views/Auditee/Form"
 import LaporanAudit from "views/Manager/LaporanAudit"
+import FormLaporan from "views/Manager/laporan/FormLaporan"
 
 // <!-- END: Custom CSS-->
 function Pages() {
@@ -43,6 +44,7 @@ function Pages() {
 
 
 				<Route path="/manager/laporanaudit" element={<PrivateRoute> <LaporanAudit /></PrivateRoute>} />
+				<Route path="/manager/laporanaudit/view" element={<PrivateRoute> <FormLaporan /></PrivateRoute>} />
 
 				<Route path="/login/*" element={<Login />} />
 				<Route path="/berita/*" element={<HalamanUtama />} />
