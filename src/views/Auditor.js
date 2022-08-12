@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react"
 import Navbar from "../components/Navbar/Navbar"
 import Header from "../components/Header/Header"
-import { Plus, Search } from "react-feather"
 import Select from "react-select"
 import Period from "services/Period"
+import { Link } from "react-router-dom"
+import Audit from "services/Audit"
+import { format } from "date-fns"
+import HTMLReactParser from "html-react-parser"
+import AuditLib from "components/Library/AuditLib"
 
 export default function Auditor() {
 	const [periodOption, setPeriodOption] = useState([])
     const [period, setPeriod] = useState('')
-
+	const [audits, setAudits] = useState([]) 
+	const [isOpen, setIsOpen] = useState(false)
 
 	const getPeriods = async () => {
 		await Period.getAll()
@@ -25,6 +30,36 @@ export default function Auditor() {
 		}).catch((error) => {
 			
 		});
+	}
+
+	const getAudits = async (params) => {
+		await Audit.getAll(params).then(res => {
+			setAudits(res.data.result)
+		}).catch(err => {
+			
+		})
+	}
+
+	const handleSelectPeriod = (event) => {
+		let params = {
+			period_id: event.value,
+			pagination: 0
+		}
+
+		getAudits(params)
+
+	}
+
+	const formattedStatus = (date, status) => {
+		let auditStatus = AuditLib.auditStatus(status)
+		let isOpen 		= AuditLib.isOpen(date)
+
+		return HTMLReactParser(AuditLib.formattedText(isOpen, auditStatus))
+	}
+	
+
+	const handleDetail = (event) => {
+		setIsOpen(true)
 	}
 
 	useEffect(() => {
@@ -54,7 +89,7 @@ export default function Auditor() {
 												<div className="col-4">
 													<Select 
 														options={periodOption}
-														onChange={e => setPeriod(e.value)}
+														onChange={handleSelectPeriod}
 													/>
 												</div>
 												
@@ -74,9 +109,50 @@ export default function Auditor() {
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
+
+													{typeof audits !== 'undefined' && audits.length > 0 
+													? audits.map((prop, index) => {
+														return (
+															<tr key={index}>
+																<td>{index + 1} </td>
+																<td>{prop.document_no} </td>
+																<td>{prop.audit_type}</td>
+																<td>{format(new Date(prop.audit_at), "dd-MM-yyyy")}</td>
+																<td>{prop.auditor.name}</td>
+																<td>{ formattedStatus(prop.audit_at, prop.audit_status) }</td>
+																<td><div className="dropdown">
+																		<a
+																			type="button"
+																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																			data-bs-toggle="dropdown"
+																			id="dropdownMenuLink"
+																			aria-expanded="false"
+																		>
+																			<i data-feather="more-vertical">
+																				Click
+																			</i>
+																		</a>
+																		<div
+																			className="dropdown-menu dropdown-menu-end"
+																			aria-labelledby="dropdownMenuLink"
+																		>
+																			{AuditLib.isAuditorMenuShown(prop.audit_status) ? (
+																				<Link
+																					className="dropdown-item"
+																					to={`/auditor/form-approval/${prop.id}`}
+																				>
+																					<span>Lakukan Approval </span>
+																				</Link>
+																			) : ''}
+																		</div>
+																	</div></td>
+															</tr>
+														)
+													})  
+													: <tr>
 														<td colSpan={7} align="center"> -- Belum Tersedia --</td>
 													</tr>
+													}
 												</tbody>
 											</table>
 										</div>
@@ -88,5 +164,5 @@ export default function Auditor() {
 				</div>
 			</div>
 		</>
-	)
+	)	
 }

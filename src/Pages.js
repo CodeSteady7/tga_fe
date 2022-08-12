@@ -20,13 +20,13 @@ import Auditee from "views/Auditee"
 import Form from "views/Auditee/Form"
 import LaporanAudit from "views/Manager/LaporanAudit"
 import FormLaporan from "views/Manager/laporan/FormLaporan"
+import Approval from "views/Auditor/Approval"
 
 // <!-- END: Custom CSS-->
 function Pages() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				{/* <Route path="/admin" element={<Admin />} /> */}
 				<Route path="/admin" element={<PrivateRoute><Home /></PrivateRoute>} />
 				<Route path="/admin/users" element={<PrivateRoute><Users /></PrivateRoute>} />
 				<Route path="/admin/periods" element={<PrivateRoute><PeriodeAudit /></PrivateRoute>} />
@@ -38,7 +38,7 @@ function Pages() {
 				<Route path="/auditee/form-audit/:id" element={<PrivateRoute><Form /></PrivateRoute>} />
 
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute>} />
-
+				<Route path="/auditor/form-approval/:id" element={<PrivateRoute><Approval /></PrivateRoute>} />
 
 				<Route path="/manager" element={<PrivateRoute> <Manager /></PrivateRoute>} />
 
