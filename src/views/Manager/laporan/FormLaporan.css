@@ -1,22 +1,54 @@
 .pdf-page {
 	position: relative;
 	margin: 0 auto;
-	padding: 30 50 30 50;
+	padding: 50;
 	color: #333;
 	background-color: #fff;
 	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
 	box-sizing: border-box;
+	font-family: 'calibriBold';
 
 	/*
 		Use the DejaVu Sans font for display and embedding in the PDF file.
 		The standard PDF fonts have no support for Unicode characters.
 	*/
-	font-family: 'DejaVu Sans', 'Arial', sans-serif;
+	/* font-family: 'DejaVu Sans', 'Arial', sans-serif; */
+}
+/* part I */
+
+.part_II p {
+	line-height: 3px;
+	text-align: left;
+}
+
+.part_V p {
+	text-align: left;
+}
+
+.part_V p {
+	text-align: left;
+}
+
+.column02 h4,
+.column02 span,
+.column02 p {
+	font-family: 'Times' !important;
+	text-align: center;
+	color: #000000 !important;
 }
 
 .column02 h4 {
-	text-align: center;
-	color: #000000 !important;
+	line-height: 0px;
+	font-size: 15;
+}
+
+.column02 span {
+	font-size: 20;
+}
+
+.column02 p {
+	font-size: 10;
+	line-height: 13px;
 }
 .column03 h4 {
 	text-align: center;
@@ -31,7 +63,7 @@
 	/* width: 100; */
 	width: 20%;
 	padding: 10px;
-	height: 70px;
+	height: 80px;
 }
 
 .column02 {
@@ -40,8 +72,9 @@
 	width: 80%;
 	/* width: 350; */
 	padding: 10px;
-	height: 70px;
+	height: 80px;
 }
+
 .column03 {
 	border: 1px solid #000000;
 	float: left;
@@ -54,6 +87,7 @@
 	border: 1px solid #000000;
 	width: 60%;
 	float: left;
+	text-align: left !important;
 	/* width: 250; */
 
 	padding: 5px;
@@ -66,20 +100,23 @@
 }
 /* Table */
 
-table,
-th,
-td,
-tr {
+.formtable,
+.trColumn,
+.tdColumn,
+.thColumn {
 	border: 1px solid black !important;
 	padding: 5;
+	font-size: 12 !important;
+	color: black !important;
 }
+
 .part_i span {
 	margin-top: 80 !important;
 }
-td {
+/* td {
 	color: black !important;
 	font-size: 12 !important;
-}
+} */
 
 .columnform {
 	font-weight: 500 !important;
@@ -102,12 +139,58 @@ td {
 	width: 20% !important;
 }
 
+/* II Temuan Positif */
+
+.part_II h4 {
+	font-size: 12 !important;
+	color: black !important;
+}
+
+h4 .styleTemuan {
+	font-style: italic;
+	color: blue;
+}
+
+/* VI */
+
+.part_IV {
+	padding-top: 10;
+}
+
+.part_IV p {
+	padding: 0 !important;
+	text-align: left;
+}
+
+.part_IV span {
+	line-height: 20px;
+}
+
+.part_IV p {
+	line-height: 3px;
+}
+
+/* part V */
+.part_V p {
+	line-height: 3px;
+}
+
 /*
     The example loads the DejaVu Sans from the Kendo UI CDN.
     Other fonts have to be hosted from your application.
     The official site of the Deja Vu Fonts project is
     https://dejavu-fonts.github.io/.
 */
+@font-face {
+	font-family: 'calibri';
+	src: url('../../../assets/fonts/calibri/calibri-regular.ttf');
+}
+
+@font-face {
+	font-family: 'calibriBold';
+	src: url('../../../assets/fonts/calibri/calibri-bold.ttf');
+}
+
 @font-face {
 	font-family: 'DejaVu Sans';
 	src: url('https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans.ttf')
