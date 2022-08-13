@@ -25,7 +25,11 @@ export default function Content() {
 								</div>
 								<div className="headerFormDown">
 									<div className="column03">
-										<h4> FORM LAPORAN AUDIT MUTU INTERNAL PROGRAM STUDI </h4>
+										<h4>
+											{' '}
+											FORM LAPORAN <br /> AUDIT MUTU INTERNAL
+											<br /> PROGRAM STUDI{' '}
+										</h4>
 									</div>
 									<div className="column04">
 										<span>No. Dok : FM/PNL/P4M-04/01</span> <br />
@@ -165,7 +169,7 @@ export default function Content() {
 
 					<div className="part_IV">
 						<div>
-							<span>IV. KESIMPULAN AUDIT</span>
+							<span>IV. </span>
 						</div>
 						<div className="spacePartIV">
 							<p>1. </p>
