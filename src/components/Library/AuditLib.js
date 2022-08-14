@@ -54,13 +54,31 @@ const formattedText = (isOpen: boolean, status: string) : string => {
     return badge
 }
 
+const findingCatgoryText = (type: String) => {
+    let typeTextFormat = ''
+    switch (type) {
+        case 'observasi':
+        default:
+            typeTextFormat = 'Observasi'    
+            break;
+        case 'kts_minor':
+            typeTextFormat = 'Kts Minor'    
+            break;
+        case 'kts_mayor':
+            typeTextFormat = 'Kts Mayor'    
+            break;
+    }
+
+    return typeTextFormat
+}
 
 const AuditLib = {
     auditStatus,
     isOpen,
     formattedText,
     isAuditeeMenuShown,
-    isAuditorMenuShown
+    isAuditorMenuShown,
+    findingCatgoryText
 }
 
 export default AuditLib;

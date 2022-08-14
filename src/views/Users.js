@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar/Navbar"
 import Modal from "./Admin/User/Modal"
 import Card from "./Admin/User/Card"
 import List from "./Admin/User/List"
+import Report from "services/Report"
 
 function Users() {
 
@@ -16,13 +17,33 @@ function Users() {
 	const [dataUpdate, setDataUpdate] = useState()
 	const [openEdit, setOpenEdit] = useState(false)
 	const [isOpen, setIsOpen] = useState(false)
+	const [total, setTotal] = useState({
+        manager: 0,
+        auditor: 0,
+        academic: 0,
+        non_academic: 0
+    })
 
 	const setShowUpdate = (prop) => {
 		setDataUpdate(prop)
 		setOpenEdit(true)
 		setIsOpen(true)
-		console.log('masuk show update', prop)
 	}
+
+	const totalData = async () => {
+        await Report.totalData().then(res => {
+            let total = res.data.result
+
+            setTotal({
+                manager: total.manager,
+                auditor: total.auditor,
+                academic: total.academic,
+                non_academic: total.non_academic
+            })
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
 
 	const getUsers = async (params = {}) => {
@@ -58,7 +79,7 @@ function Users() {
 
 	useEffect(() => {
 		getUsers()
-	}, [getUsers])
+	}, [])
 
 	return (
 		<>
@@ -81,7 +102,7 @@ function Users() {
 					<div className="content-wrapper container-xxl p-0">
 						<div className="content-header row"></div>
 						<div className="content-body">
-							<Card setIsOpen={setIsOpen} />
+							<Card setIsOpen={setIsOpen} total={total} totalData={totalData} />
 							<h3 className="mt-50">
 								List Data Users
 							</h3>
@@ -91,7 +112,7 @@ function Users() {
 					</div>
 				</div>
 			</div>
-			<Modal isOpen={isOpen} setIsOpen={setIsOpen} getUsers={getUsers} setOpenEdit={openEdit} setDataUpdate={dataUpdate} openClose={openClose} />
+			<Modal isOpen={isOpen} setIsOpen={setIsOpen} getUsers={getUsers} setOpenEdit={openEdit} setDataUpdate={dataUpdate} totalData={totalData} openClose={openClose} />
 		</>
 	)
 }

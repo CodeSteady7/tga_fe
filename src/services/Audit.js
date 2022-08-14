@@ -78,7 +78,7 @@ const Audit = {
     submitfulfillment,
     finishFulFillment,
     getResult,
-    approve
+    approve,
 }
 
 export default Audit

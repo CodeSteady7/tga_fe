@@ -10,8 +10,19 @@ const totalData = async () => {
     })
 }
 
+const dashboardGraph = async () => {
+    return axios.get(
+        `${process.env.REACT_APP_API_URL}report/audit-chart`,
+    {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+}
+
 const Report = {
-    totalData
+    totalData,
+    dashboardGraph
 }
 
 export default Report;

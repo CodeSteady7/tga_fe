@@ -1,12 +1,43 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import LineChart from "components/Charts/LineChart"
 import { Calendar } from "react-feather"
 
 import Header from "../components/Header/Header"
 import Navbar from "../components/Navbar/Navbar"
+import Report from "services/Report"
 function Home() {
-	let today = new Date();
-	let date = today.toLocaleDateString('en-GB');
+	const [labelAudit, setLabelAudit] = useState([])
+	const [dataAudit, setDataAudit] = useState([])
+	const [labelRejection, setLabelRejection] = useState([])
+	const [dataRejection, setDataRejection] = useState([])
+
+	const getAuditChart = async () => {
+		await Report.dashboardGraph()
+		.then(res => {
+	
+		  let label = []
+		  let value = []
+		  res.data.result.audit.map((prop) => {
+			label = [...label, prop.label]
+			value = [...value, prop.value]
+		  })
+		  setLabelAudit(label)
+		  setDataAudit(value)
+	
+		  label = []
+		  value = []
+		  res.data.result.rejection.map((prop) => {
+			label = [...label, prop.label]
+			value = [...value, prop.value]
+		  })
+		  setLabelRejection(label)
+		  setDataRejection(value)
+		})
+	}
+
+	useEffect(() => {
+		getAuditChart()  
+	}, [])
 	return (
 		<>
 			<Header />
@@ -41,37 +72,11 @@ function Home() {
 								<div class="row">
 									{/* <!--Bar Chart Start --> */}
 									<div class="col-xl-6 col-12">
-										<div class="card">
-											<div class="card-header d-flex justify-content-between align-items-sm-center align-items-start flex-sm-row flex-column">
-												<div class="header-left">
-													<h4 class="card-title">Kategori Temuan</h4>
-												</div>
-												<div class="header-right d-flex align-items-center mt-sm-0 mt-1">
-													<Calendar color="#777289" size={15} />
-													<input type="text" class="form-control flat-picker border-0 shadow-none bg-transparent pe-0" placeholder={date} disabled />
-												</div>
-											</div>
-											<div class="card-body">
-												<LineChart />
-											</div>
-										</div>
+										<LineChart categoryTitle={'Kategori Temuan'} categoryLabel={['Temuan']} lineBarLabel={labelRejection} lineBarData={dataRejection} />
 									</div>
-									{/* <!-- Bar Chart End --> */}
-									{/* <div class="col-xl-6 col-12">
-										<div class="card">
-											<div class="card-header d-flex justify-content-between align-items-sm-center align-items-start flex-sm-row flex-column">
-												<div class="header-left">
-													<h4 class="card-title">Halaman Utama</h4>
-												</div>
-
-											</div>
-											<div class="card-body">
-												<p className="card-text font-small-3">
-													Selamat Datang di sistem Audit Mutu Internal Politeknik Negeri Lhokseumawe
-												</p>
-											</div>
-										</div>
-									</div> */}
+									<div class="col-xl-6 col-12">
+										<LineChart categoryTitle={'Kategori Audit'} categoryLabel={['Audit']} lineBarLabel={labelAudit} lineBarData={dataAudit} />
+									</div>
 								</div>
 							</section>
 
@@ -82,7 +87,6 @@ function Home() {
 
 				<div className="sidenav-overlay"></div>
 				<div className="drag-target"></div>
-				{/* <Footer /> */}
 			</div>
 		</>
 	)

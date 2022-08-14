@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import User from 'services/User'
 
-export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDataUpdate, openClose }) {
+export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDataUpdate, openClose, totalData }) {
 
     // console.log('setDataUpdate', setDataUpdate)
     const [user, setUser] = useState({
@@ -33,6 +33,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDat
                 })
                 setIsOpen(false)
                 getUsers()
+                totalData()
             })
             .catch(error => {
                 setValidation(error.response.data)

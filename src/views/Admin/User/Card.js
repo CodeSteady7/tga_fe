@@ -1,28 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Report from 'services/Report'
 
-export default function Card({ setIsOpen }) {
-    const [total, setTotal] = useState({
-        manager: 0,
-        auditor: 0,
-        academic: 0,
-        non_academic: 0
-    })
-    const totalData = async () => {
-        await Report.totalData().then(res => {
-            console.log('res', res.data.result)
-            let total = res.data.result
-
-            setTotal({
-                manager: total.manager,
-                auditor: total.auditor,
-                academic: total.academic,
-                non_academic: total.non_academic
-            })
-        }).catch(err => {
-            console.log(err)
-        })
-    }
+export default function Card({ setIsOpen, total, totalData }) {
+    
 
     useEffect(() => {
         totalData()
