@@ -73,6 +73,11 @@
 	}
 }
 
+@font-face {
+	font-family: "Times";
+	src: url('../fonts/times/times.ttf')
+}
+
 body {
 	margin: 0;
 	font-family: var(--bs-body-font-family);

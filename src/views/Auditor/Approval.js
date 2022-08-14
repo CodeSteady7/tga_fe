@@ -27,7 +27,7 @@ export default function Approval() {
                     description: {}
                 }]
             }
-            
+
             setInput(defaultInput)
         }).catch(err => {
 
@@ -37,22 +37,22 @@ export default function Approval() {
     useEffect(() => {
         getDetail()
     }, [])
-    
+
     return (
         <>
-			<Header />
-			<Navbar />
-			<div className="app-content content ">
-				<div className="content-overlay"></div>
-				<div className="header-navbar-shadow"></div>
-				<div className="content-wrapper container-xxl p-0">
-					<div className="content-body">
-						<section id="basic-datatable">
-							<div className="row">
-								<div className="col-12">
+            <Header />
+            <Navbar />
+            <div className="app-content content ">
+                <div className="content-overlay"></div>
+                <div className="header-navbar-shadow"></div>
+                <div className="content-wrapper container-xxl p-0">
+                    <div className="content-body">
+                        <section id="basic-datatable">
+                            <div className="row">
+                                <div className="col-12">
                                     <Detail auditForm={auditForm} />
                                     <p className='text-danger'>Anda hanya dapat mengisi instrument satu kali. Pastikan mengisi dengan benar!</p>
-                                    <InstrumentList auditID={id}  setInput={setInput} input={input} getDetail={getDetail} auditResult={auditResult} />
+                                    <InstrumentList auditID={id} setInput={setInput} input={input} getDetail={getDetail} auditResult={auditResult} />
                                 </div>
                             </div>
                         </section>
