@@ -19,19 +19,19 @@ export default function Form() {
             setTopics(res.data.result.topic)
 
             let defaultInput = []
-            
-            for(let topic in res.data.result.topic) {
-                for (let subTopic in res.data.topic[topic].sub_topics) {
-                    for (let instrument in res.data.topic[topic].sub_topics[subTopic].instruments) {
+
+            res.data.result.topic.map(topic => {
+                topic.sub_topics.map(subTopic => {
+                    subTopic.instruments.map(instrument => {
                         defaultInput = [...defaultInput, {
-                                        ID: res.data.topic[topic].sub_topics[subTopic].instruments[instrument].id, 
-                                        description: '', 
-                                        file: []
-                                    }]
-                    }
-                }
-            }
-            
+                            ID: instrument.id, 
+                            description: '', 
+                            file: {}
+                        }]
+                    })
+                })
+            })
+
             setInput(defaultInput)
 
         }).catch(err => {
