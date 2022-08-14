@@ -12,8 +12,9 @@ import AuditLib from "components/Library/AuditLib"
 export default function Auditee() {
 	const [periodOption, setPeriodOption] = useState([])
 	const [audits, setAudits] = useState([]) 
-	
 	const [isOpen, setIsOpen] = useState(false)
+
+	let params = {}
 
 	const getPeriods = async () => {
 		await Period.getAll()
@@ -32,7 +33,7 @@ export default function Auditee() {
 		});
 	}
 
-	const getAudits = async (params) => {
+	const getAudits = async () => {
 		await Audit.getAll(params).then(res => {
 			setAudits(res.data.result)
 		}).catch(err => {
@@ -41,13 +42,12 @@ export default function Auditee() {
 	}
 
 	const handleSelectPeriod = (event) => {
-		let params = {
+		params = {
 			period_id: event.value,
 			pagination: 0
 		}
 
-		getAudits(params)
-
+		getAudits()
 	}
 
 	const formattedStatus = (date, status) => {
@@ -63,7 +63,7 @@ export default function Auditee() {
 
 	useEffect(() => {
         getPeriods()
-    }, [])
+    }, [audits])
 	return (
 		<>
 			<Header />

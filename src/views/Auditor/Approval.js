@@ -21,7 +21,11 @@ export default function Approval() {
             let defaultInput = []
             
             for(let i in res.data.result.result) {
-                defaultInput = [...defaultInput, {ID: res.data.result.result[i].id, approve: 1}]
+                defaultInput = [...defaultInput, {
+                    ID: res.data.result.result[i].id, 
+                    approve: 1, 
+                    description: {}
+                }]
             }
             
             setInput(defaultInput)

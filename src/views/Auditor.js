@@ -143,7 +143,14 @@ export default function Auditor() {
 																				>
 																					<span>Lakukan Approval </span>
 																				</Link>
-																			) : ''}
+																			) : 
+																			<Link
+																				className="dropdown-item"
+																				to={'/auditor'}
+																			>
+																				<span>Detail</span>
+																			</Link>
+																			}
 																		</div>
 																	</div></td>
 															</tr>

@@ -63,13 +63,22 @@ const finishFulFillment = async (auditID) => {
     })
 }
 
+const approve = async (auditID, data) => {
+    return axios.put(`${process.env.REACT_APP_API_URL}audits/${auditID}/approve`, {data: data}, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+    })
+}
+
 const Audit = {
     create,
     getAll,
     getDetail,
     submitfulfillment,
     finishFulFillment,
-    getResult
+    getResult,
+    approve
 }
 
 export default Audit
