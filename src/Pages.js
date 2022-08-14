@@ -21,6 +21,8 @@ import Form from "views/Auditee/Form"
 import LaporanAudit from "views/Manager/LaporanAudit"
 import FormLaporan from "views/Manager/laporan/FormLaporan"
 import Approval from "views/Auditor/Approval"
+import Rejected from "views/Auditee/Rejected"
+import RejectedDetail from "views/Auditee/RejectedDetail"
 
 // <!-- END: Custom CSS-->
 function Pages() {
@@ -36,6 +38,8 @@ function Pages() {
 
 				<Route path="/auditee" element={<PrivateRoute><Auditee /></PrivateRoute>} />
 				<Route path="/auditee/form-audit/:id" element={<PrivateRoute><Form /></PrivateRoute>} />
+				<Route path="/auditee/form-rejected" element={<PrivateRoute><Rejected /></PrivateRoute>} />
+				<Route path="/auditee/form-rejected/:id" element={<PrivateRoute><RejectedDetail /></PrivateRoute>} />
 
 				<Route path="/auditor" element={<PrivateRoute><Auditor /></PrivateRoute>} />
 				<Route path="/auditor/form-approval/:id" element={<PrivateRoute><Approval /></PrivateRoute>} />

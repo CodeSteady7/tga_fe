@@ -22,6 +22,8 @@ function TopikInstrumen() {
 	const [isOpen, setIsOpen] = useState(false)
 	const [subTopicID, setSubTopicID] = useState('')
 
+	let params = {}
+
 	const showInstrument = (id) => {
 		setIsMainPage(false)
 		setSubTopicID(id)
@@ -44,8 +46,16 @@ function TopikInstrumen() {
 			});
 	}
 
+	const handleSelectPeriod = (event) => {
+		params = {
+			period_id: event.value
+		}
+
+		getInstrumentTopics()
+	}
+
 	const getInstrumentTopics = async () => {
-		await Instrument.getAllTopic()
+		await Instrument.getAllTopic(params)
 			.then((response) => {
 				setTopicList(response.data.result)
 			}).catch((error) => {
@@ -113,6 +123,20 @@ function TopikInstrumen() {
 									<div className="row">
 										<div className="col-12">
 											<div className="card">
+												<div className="card-body pt-2">
+													<div className="row">
+														<label className="form-label" htmlFor="basic-icon-default-post">
+															Cari Berdasarkan Periode
+														</label>
+														<div className="col-4">
+															<Select 
+																options={periodOptions}
+																onChange={handleSelectPeriod}
+															/>
+														</div>
+														
+													</div>
+												</div>
 												<div className="card-header border-bottom">
 													<h4 className="card-title">Data Topik Instrumen</h4>
 													<button

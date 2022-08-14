@@ -5,15 +5,44 @@ import { Plus } from "react-feather"
 import Audit from "services/Audit"
 import List from "./TimAudit/List"
 import Modal from "./TimAudit/Modal"
-
-
+import Select from 'react-select'
+import Period from "services/Period"
 
 function TimAudit() {
     const [isOpen, setIsOpen] = useState(false)
 	const [audits, setAudits] = useState([]) 
+	const [periodOptions, setPeriodOptions] = useState([])
+
 	
+	let params = {}
+
+	const handleSelectPeriod = (event) => {
+		params = {
+			period_id: event.value
+		}
+
+		getAudits()
+	}
+
+	const getPeriods = async () => {
+		await Period.getAll()
+			.then((response) => {
+				const periods = response.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `Periode ${prop.name}`
+					}
+				})
+
+				setPeriodOptions(periods)
+
+			}).catch((error) => {
+
+			});
+	}
+
 	const getAudits = async () => {
-		await Audit.getAll().then(res => {
+		await Audit.getAll(params).then(res => {
 			setAudits(res.data.result)
 		}).catch(err => {
 			
@@ -22,6 +51,7 @@ function TimAudit() {
 
 	useEffect(() => {
 		getAudits()
+		getPeriods()
 	}, [])
 	
 	return (
@@ -45,6 +75,20 @@ function TimAudit() {
 									<div className="row">
 										<div className="col-12">
 											<div className="card">
+											<div className="card-body pt-2">
+													<div className="row">
+														<label className="form-label" htmlFor="basic-icon-default-post">
+															Cari Berdasarkan Periode
+														</label>
+														<div className="col-4">
+															<Select 
+																options={periodOptions}
+																onChange={handleSelectPeriod}
+															/>
+														</div>
+														
+													</div>
+												</div>
 												<div className="card-header border-bottom">
 													<h4 className="card-title">Tim Audit</h4>
 													<button

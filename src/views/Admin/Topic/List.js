@@ -28,7 +28,7 @@ export default function List({topicList, showInstrument}) {
                     ? topic.sub_topics.map((sub_topic, index) => {
                       return (
                       <li key={index}>
-                        <a onClick={ e => showInstrument(sub_topic.id) } > {sub_topic.name}</a>
+                        <a style={{color: 'blue'}} onClick={ e => showInstrument(sub_topic.id) } > {sub_topic.name}</a>
                       </li>
                       )
                     }) : '-- Belum dimasukkan --'}

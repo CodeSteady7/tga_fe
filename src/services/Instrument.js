@@ -1,10 +1,11 @@
 import axios from "axios"
 
-const getAllTopic = async () => {
+const getAllTopic = async (params = {}) => {
 	return axios.get(`${process.env.REACT_APP_API_URL}topics`, {
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem("token")}`,
 		},
+		params: params
 	})
 }
 

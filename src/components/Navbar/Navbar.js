@@ -118,6 +118,14 @@ function Navbar({ routes = '' }) {
 										</span>
 									</Link>
 								</li>
+								<li className="nav-item">
+									<Link to={'/auditee/form-rejected'} className="d-flex align-items-center">
+										<FilePlus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Temuan
+										</span>
+									</Link>
+								</li>
 							</>
 						) : (
 							""

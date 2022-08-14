@@ -8,6 +8,7 @@ export default function List({ units, paginationLink, showEdit, onDelete }) {
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Lingkup</th>
                         <th>Nama Lembaga</th>
                         <th>Jenjang</th>
                         <th>Kepala Lembaga</th>
@@ -19,7 +20,8 @@ export default function List({ units, paginationLink, showEdit, onDelete }) {
                         return (
                             <tr key={key}>
                                 <td>{key + 1}</td>
-                                <td>{prop.scope_type === 'academic' ? 'Akademik' : 'Non Akademik'} : {prop.name}</td>
+                                <td>{prop.scope_type === 'academic' ? 'Akademik' : 'Non Akademik'} </td>
+                                <td>{prop.name}</td>
                                 <td>{prop.level ?? '-'}</td>
                                 <td>{prop.user.name}</td>
                                 <td>

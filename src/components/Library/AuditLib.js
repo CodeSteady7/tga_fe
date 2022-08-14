@@ -72,13 +72,22 @@ const findingCatgoryText = (type: String) => {
     return typeTextFormat
 }
 
+const auditRejectedStatus = (status: bool) => {
+    if(status) {
+        return `<span className="badge alert-success">Telah Diinput</span>`
+    } else {
+        return `<span className="badge alert-danger">Belum Diinput</span>`
+    }
+}
+
 const AuditLib = {
     auditStatus,
     isOpen,
     formattedText,
     isAuditeeMenuShown,
     isAuditorMenuShown,
-    findingCatgoryText
+    findingCatgoryText,
+    auditRejectedStatus
 }
 
 export default AuditLib;

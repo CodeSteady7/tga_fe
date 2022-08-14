@@ -15,7 +15,7 @@ const create = ({ department_id, period_id, auditor_id, document_no, auditor_mem
         audit_standart: audit_standart
 
     }, {
-        headers: {
+        headers:  {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     })
@@ -23,7 +23,7 @@ const create = ({ department_id, period_id, auditor_id, document_no, auditor_mem
 
 const getAll = async (params = {}) => {
     return axios.get(`${process.env.REACT_APP_API_URL}audits`, {
-        headers: {
+        headers:  {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         },
         params: params
@@ -32,7 +32,7 @@ const getAll = async (params = {}) => {
 
 const getDetail = async (auditID) => {
     return axios.get(`${process.env.REACT_APP_API_URL}audits/${auditID}`, {
-        headers: {
+        headers:  {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         },
     })
@@ -40,7 +40,7 @@ const getDetail = async (auditID) => {
 
 const getResult = async (auditID) => {
     return axios.get(`${process.env.REACT_APP_API_URL}audits/${auditID}/result`, {
-        headers: {
+        headers:  {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         },
     })
@@ -49,25 +49,52 @@ const getResult = async (auditID) => {
 const submitfulfillment = async (auditID, InstrumentID, {description, file}) => {
     return axios.postForm(`${process.env.REACT_APP_API_URL}audits/${auditID}/instrument/${InstrumentID}/fulfillment`, {description:description, file: file
     }, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        headers:  {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     } )
 }
 
 const finishFulFillment = async (auditID) => {
     return axios.put(`${process.env.REACT_APP_API_URL}audits/${auditID}/finish/fulfillment`, {}, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        headers:  {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     })
 }
 
 const approve = async (auditID, data) => {
     return axios.put(`${process.env.REACT_APP_API_URL}audits/${auditID}/approve`, {data: data}, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        headers:  {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
         }
+    })
+}
+
+const getRejectedAudit = async (params: {}) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}audits/rejected`, {
+        headers:  {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        params: params
+    })
+}
+
+const getRejectedAuditDetail = async (ID) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}audits/rejected/${ID}`, {
+        headers:  {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+}
+
+const inputActionPlan = async (ID, {action_plan_description}) => {
+    return axios.put(`${process.env.REACT_APP_API_URL}audits/rejected/${ID}`, 
+    {action_plan_description: action_plan_description}, 
+    {
+        headers:  {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
     })
 }
 
@@ -79,6 +106,9 @@ const Audit = {
     finishFulFillment,
     getResult,
     approve,
+    getRejectedAudit,
+    getRejectedAuditDetail, 
+    inputActionPlan
 }
 
 export default Audit
