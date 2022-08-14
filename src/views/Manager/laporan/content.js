@@ -12,7 +12,7 @@ export default function Content() {
 							<div className="headerForm">
 								<div className="headerFormUp">
 									<div className="column01">
-										<img src={imgPoltek} alt="pnl" style={{ width: '50' }} />
+										<img src={imgPoltek} alt="pnl" />
 									</div>
 									<div className="column02">
 										<h4>KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN</h4>

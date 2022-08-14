@@ -66,6 +66,14 @@
 	height: 80px;
 }
 
+.column01 img {
+	width: 60;
+	align-items: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .column02 {
 	border: 1px solid #000000;
 	float: left;
