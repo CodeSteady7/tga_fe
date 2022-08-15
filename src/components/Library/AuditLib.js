@@ -30,6 +30,28 @@ const isAuditeeMenuShown = (audit_status: number) : boolean => {
     return audit_status === 1 ? true : false
 }
 
+const formattedStatus = (status : string) : string => {
+    let badge = ''
+
+    switch (status) {
+        case 1:
+        default:
+            badge = `<span className="badge alert-primary">Open</span>`
+            break;
+        case 2:
+            badge = `<span className="badge alert-info">Request</span>`
+            break;
+        case 3:
+            badge = `<span className="badge alert-primary">Approve</span>`
+            break;
+        case 4:
+            badge = `<span className="badge alert-success">Selesai</span>`
+            break;
+    }
+
+    return badge
+}
+
 const formattedText = (isOpen: boolean, status: string) : string => {
     let badge = ''
     if(!isOpen) {
@@ -87,7 +109,8 @@ const AuditLib = {
     isAuditeeMenuShown,
     isAuditorMenuShown,
     findingCatgoryText,
-    auditRejectedStatus
+    auditRejectedStatus,
+    formattedStatus
 }
 
 export default AuditLib;

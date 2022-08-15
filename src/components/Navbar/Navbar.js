@@ -141,6 +141,14 @@ function Navbar({ routes = '' }) {
 										</span>
 									</Link>
 								</li>
+								<li className="nav-item">
+									<Link to={'/auditor/form-rejected'} className="d-flex align-items-center">
+										<FileText color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Temuan
+										</span>
+									</Link>
+								</li>
 							</>
 						) : (
 							""
@@ -148,13 +156,21 @@ function Navbar({ routes = '' }) {
 						{role === "manager" ? (
 							<>
 								<li className="nav-item">
-									<a className="d-flex align-items-center" href="/manager/laporanaudit">
+									<Link className="d-flex align-items-center" to={"/manager/laporanaudit"}>
 										<User color="#7367F0" size={20} />
 
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Laporan Audit
 										</span>
-									</a>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link to={'/auditee/form-rejected'} className="d-flex align-items-center">
+										<FilePlus color="#7367F0" size={10} />
+										<span className="menu-title text-truncate" >
+											Data Temuan
+										</span>
+									</Link>
 								</li>
 							</>
 						) : (

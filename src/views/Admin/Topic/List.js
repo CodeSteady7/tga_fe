@@ -27,7 +27,7 @@ export default function List({topicList, showInstrument}) {
                     {topic.sub_topics.length > 0 
                     ? topic.sub_topics.map((sub_topic, index) => {
                       return (
-                      <li key={index}>
+                      <li key={index} className={'py-1'}>
                         <a style={{color: 'blue'}} onClick={ e => showInstrument(sub_topic.id) } > {sub_topic.name}</a>
                       </li>
                       )

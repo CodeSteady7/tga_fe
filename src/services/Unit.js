@@ -57,12 +57,22 @@ const destroy = async ({ id }) => {
     })
 }
 
+const majors = async () => {
+    return axios.get(`${process.env.REACT_APP_API_URL}majors`, {
+        timeout: 1000 * 5,
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+}
+
 const Unit = {
     getAll,
     create,
     show,
     update,
     destroy,
+    majors
 }
 
 export default Unit

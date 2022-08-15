@@ -18,7 +18,7 @@ export default function Detail({auditForm}) {
                 </div>
                 <div className='col-6'>
                     <label className="form-label" >
-                        { HTMLReactParser(AuditLib.formattedText(AuditLib.isOpen(auditForm.audit_at), AuditLib.auditStatus(auditForm.audit_status))) }
+                        { HTMLReactParser(AuditLib.formattedStatus(auditForm.audit_status)) }
                     </label>
                 </div>
             </div>

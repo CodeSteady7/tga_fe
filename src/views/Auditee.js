@@ -50,11 +50,9 @@ export default function Auditee() {
 		getAudits()
 	}
 
-	const formattedStatus = (date, status) => {
-		let auditStatus = AuditLib.auditStatus(status)
-		let isOpen 		= AuditLib.isOpen(date)
+	const formattedStatus = (status) => {
 
-		return HTMLReactParser(AuditLib.formattedText(isOpen, auditStatus))
+		return HTMLReactParser(AuditLib.formattedStatus(status))
 	}
 
 	const handleDetail = (event) => {
@@ -118,7 +116,7 @@ export default function Auditee() {
 																<td>{prop.audit_type}</td>
 																<td>{format(new Date(prop.audit_at), "dd-MM-yyyy")}</td>
 																<td>{prop.auditor.name}</td>
-																<td>{ formattedStatus(prop.audit_at, prop.audit_status) }</td>
+																<td>{ formattedStatus(prop.audit_status) }</td>
 																<td><div className="dropdown">
 																		<a
 																			type="button"

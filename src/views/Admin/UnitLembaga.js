@@ -21,6 +21,8 @@ function UnitLembaga() {
 
 	const [isOpen, setIsOpen] = useState(false)
 
+	const [majorOptions, setMajorOptions] = useState([])
+
 	const [levelOptions, setLevelOptions] = useState([
 		{ value: 'D1', label: 'D1' },
 		{ value: 'D2', label: 'D2' },
@@ -31,6 +33,22 @@ function UnitLembaga() {
 
 	const [userOptions, setUserOptions] = useState([])
 	const [validation, setValidation] = useState('')
+
+	const getMajors = async () => {
+		await Unit.majors() 
+		.then((result) => {
+			let options = res.data.result.map((prop, index) => {
+				return {
+					value: prop.id,
+					label: `${prop.name}`
+				}
+			})
+
+			setUserOptions(options)
+		}).catch((err) => {
+			
+		});
+	}
 
 	const getUsers = async () => {
 		let params = {
@@ -53,7 +71,6 @@ function UnitLembaga() {
 
 	const submitCreate = async e => {
 		e.preventDefault()
-		console.log(input)
 		await Unit.create(input).then((response) => {
 			setInput({
 				level: '',
@@ -131,6 +148,7 @@ function UnitLembaga() {
 	useEffect(() => {
 		getUnits()
 		getUsers()
+		getMajors()
 	}, [])
 
 	return (
