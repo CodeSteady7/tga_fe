@@ -6,29 +6,27 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Period from 'services/Period';
 
 export default function LaporanAudit() {
-	const [periodOption, setPeriodOption] = useState([])
+	const [periodOption, setPeriodOption] = useState([]);
 
 	const getPeriods = async () => {
 		await Period.getAll()
-		.then((response) => {
-			const periods = response.data.result.map((prop, index) => {
-				return {
-					value: prop.id,
-					label: `Periode ${prop.name}`
-				}
+			.then(response => {
+				const periods = response.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `Periode ${prop.name}`,
+					};
+				});
+
+				setPeriodOption(periods);
 			})
-
-			setPeriodOption(periods)
-
-		}).catch((error) => {
-			
-		});
-	}
+			.catch(error => {});
+	};
 
 	useEffect(() => {
-        getPeriods()
-    }, [])
-	
+		getPeriods();
+	}, []);
+
 	return (
 		<>
 			<div className="loading">
