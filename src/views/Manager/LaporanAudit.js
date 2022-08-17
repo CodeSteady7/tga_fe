@@ -12,20 +12,18 @@ export default function LaporanAudit() {
 
 	const getPeriods = async () => {
 		await Period.getAll()
-		.then((response) => {
-			const periods = response.data.result.map((prop, index) => {
-				return {
-					value: prop.id,
-					label: `Periode ${prop.name}`
-				}
+			.then(response => {
+				const periods = response.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `Periode ${prop.name}`,
+					};
+				});
+
+				setPeriodOption(periods);
 			})
-
-			setPeriodOption(periods)
-
-		}).catch((error) => {
-			
-		});
-	}
+			.catch(error => {});
+	};
 
 	const getAudits = async () => {
 		await Audit.getAll()

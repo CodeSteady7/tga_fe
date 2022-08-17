@@ -1,5 +1,7 @@
 import React from 'react';
 import image from '../assets/img/pnl.jpg';
+import Doc_02 from '../assets/img/doc_02.jpeg';
+import Doc_03 from '../assets/img/doc_03.jpeg';
 import '../assets/landingpage/style.css';
 
 import logoPNL from '../assets/img/poltek.png';
@@ -20,17 +22,7 @@ function HalamanUtama() {
 					<nav id="navbar" className="navbar">
 						<ul>
 							<li>
-								<a href="index.html" className="active">
-									Home
-								</a>
-							</li>
-
-							<li>
-								<a href="blog.html">Tujuan</a>
-							</li>
-
-							<li>
-								<a href="contact.html">Monitoring</a>
+								<a href="/">Home</a>
 							</li>
 							<li>
 								<a href="/login" className="getstarted">
@@ -74,22 +66,28 @@ function HalamanUtama() {
 						<div class="carousel-item active" data-bs-interval="10000">
 							<img src={image} class="d-block w-100" alt="..." />
 							<div class="carousel-caption d-none d-md-block">
-								<h5 class="text-white">First slide label</h5>
-								<p>Some representative placeholder content for the first slide.</p>
+								<h5 class="text-white">Politeknik Negeri Lhokseumawe</h5>
+								<p>
+									Politeknik dalam pendidikan di Indonesia merupakan salah satu bentuk perguruan
+									tinggi selain akademi, institut, sekolah tinggi, dan universitas.
+								</p>
 							</div>
 						</div>
 						<div class="carousel-item" data-bs-interval="2000">
-							<img src="..." class="d-block w-100" alt="..." />
+							<img src={Doc_02} class="d-block w-100" alt="..." />
 							<div class="carousel-caption d-none d-md-block">
-								<h5>Second slide label</h5>
-								<p>Some representative placeholder content for the second slide.</p>
+								{/* <h5>Second slide label</h5> */}
+								<p>
+									Kegiatan Penyegaran Auditor Internal Politeknik Negeri Lhokseumawe tahun 2021
+									dengan Nara Sumber Dr. Ir. M. Aman Yaman, M. Agric. Sc
+								</p>
 							</div>
 						</div>
 						<div class="carousel-item">
-							<img src="..." class="d-block w-100" alt="..." />
+							<img src={Doc_03} class="d-block w-100" alt="..." />
 							<div class="carousel-caption d-none d-md-block">
-								<h5>Third slide label</h5>
-								<p>Some representative placeholder content for the third slide.</p>
+								{/* <h5>Third slide label</h5> */}
+								<p>Penyusunan Manual SPMI Politeknik Negeri Lhokseumawe</p>
 							</div>
 						</div>
 					</div>
@@ -124,7 +122,7 @@ function HalamanUtama() {
 								<h1>
 									<strong>Selamat Datang dan Berpartisipasi</strong>
 								</h1>
-								<h3>
+								<h3 style={{ lineHeight: 2 }}>
 									Audit Mutu Internal (AMI) adalah bagian dari sistem implementasi penjamin mutu
 									akademik internal (SPMI) yang terkait dengan audit, evaluasi dan monitoring
 									terhadap seluruh program, kegiatan dan capaian kerja seluruh unit kerja di
@@ -151,7 +149,7 @@ function HalamanUtama() {
 									</h4>
 									<p>
 										Memberikan nilai tambah dan memperbaiki kinerja (kegiatan operasional) akademik
-										Unsyiah
+										PNL
 									</p>
 								</div>
 							</div>
@@ -162,7 +160,7 @@ function HalamanUtama() {
 										<a href="#">Mengetahui Upaya</a>
 									</h4>
 									<p>
-										Mengetahui bahwa upaya untuk mempertahakan, meningkatkan mutu dan standar
+										Mengetahui bahwa upaya untuk mempertahankan, meningkatkan mutu dan standar
 										akademik telah tepat dan efekti
 									</p>
 								</div>
@@ -176,18 +174,6 @@ function HalamanUtama() {
 									<p>
 										Mengidentifikasi lingkup perbaikan dan pengembangan profesional secara
 										berkelanjutan berdasarkan evaluasi diri
-									</p>
-								</div>
-							</div>
-							<div className="col-md-6 mt-4 mt-md-0">
-								<div className="icon-box">
-									<i className="bi bi-binoculars"></i>
-									<h4>
-										<a href="#">Nemo Enim</a>
-									</h4>
-									<p>
-										Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-										deserunt mollit anim id est laborum
 									</p>
 								</div>
 							</div>
