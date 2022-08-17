@@ -1,67 +1,64 @@
-import React, { useEffect, useState } from "react"
-import Navbar from "../components/Navbar/Navbar"
-import Header from "../components/Header/Header"
-import Select from "react-select"
-import Period from "services/Period"
-import Audit from "services/Audit"
-import { format } from "date-fns"
-import HTMLReactParser from "html-react-parser"
-import { Link } from "react-router-dom"
-import AuditLib from "components/Library/AuditLib"
+import React, { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar/Navbar';
+import Header from '../components/Header/Header';
+import Select from 'react-select';
+import Period from 'services/Period';
+import Audit from 'services/Audit';
+import { format } from 'date-fns';
+import HTMLReactParser from 'html-react-parser';
+import { Link } from 'react-router-dom';
+import AuditLib from 'components/Library/AuditLib';
 
 export default function Auditee() {
-	const [periodOption, setPeriodOption] = useState([])
-	const [audits, setAudits] = useState([]) 
-	const [isOpen, setIsOpen] = useState(false)
+	const [periodOption, setPeriodOption] = useState([]);
+	const [audits, setAudits] = useState([]);
+	const [isOpen, setIsOpen] = useState(false);
 
-	let params = {}
+	let params = {};
 
 	const getPeriods = async () => {
 		await Period.getAll()
-		.then((response) => {
-			const periods = response.data.result.map((prop, index) => {
-				return {
-					value: prop.id,
-					label: `Periode ${prop.name}`
-				}
+			.then(response => {
+				const periods = response.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `Periode ${prop.name}`,
+					};
+				});
+
+				setPeriodOption(periods);
 			})
-
-			setPeriodOption(periods)
-
-		}).catch((error) => {
-			
-		});
-	}
+			.catch(error => {});
+	};
 
 	const getAudits = async () => {
-		await Audit.getAll(params).then(res => {
-			setAudits(res.data.result)
-		}).catch(err => {
-			
-		})
-	}
+		await Audit.getAll(params)
+			.then(res => {
+				setAudits(res.data.result);
+			})
+			.catch(err => {});
+	};
 
-	const handleSelectPeriod = (event) => {
+	const handleSelectPeriod = event => {
 		params = {
 			period_id: event.value,
-			pagination: 0
-		}
+			pagination: 0,
+		};
 
-		getAudits()
-	}
+		getAudits();
+	};
 
-	const formattedStatus = (status) => {
+	const formattedStatus = status => {
+		return HTMLReactParser(AuditLib.formattedStatus(status));
+	};
 
-		return HTMLReactParser(AuditLib.formattedStatus(status))
-	}
-
-	const handleDetail = (event) => {
-		setIsOpen(true)
-	}
+	const handleDetail = event => {
+		setIsOpen(true);
+	};
 
 	useEffect(() => {
-        getPeriods()
-    }, [])
+		getPeriods();
+	}, []);
 	return (
 		<>
 			<Header />
@@ -84,12 +81,8 @@ export default function Auditee() {
 													Cari Berdasarkan Periode
 												</label>
 												<div className="col-4">
-													<Select 
-														options={periodOption}
-														onChange={handleSelectPeriod}
-													/>
+													<Select options={periodOption} onChange={handleSelectPeriod} />
 												</div>
-												
 											</div>
 										</div>
 										<div className="card-datatable">
@@ -106,53 +99,58 @@ export default function Auditee() {
 													</tr>
 												</thead>
 												<tbody>
-
-													{typeof audits !== 'undefined' && audits.length > 0 
-													? audits.map((prop, index) => {
-														return (
-															<tr key={index}>
-																<td>{index + 1} </td>
-																<td>{prop.document_no} </td>
-																<td>{prop.audit_type}</td>
-																<td>{format(new Date(prop.audit_at), "dd-MM-yyyy")}</td>
-																<td>{prop.auditor.name}</td>
-																<td>{ formattedStatus(prop.audit_status) }</td>
-																<td><div className="dropdown">
-																		<a
-																			type="button"
-																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
-																			data-bs-toggle="dropdown"
-																			id="dropdownMenuLink"
-																			aria-expanded="false"
-																		>
-																			<i data-feather="more-vertical">
-																				Click
-																			</i>
-																		</a>
-																		<div
-																			className="dropdown-menu dropdown-menu-end"
-																			aria-labelledby="dropdownMenuLink"
-																		>
-																			{AuditLib.isAuditeeMenuShown(prop.audit_status) ? (
-																				<Link
-																					className="dropdown-item"
-																					to={`/auditee/form-audit/${prop.id}`}
-																				>
-																					<span>Lakukan Pengisian </span>
-																				</Link>
-																			) : ''}
-																			<a className="dropdown-item" onClick={handleDetail}>
-																				<span>Detail Form</span>
+													{typeof audits !== 'undefined' && audits.length > 0 ? (
+														audits.map((prop, index) => {
+															return (
+																<tr key={index}>
+																	<td>{index + 1} </td>
+																	<td>{prop.document_no} </td>
+																	<td>{prop.audit_type}</td>
+																	<td>{format(new Date(prop.audit_at), 'dd-MM-yyyy')}</td>
+																	<td>{prop.auditor.name}</td>
+																	<td>{formattedStatus(prop.audit_status)}</td>
+																	<td>
+																		<div className="dropdown">
+																			<a
+																				type="button"
+																				className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																				data-bs-toggle="dropdown"
+																				id="dropdownMenuLink"
+																				aria-expanded="false"
+																			>
+																				<i data-feather="more-vertical">Click</i>
 																			</a>
+																			<div
+																				className="dropdown-menu dropdown-menu-end"
+																				aria-labelledby="dropdownMenuLink"
+																			>
+																				{AuditLib.isAuditeeMenuShown(prop.audit_status) ? (
+																					<Link
+																						className="dropdown-item"
+																						to={`/auditee/form-audit/${prop.id}`}
+																					>
+																						<span>Lakukan Pengisian </span>
+																					</Link>
+																				) : (
+																					''
+																				)}
+																				<a className="dropdown-item" onClick={handleDetail}>
+																					<span>Detail Form</span>
+																				</a>
+																			</div>
 																		</div>
-																	</div></td>
-															</tr>
-														)
-													})  
-													: <tr>
-														<td colSpan={7} align="center"> -- Belum Tersedia --</td>
-													</tr>
-													}
+																	</td>
+																</tr>
+															);
+														})
+													) : (
+														<tr>
+															<td colSpan={7} align="center">
+																{' '}
+																-- Belum Tersedia --
+															</td>
+														</tr>
+													)}
 												</tbody>
 											</table>
 										</div>
@@ -164,5 +162,5 @@ export default function Auditee() {
 				</div>
 			</div>
 		</>
-	)
+	);
 }

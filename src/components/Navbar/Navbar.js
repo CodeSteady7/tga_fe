@@ -1,15 +1,20 @@
-import React, { useEffect } from "react"
-import { Link, NavLink } from "react-router-dom"
-import { Home, FileMinus, FilePlus, FileText, User, Image, LogOut } from "react-feather"
+import React, { useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { Home, FileMinus, FilePlus, FileText, User, Image, LogOut } from 'react-feather';
 function Navbar({ routes = '' }) {
-	let role = localStorage.getItem("role")
+	let role = localStorage.getItem('role');
 
-	const handleSignOut = (e) => {
-		localStorage.removeItem("token")
-		localStorage.removeItem("role")
-		localStorage.removeItem("isLogIn")
-		window.location.href = "/login"
-	}
+	const handleSignOut = e => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('role');
+		localStorage.removeItem('isLogIn');
+		window.location.href = '/login';
+	};
+
+	let href = window.location.href;
+	console.log('🚀 ~ file: Navbar.js ~ line 15 ~ Navbar ~ href', href);
+	// let cutHref = href.split('/');
+	// let hrefActive = cutHref[3];
 
 	return (
 		<>
@@ -46,16 +51,13 @@ function Navbar({ routes = '' }) {
 						id="main-menu-navigation"
 						data-menu="menu-navigation"
 					>
-
-						{role === "admin" ? (
+						{role === 'admin' ? (
 							<>
 								<li className="nav-item">
-									<Link to={'/admin'} className="d-flex align-items-center">
-										<Home color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Dashboard
-										</span>
-									</Link>
+									<NavLink to={'/admin/dashboard'} className="d-flex align-items-center">
+										<Home color="#404244" size={10} />
+										<span className="menu-title text-truncate">Dashboard</span>
+									</NavLink>
 								</li>
 
 								<li className="navigation-header">
@@ -64,133 +66,110 @@ function Navbar({ routes = '' }) {
 								</li>
 
 								<li className="nav-item">
-									<Link to={'/admin/users'} className="d-flex align-items-center">
-										<User color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Data User
-										</span>
-									</Link>
+									<NavLink to={'/admin/users'} className="d-flex align-items-center">
+										<User color="#404244" size={10} />
+										<span className="menu-title text-truncate">Data User</span>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/admin/periods'} className="d-flex align-items-center">
-										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Data Periode
-										</span>
-									</Link>
+									<NavLink to={'/admin/periods'} className="d-flex align-items-center">
+										<FileMinus color="#404244" size={10} />
+										<span className="menu-title text-truncate">Data Periode</span>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/admin/units'} className="d-flex align-items-center">
-										<FilePlus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Data Unit Kelembagaan
-										</span>
-									</Link>
+									<NavLink to={'/admin/units'} className="d-flex align-items-center">
+										<FilePlus color="#404244" size={10} />
+										<span className="menu-title text-truncate">Data Unit Kelembagaan</span>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/admin/instruments'} className="d-flex align-items-center">
-										<FileText color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Data Instrumen
-										</span>
-									</Link>
+									<NavLink to={'/admin/instruments'} className="d-flex align-items-center">
+										<FileText color="#404244" size={10} />
+										<span className="menu-title text-truncate">Data Instrumen</span>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/admin/audits'} className="d-flex align-items-center">
-										<FileMinus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Input Data Audit
-										</span>
-									</Link>
+									<NavLink to={'/admin/audits'} className="d-flex align-items-center">
+										<FileMinus color="#404244" size={10} />
+										<span className="menu-title text-truncate">Input Data Audit</span>
+									</NavLink>
 								</li>
 							</>
 						) : (
-							""
+							''
 						)}
 
-						{role === "auditee" ? (
+						{role === 'auditee' ? (
 							<>
 								<li className="nav-item">
-									<Link to={'/auditee'} className="d-flex align-items-center">
-										<Home color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Dashboard
-										</span>
-									</Link>
+									<NavLink to={'/auditee/dashboard'} className="d-flex align-items-center">
+										<Home color="#404244" size={10} />
+										<span className="menu-title text-truncate">Dashboard</span>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/auditee/form-rejected'} className="d-flex align-items-center">
-										<FilePlus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Data Temuan
-										</span>
-									</Link>
+									<NavLink to={'/auditee/form-rejected'} className="d-flex align-items-center">
+										<FilePlus color="#404244" size={10} />
+										<span className="menu-title text-truncate">Daftar Formulir</span>
+									</NavLink>
 								</li>
 							</>
 						) : (
-							""
+							''
 						)}
 
-						{role === "auditor" ? (
+						{role === 'auditor' ? (
 							<>
 								<li className="nav-item">
-									<Link to={'/auditor'} className="d-flex align-items-center">
-										<Home color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Dashboard
-										</span>
-									</Link>
+									<NavLink to={'/auditor/dashboard'} className="d-flex align-items-center">
+										<Home color="#404244" size={10} />
+										<span className="menu-title text-truncate">Dashboard</span>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/auditor/form-rejected'} className="d-flex align-items-center">
-										<FileText color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Data Temuan
-										</span>
-									</Link>
+									<NavLink to={'/auditor/form-rejected'} className="d-flex align-items-center">
+										<FileText color="#404244" size={10} />
+										<span className="menu-title text-truncate">Daftar Formulir</span>
+									</NavLink>
 								</li>
 							</>
 						) : (
-							""
+							''
 						)}
-						{role === "manager" ? (
+						{role === 'manager' ? (
 							<>
-								<li className="nav-item">
-									<Link className="d-flex align-items-center" to={"/manager/laporanaudit"}>
-										<Home color="#7367F0" size={20} />
-
-										<span className="menu-title text-truncate" data-i18n="Email">
+								<li className="nav-item ">
+									<NavLink className="d-flex align-items-center" exact to={'/manager/dashboard'}>
+										<Home color="#404244" size={20} />
+										<span className="menu-title text-truncate  " data-i18n="Email">
 											Dashboard
 										</span>
-									</Link>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link className="d-flex align-items-center" to={"/manager/laporanaudit"}>
-										<FilePlus color="#7367F0" size={20} />
+									<NavLink className="d-flex align-items-center" to={'/manager/laporanaudit'}>
+										<FilePlus color="#404244" size={20} />
 
 										<span className="menu-title text-truncate" data-i18n="Email">
 											Laporan Audit
 										</span>
-									</Link>
+									</NavLink>
 								</li>
 								<li className="nav-item">
-									<Link to={'/auditee/form-rejected'} className="d-flex align-items-center">
-										<FilePlus color="#7367F0" size={10} />
-										<span className="menu-title text-truncate" >
-											Laporan Temuan
-										</span>
-									</Link>
+									<NavLink to={'/manager/form-rejected'} className="d-flex align-items-center">
+										<FilePlus color="#404244" size={10} />
+										<span className="menu-title text-truncate">Laporan Temuan</span>
+									</NavLink>
 								</li>
 							</>
 						) : (
-							""
+							''
 						)}
 						<li className="nav-item">
 							<a className="d-flex align-items-center" onClick={handleSignOut}>
-								<LogOut color="#7367F0" size={10} />
-								<span className="menu-title text-truncate" >
-									Sign Out
-								</span>
+								<LogOut color="#404244" size={10} />
+								<span className="menu-title text-truncate">Sign Out</span>
 							</a>
 						</li>
 					</ul>
@@ -198,7 +177,7 @@ function Navbar({ routes = '' }) {
 			</div>
 			{/* <!-- END: Main Menu--> */}
 		</>
-	)
+	);
 }
 
-export default Navbar
+export default Navbar;

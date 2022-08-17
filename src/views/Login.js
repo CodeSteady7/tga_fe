@@ -1,46 +1,45 @@
-import React, { useState } from "react"
-import { useNavigate  } from 'react-router-dom';
-import Auth from "../services/Auth.js"
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Auth from '../services/Auth.js';
 
 function Login() {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const [validation, setValidation] = useState([]);
 
 	const navigate = useNavigate();
 
-	const loginHandler = async (e) => {
+	const loginHandler = async e => {
 		e.preventDefault();
-		
+
 		await Auth.authLogin(email, password)
-        .then((response) => {
-            //set token on localStorage
-            localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('role', response.data.user.role);
-			localStorage.setItem('isLogIn', true);
+			.then(response => {
+				//set token on localStorage
+				localStorage.setItem('token', response.data.access_token);
+				localStorage.setItem('role', response.data.user.role);
+				localStorage.setItem('isLogIn', true);
 
-			switch (response.data.user.role) {
-				case 'admin':
-					navigate('/admin');
-					break;
-				case 'auditee':
-					navigate('/auditee');
-					break;
-				case 'auditor':
-					navigate('/auditor');
-					break;
-				case 'manager':
-					navigate('/manager');
-					break;
-				default: 
-					break;
-			}
-        })
-        .catch((error) => {
-            setValidation(error.response.data);
-        })
-
-	}
+				switch (response.data.user.role) {
+					case 'admin':
+						navigate('/admin/dashboard');
+						break;
+					case 'auditee':
+						navigate('/auditee/dashboard');
+						break;
+					case 'auditor':
+						navigate('/auditor/dashboard');
+						break;
+					case 'manager':
+						navigate('/manager/dashboard');
+						break;
+					default:
+						break;
+				}
+			})
+			.catch(error => {
+				setValidation(error.response.data);
+			});
+	};
 
 	return (
 		<div
@@ -73,18 +72,12 @@ function Login() {
 										<h2 className="card-title fw-bold mb-1">
 											Selamat Datang di Aplikasi Audit Mutu Internal
 										</h2>
-										{
-											validation.message && (
-												<div className="alert alert-danger">
-													{validation.message}
-												</div>
-											)
-										}
-										<form className="auth-login-form mt-2" onSubmit={(e) => loginHandler(e)} >
+										{validation.message && (
+											<div className="alert alert-danger">{validation.message}</div>
+										)}
+										<form className="auth-login-form mt-2" onSubmit={e => loginHandler(e)}>
 											<div className="mb-1">
-												<label className="form-label">
-													Email
-												</label>
+												<label className="form-label">Email</label>
 												<input
 													className="form-control"
 													id="login-email"
@@ -93,14 +86,12 @@ function Login() {
 													aria-describedby="login-email"
 													tabIndex="1"
 													name="email"
-													onChange={(e) => setEmail(e.target.value)}
+													onChange={e => setEmail(e.target.value)}
 												/>
 											</div>
 											<div className="mb-1">
 												<div className="d-flex justify-content-between">
-													<label className="form-label">
-														Password
-													</label>
+													<label className="form-label">Password</label>
 													<a href="auth-forgot-password-cover.html">
 														<small>Forgot Password?</small>
 													</a>
@@ -114,7 +105,7 @@ function Login() {
 														aria-describedby="login-password"
 														tabIndex="2"
 														name="password"
-														onChange={(e) => setPassword(e.target.value)}
+														onChange={e => setPassword(e.target.value)}
 													/>
 													<span className="input-group-text cursor-pointer">
 														<i data-feather="eye"></i>
@@ -129,10 +120,7 @@ function Login() {
 														type="checkbox"
 														tabIndex="3"
 													/>
-													<label className="form-check-label">
-														{" "}
-														Remember Me
-													</label>
+													<label className="form-check-label"> Remember Me</label>
 												</div>
 											</div>
 											<button className="btn btn-primary w-100">Sign in</button>
@@ -145,7 +133,7 @@ function Login() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Login
+export default Login;

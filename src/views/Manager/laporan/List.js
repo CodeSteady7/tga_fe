@@ -5,7 +5,7 @@ import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import PageTemplate from './PageTemplate';
 import Content from './content';
 
-export default function List({ periods,  dataAudits, handleEdit, handleDelete }) {
+export default function List({ periods, dataAudits, handleEdit, handleDelete }) {
 	const pdfExportComponent = React.useRef(null);
 
 	const onDownload = () => {
@@ -21,65 +21,60 @@ export default function List({ periods,  dataAudits, handleEdit, handleDelete })
 					<thead>
 						<tr>
 							<th>No</th>
-							<th style={{ fontFamily: 'Times' }}>No Dokumen</th>
-							<th>Judul Audit</th>
-							<th>Ketua Auditor</th>
+							<th>No. Dok</th>
+							<th>Tipe Audit</th>
+							<th>Unit</th>
+							<th>Ruang Lingkup</th>
 							<th>Tanggal Audit</th>
-							<th>Action</th>
+							<th>Ketua Auditor</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>XX/XXXX/XXXX</td>
-							<td>XXX</td>
-							<td>XXXXX</td>
-							<td>XXX</td>
-							<td>
-								{' '}
-								<div className="dropdown">
-									<a
-										type="button"
-										className="btn btn-sm dropdown-toggle hide-arrow py-0"
-										data-bs-toggle="dropdown"
-										id="dropdownMenuLink"
-										aria-expanded="false"
-									>
-										<i data-feather="more-vertical">Click</i>
-									</a>
-									<div
-										className="dropdown-menu dropdown-menu-end"
-										aria-labelledby="dropdownMenuLink"
-									>
-										<a
-											className="dropdown-item"
-											href="#"
-											// href="/manager/laporanaudit/view"
-											type="button"
-											onClick={e => onDownload()}
-										>
-											<span>Download</span>
-										</a>
-										<a
-											className="dropdown-item"
-											href="#"
-											type="button"
-											onClick={e => handleEdit(data, e)}
-										>
-											<span>Edit</span>
-										</a>
-										<a
-											className="dropdown-item"
-											href="#"
-											type="button"
-											onClick={e => handleDelete(data, e)}
-										>
-											<span>Delete</span>
-										</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+						{typeof dataAudits.data != 'undefined' && dataAudits.data.length > 0
+							? dataAudits.data.map((prop, key) => {
+									console.log('prop', prop);
+									return (
+										<tr key={key}>
+											<td scope="row">{key + 1}</td>
+											<td>{prop.document_no}</td>
+											<td>{prop.audit_type}</td>
+											<td>{prop.department.name}</td>
+											<td>{prop.department.scope_type.toUpperCase().replace('_', ' ')}</td>
+											<td>{format(new Date(prop.audit_at), 'dd-MM-yyyy')}</td>
+											<td>{prop.auditor.name}</td>
+											<td>
+												{' '}
+												<div className="dropdown">
+													<a
+														type="button"
+														className="btn btn-sm dropdown-toggle hide-arrow py-0"
+														data-bs-toggle="dropdown"
+														id="dropdownMenuLink"
+														aria-expanded="false"
+													>
+														<i data-feather="more-vertical">Click</i>
+													</a>
+													<div
+														className="dropdown-menu dropdown-menu-end"
+														aria-labelledby="dropdownMenuLink"
+													>
+														<a
+															className="dropdown-item"
+															href="#"
+															// href="/manager/laporanaudit/view"
+															type="button"
+															onClick={e => onDownload()}
+														>
+															<span>Download</span>
+														</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									);
+							  })
+							: ''}
 					</tbody>
 				</table>
 				<div

@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from "react"
-import LineChart from "components/Charts/LineChart"
-import { Calendar } from "react-feather"
+import React, { useEffect, useState } from 'react';
+import LineChart from 'components/Charts/LineChart';
 
-import Header from "../components/Header/Header"
-import Navbar from "../components/Navbar/Navbar"
-import Report from "services/Report"
+import Header from '../components/Header/Header';
+import Navbar from '../components/Navbar/Navbar';
+import Report from 'services/Report';
 function Home() {
-	const [labelAudit, setLabelAudit] = useState([])
-	const [dataAudit, setDataAudit] = useState([])
-	const [labelRejection, setLabelRejection] = useState([])
-	const [dataRejection, setDataRejection] = useState([])
+	const [labelAudit, setLabelAudit] = useState([]);
+	const [dataAudit, setDataAudit] = useState([]);
+	const [labelRejection, setLabelRejection] = useState([]);
+	const [dataRejection, setDataRejection] = useState([]);
 
 	const getAuditChart = async () => {
-		await Report.dashboardGraph()
-		.then(res => {
-	
-		  let label = []
-		  let value = []
-		  res.data.result.audit.map((prop) => {
-			label = [...label, prop.label]
-			value = [...value, prop.value]
-		  })
-		  setLabelAudit(label)
-		  setDataAudit(value)
-	
-		  label = []
-		  value = []
-		  res.data.result.rejection.map((prop) => {
-			label = [...label, prop.label]
-			value = [...value, prop.value]
-		  })
-		  setLabelRejection(label)
-		  setDataRejection(value)
-		})
-	}
+		await Report.dashboardGraph().then(res => {
+			console.log('res', res);
+			let label = [];
+			let value = [];
+			res.data.result.audit.map(prop => {
+				label = [...label, prop.label];
+				value = [...value, prop.value];
+			});
+			setLabelAudit(label);
+			setDataAudit(value);
+
+			label = [];
+			value = [];
+			res.data.result.rejection.map(prop => {
+				label = [...label, prop.label];
+				value = [...value, prop.value];
+			});
+			setLabelRejection(label);
+			setDataRejection(value);
+		});
+	};
 
 	useEffect(() => {
-		getAuditChart()  
-	}, [])
+		getAuditChart();
+	}, []);
 	return (
 		<>
 			<Header />
@@ -72,15 +70,23 @@ function Home() {
 								<div class="row">
 									{/* <!--Bar Chart Start --> */}
 									<div class="col-xl-6 col-12">
-										<LineChart categoryTitle={'Kategori Temuan'} categoryLabel={['Temuan']} lineBarLabel={labelRejection} lineBarData={dataRejection} />
+										<LineChart
+											categoryTitle={'Kategori Temuan'}
+											categoryLabel={['Temuan']}
+											lineBarLabel={labelRejection}
+											lineBarData={dataRejection}
+										/>
 									</div>
 									<div class="col-xl-6 col-12">
-										<LineChart categoryTitle={'Kategori Audit'} categoryLabel={['Audit']} lineBarLabel={labelAudit} lineBarData={dataAudit} />
+										<LineChart
+											categoryTitle={'Kategori Audit'}
+											categoryLabel={['Audit']}
+											lineBarLabel={labelAudit}
+											lineBarData={dataAudit}
+										/>
 									</div>
 								</div>
 							</section>
-
-
 						</div>
 					</div>
 				</div>
@@ -89,7 +95,7 @@ function Home() {
 				<div className="drag-target"></div>
 			</div>
 		</>
-	)
+	);
 }
 
-export default Home
+export default Home;

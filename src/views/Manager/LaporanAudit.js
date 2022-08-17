@@ -7,8 +7,8 @@ import Period from 'services/Period';
 import Audit from 'services/Audit';
 
 export default function LaporanAudit() {
-	const [periodOption, setPeriodOption] = useState([])
-	const [dataAudits, setDataAudits] = useState([])
+	const [periodOption, setPeriodOption] = useState([]);
+	const [dataAudits, setDataAudits] = useState([]);
 
 	const getPeriods = async () => {
 		await Period.getAll()
@@ -27,19 +27,18 @@ export default function LaporanAudit() {
 
 	const getAudits = async () => {
 		await Audit.getAll()
-		.then((result) => {
-			console.log(result)
-			setDataAudits(result.data.result)
-		}).catch((err) => {
-			
-		});
-	}
+			.then(result => {
+				console.log(result);
+				setDataAudits(result.data.result);
+			})
+			.catch(err => {});
+	};
 
 	useEffect(() => {
-		getAudits()
-        getPeriods()
-    }, [])
-	
+		getAudits();
+		getPeriods();
+	}, []);
+
 	return (
 		<>
 			<div className="loading">
