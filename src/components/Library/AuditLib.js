@@ -17,7 +17,6 @@ const auditStatus = (audit_status: number): string => {
 		case 4:
 		case '4':
 			status = 'finish';
-			m;
 			break;
 	}
 	return status;
