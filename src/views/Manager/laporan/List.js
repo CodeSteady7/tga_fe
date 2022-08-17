@@ -5,7 +5,7 @@ import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import PageTemplate from './PageTemplate';
 import Content from './content';
 
-export default function List({ periods, handleEdit, handleDelete }) {
+export default function List({ periods,  dataAudits, handleEdit, handleDelete }) {
 	const pdfExportComponent = React.useRef(null);
 
 	const onDownload = () => {
@@ -21,9 +21,9 @@ export default function List({ periods, handleEdit, handleDelete }) {
 					<thead>
 						<tr>
 							<th>No</th>
-							<th style={{ fontFamily: 'Times' }}>No Dokuments</th>
-							<th>Title</th>
-							<th>Department</th>
+							<th style={{ fontFamily: 'Times' }}>No Dokumen</th>
+							<th>Judul Audit</th>
+							<th>Ketua Auditor</th>
 							<th>Tanggal Audit</th>
 							<th>Action</th>
 						</tr>
