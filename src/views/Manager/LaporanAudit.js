@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import List from './laporan/List';
 import 'react-datepicker/dist/react-datepicker.css';
 import Period from 'services/Period';
+import Audit from 'services/Audit';
 
 export default function LaporanAudit() {
 	const [periodOption, setPeriodOption] = useState([])
+	const [dataAudits, setDataAudits] = useState([])
 
 	const getPeriods = async () => {
 		await Period.getAll()
@@ -25,7 +27,18 @@ export default function LaporanAudit() {
 		});
 	}
 
+	const getAudits = async () => {
+		await Audit.getAll()
+		.then((result) => {
+			console.log(result)
+			setDataAudits(result.data.result)
+		}).catch((err) => {
+			
+		});
+	}
+
 	useEffect(() => {
+		getAudits()
         getPeriods()
     }, [])
 	
@@ -53,7 +66,7 @@ export default function LaporanAudit() {
 												<div className="card-header border-bottom">
 													<h4 className="card-title">Laporan Audit</h4>
 												</div>
-												<List />
+												<List dataAudits={dataAudits} />
 											</div>
 										</div>
 									</div>
