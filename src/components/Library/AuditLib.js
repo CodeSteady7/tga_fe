@@ -23,11 +23,11 @@ const isOpen = (date) : boolean => {
 }
 
 const isAuditorMenuShown = (audit_status: number) : boolean => {
-    return audit_status === 2 ? true : false
+    return audit_status == 2 ? true : false
 }
 
 const isAuditeeMenuShown = (audit_status: number) : boolean => {
-    return audit_status === 1 ? true : false
+    return audit_status == 1 ? true : false
 }
 
 const formattedStatus = (status : string) : string => {
