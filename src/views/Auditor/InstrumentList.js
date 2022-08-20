@@ -51,7 +51,7 @@ export default function InstrumentList({auditID, setInput, input, getDetail, aud
                         
                         Audit.approve(auditID, {data: data, positive_issue: positiveIssueList, conclusion: conclusionList})
                         .then((result) => {
-                            navigate('/auditor')
+                            navigate('/auditor/dashboard')
                         }).catch((err) => {
                             console.log(err)
                         })
