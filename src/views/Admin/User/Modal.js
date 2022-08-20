@@ -10,6 +10,7 @@ export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDat
         password: "",
         role: "manager",
         nip: "",
+        phone: ""
     })
 
 
@@ -120,6 +121,22 @@ export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDat
                                         placeholder={setOpenEdit ? setDataUpdate.email : "Enter Email"}
                                         onChange={onChangeInput}
                                         value={user.email}
+                                    />
+                                </div>
+                                <div className="col-6">
+                                    <label
+                                        className="form-label"
+                                        htmlFor="modalRoleName"
+                                    >
+                                        Phone
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="phone"
+                                        className="form-control"
+                                        placeholder={setOpenEdit ? setDataUpdate.phone : "Enter Phone"}
+                                        onChange={onChangeInput}
+                                        value={user.phone}
                                     />
                                 </div>
 

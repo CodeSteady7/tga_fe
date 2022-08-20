@@ -65,6 +65,7 @@ function Users() {
 			password: "",
 			role: "manager",
 			nip: "",
+			phone: ""
 		})
 	}
 

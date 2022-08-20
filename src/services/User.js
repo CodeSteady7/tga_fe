@@ -13,14 +13,15 @@ const getAll = async (params = {}) => {
         })
 }
 
-const create = async ({ name, email, nip, role, password }) => {
+const create = async ({ name, email, nip, role, password, phone }) => {
     return axios.post(
         `${process.env.REACT_APP_API_URL}users`, {
         name: name,
         email: email,
         nip: nip,
         role: role,
-        password: password
+        password: password,
+        phone: phone
     }, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -35,7 +36,8 @@ const update = async ({ id, user }) => {
         email: user.email,
         nip: user.nip,
         role: user.role,
-        password: user.password
+        password: user.password,
+        phone: user.phone
     }, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
