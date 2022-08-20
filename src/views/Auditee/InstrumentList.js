@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 export default function InstrumentList({ auditID, setInput, input, getDetail, topics }) {
 	const navigate = useNavigate();
 
+    const [isBtnDisable, setIsBtnDisable] = useState(false)
+
 	const handleInput = event => {
 		let ID = event.target.getAttribute('data-id');
 		let newInput = [...input];
@@ -33,6 +35,7 @@ export default function InstrumentList({ auditID, setInput, input, getDetail, to
                 {
                     label: 'Ya dan Selesai',
                     onClick: () => {
+                        setIsBtnDisable(true)
                         input.map((prop) => {
                             Audit.submitfulfillment(auditID, prop.ID, {description: prop.description, file: prop.file ?? null})
                             .then((result) => {
@@ -44,7 +47,7 @@ export default function InstrumentList({ auditID, setInput, input, getDetail, to
 
                         Audit.finishFulFillment(auditID)
                         .then(result => {
-                            navigate('/auditee')
+                            navigate('/auditee/dashboard')
                         })
                     }
                 },
@@ -117,7 +120,7 @@ export default function InstrumentList({ auditID, setInput, input, getDetail, to
                 className="btn btn-primary btn-round btn-sm  "
                 type="button"
                 onClick={handleSubmit}
-                disabled={true}
+                disabled={isBtnDisable}
             >
                 <div className="d-flex align-items-center">
                     <Plus color="#ffff" size={15} />
