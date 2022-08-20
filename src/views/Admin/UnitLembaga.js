@@ -15,12 +15,11 @@ function UnitLembaga() {
 		level: '',
 		name: '',
 		user_id: '',
-		type: 'academic'
+		type: 'academic',
+		major_id: null
 	})
 
-
 	const [isOpen, setIsOpen] = useState(false)
-
 	const [majorOptions, setMajorOptions] = useState([])
 
 	const [levelOptions, setLevelOptions] = useState([
@@ -36,7 +35,7 @@ function UnitLembaga() {
 
 	const getMajors = async () => {
 		await Unit.majors() 
-		.then((result) => {
+		.then((res) => {
 			let options = res.data.result.map((prop, index) => {
 				return {
 					value: prop.id,
@@ -44,7 +43,7 @@ function UnitLembaga() {
 				}
 			})
 
-			setUserOptions(options)
+			setMajorOptions(options)
 		}).catch((err) => {
 			
 		});
@@ -59,7 +58,7 @@ function UnitLembaga() {
 			let options = res.data.result.map((prop, index) => {
 				return {
 					value: prop.id,
-					label: `${prop.name}: ${prop.email}`
+					label: `${prop.name}`
 				}
 			})
 
@@ -76,12 +75,12 @@ function UnitLembaga() {
 				level: '',
 				name: '',
 				user_id: '',
-				type: 'academic'
+				type: 'academic',
+				major_id: null
 			})
 			setIsOpen(false)
 			getUnits()
 		}).catch(error => {
-			console.log(error)
 			setValidation(error.response.data);
 		})
 	}
@@ -103,10 +102,6 @@ function UnitLembaga() {
 			console.log(error)
 			setValidation(error.response.data);
 		})
-	}
-
-
-	const mappingUserOption = () => {
 	}
 
 	const getUnits = async (params = {}) => {
@@ -205,6 +200,7 @@ function UnitLembaga() {
 				validation={validation}
 				input={input}
 				setInput={setInput}
+				majorOptions={majorOptions}
 				userOptions={userOptions}
 				levelOptions={levelOptions}
 				submitCreate={submitCreate}

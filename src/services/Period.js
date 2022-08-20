@@ -17,7 +17,7 @@ const getDetails = async ({ id }) => {
 	})
 }
 
-const create = async ({ name, period_start, period_end }) => {
+const create = async ({ name }) => {
 	return axios.post(
 		`${process.env.REACT_APP_API_URL}periods`,
 		{
@@ -38,7 +38,7 @@ const destroy = async ({ id }) => {
 	})
 }
 
-const update = async ({ id, name, period_start, period_end }) => {
+const update = async ({ id, name }) => {
 	return axios.put(
 		`${process.env.REACT_APP_API_URL}periods/${id}`,
 		{

@@ -48,15 +48,16 @@ export default function Auditor() {
 	};
 
 	const formattedStatus = (date, status) => {
-		let auditStatus = AuditLib.auditStatus(status);
-		let isOpen = AuditLib.isOpen(date);
+		let auditStatus = AuditLib.auditStatus(status)
+		let isOpen 		= AuditLib.isOpen(date)
 
-		return HTMLReactParser(AuditLib.formattedText(isOpen, auditStatus));
-	};
+		return HTMLReactParser(AuditLib.formattedText(isOpen, auditStatus))
+	}
+	
 
-	const handleDetail = event => {
-		setIsOpen(true);
-	};
+	const handleDetail = (event) => {
+		setIsOpen(true)
+	}
 
 	useEffect(() => {
 		getPeriods();
@@ -101,60 +102,57 @@ export default function Auditor() {
 													</tr>
 												</thead>
 												<tbody>
-													{typeof audits !== 'undefined' && audits.length > 0 ? (
-														audits.map((prop, index) => {
-															return (
-																<tr key={index}>
-																	<td>{index + 1} </td>
-																	<td>{prop.document_no} </td>
-																	<td>{prop.audit_type}</td>
-																	<td>{format(new Date(prop.audit_at), 'dd-MM-yyyy')}</td>
-																	<td>{prop.auditor.name}</td>
-																	<td>
-																		{' '}
-																		{HTMLReactParser(AuditLib.formattedStatus(prop.audit_status))}
-																	</td>
-																	<td>
-																		<div className="dropdown">
-																			<a
-																				type="button"
-																				className="btn btn-sm dropdown-toggle hide-arrow py-0"
-																				data-bs-toggle="dropdown"
-																				id="dropdownMenuLink"
-																				aria-expanded="false"
+
+													{typeof audits !== 'undefined' && audits.length > 0 
+													? audits.map((prop, index) => {
+														return (
+															<tr key={index}>
+																<td>{index + 1} </td>
+																<td>{prop.document_no} </td>
+																<td>{prop.audit_type}</td>
+																<td>{format(new Date(prop.audit_at), "dd MMM yyyy")}</td>
+																<td>{prop.auditor.name}</td>
+																<td> { HTMLReactParser(AuditLib.formattedStatus(prop.audit_status)) }</td>
+																<td><div className="dropdown">
+																		<a
+																			type="button"
+																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																			data-bs-toggle="dropdown"
+																			id="dropdownMenuLink"
+																			aria-expanded="false"
+																		>
+																			<i data-feather="more-vertical">
+																				Click
+																			</i>
+																		</a>
+																		<div
+																			className="dropdown-menu dropdown-menu-end"
+																			aria-labelledby="dropdownMenuLink"
+																		>
+																			{AuditLib.isAuditorMenuShown(prop.audit_status) ? (
+																				<Link
+																					className="dropdown-item"
+																					to={`/auditor/form-approval/${prop.id}`}
+																				>
+																					<span>Lakukan Approval </span>
+																				</Link>
+																			) : 
+																			<Link
+																				className="dropdown-item"
+																				to={'/auditor'}
 																			>
-																				<i data-feather="more-vertical">Click</i>
-																			</a>
-																			<div
-																				className="dropdown-menu dropdown-menu-end"
-																				aria-labelledby="dropdownMenuLink"
-																			>
-																				{AuditLib.isAuditorMenuShown(prop.audit_status) ? (
-																					<Link
-																						className="dropdown-item"
-																						to={`/auditor/form-approval/${prop.id}`}
-																					>
-																						<span>Lakukan Approval </span>
-																					</Link>
-																				) : (
-																					<Link className="dropdown-item" to={'/auditor/dashboard'}>
-																						<span>Detail</span>
-																					</Link>
-																				)}
-																			</div>
+																				<span>Detail</span>
+																			</Link>
+																			}
 																		</div>
-																	</td>
-																</tr>
-															);
-														})
-													) : (
-														<tr>
-															<td colSpan={7} align="center">
-																{' '}
-																-- Belum Tersedia --
-															</td>
-														</tr>
-													)}
+																	</div></td>
+															</tr>
+														)
+													})  
+													: <tr>
+														<td colSpan={7} align="center"> -- Belum Tersedia --</td>
+													</tr>
+													}
 												</tbody>
 											</table>
 										</div>

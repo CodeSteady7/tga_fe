@@ -1,6 +1,7 @@
 import React from 'react'
+import Period from 'services/Period'
 
-export default function Modal({isOpen, setIsOpen, nampungData, update, setPeriod, handleOnEdit, handleCreate, handleClose}) {
+export default function Modal({isOpen, update, period, setPeriod, handleOnEdit, handleCreate, handleClose}) {
   return (
     <div
         className={`modal modal-slide-in fade ${isOpen ? "show" : ""}`}
@@ -24,9 +25,9 @@ export default function Modal({isOpen, setIsOpen, nampungData, update, setPeriod
                             type="text"
                             id="basic-icon-default-post"
                             className="form-control dt-post"
-                            placeholder={update ? nampungData.name : ""}
                             aria-label="Web Developer"
                             onChange={e => setPeriod(e.target.value)}
+                            value={period}
                         />
                     </div>
 

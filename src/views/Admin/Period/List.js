@@ -60,7 +60,7 @@ export default function List({ periods, handleEdit, handleDelete }) {
                         )
                     }) :
                         <tr>
-                            <td align='center'>-- Data belum tersedia --</td>
+                            <td colSpan={5} align='center'>-- Data belum tersedia --</td>
                         </tr>
                     }
                 </tbody>

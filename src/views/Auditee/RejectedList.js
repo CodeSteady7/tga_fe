@@ -1,6 +1,7 @@
 import AuditLib from 'components/Library/AuditLib'
 import HTMLReactParser from 'html-react-parser'
 import React from 'react'
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom'
 
 export default function RejectedList({listData}) {
@@ -32,7 +33,7 @@ export default function RejectedList({listData}) {
                       <Link to={`/auditee/form-rejected/${prop.id}`}>{prop.document_no} </Link>
                     </td>
                     <td>{prop.audit_form.document_no} </td>
-                    <td>{prop.created_at} </td>
+                    <td>{format(new Date(prop.created_at), "dd MMM yyyy HH:mm:ss")} </td>
                     <td>{prop.auditor_name} </td>
                     <td>{prop.instrument.sub_topic.topic.name} </td>
                     <td>{formatrejectedStatus(prop.is_set_action_plan)} </td>

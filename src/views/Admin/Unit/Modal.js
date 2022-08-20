@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 
-export default function Modal({ isOpen, setIsOpen, validation, input, setInput, userOptions, levelOptions, submitCreate, valueUpdate, valEdit, onCancel, submitUpdate }) {
+export default function Modal({ isOpen, setIsOpen, validation, input, setInput, majorOptions, userOptions, levelOptions, submitCreate, valueUpdate, valEdit, onCancel, submitUpdate }) {
+    const [isHidden, setIsHidden] = useState(false)
+
     const handleChangeType = e => {
         setInput({ ...input, type: e.target.value })
+
+        if(e.target.value ===  'non_academic') {
+            setIsHidden(true)
+        } else {
+            setIsHidden(false)
+        }
     }
-    // console.log('valEdit', valEdit)
-    // console.log('valueUpdate', valueUpdate)
 
     return (
         <div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{ display: isOpen ? 'block' : 'none' }} id="modals-slide-in">
@@ -32,6 +38,52 @@ export default function Modal({ isOpen, setIsOpen, validation, input, setInput, 
                         )
                     }
                     <div className="modal-body flex-grow-1">
+                        <div className="mb-1">
+                            <label className="form-label" htmlFor="basic-icon-default-post">
+                                Tipe Unit
+                            </label>
+                            <div className="d-flex">
+                                <div className="form-check me-3 me-lg-5">
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="type"
+                                        onChange={handleChangeType}
+                                        value="academic"
+                                        defaultChecked={true}
+                                    />
+                                    <label className="form-check-label" htmlFor="userManagementRead">
+                                        {" "}
+                                        Akademik{" "}
+                                    </label>
+                                </div>
+                                <div className="form-check me-3 me-lg-5">
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="type"
+                                        onChange={handleChangeType}
+                                        value="non_academic"
+                                    />
+                                    <label className="form-check-label" htmlFor="userManagementWrite">
+                                        {" "}
+                                        Non Akademik{" "}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mb-1" hidden={isHidden}>
+                            <label className="form-label" htmlFor="basic-icon-default-post">
+                                Jurusan
+                            </label>
+                            <Select
+                                options={majorOptions}
+                                defaultValue={majorOptions[majorOptions.findIndex(major_id => major_id.value == "")]}
+                                onChange={e => setInput({ ...input, major_id: e.value })}
+                            />
+                        </div>
+
                         <div className="mb-1">
                             <label className="form-label" htmlFor="basic-icon-default-post">
                                 Nama Unit
@@ -66,52 +118,9 @@ export default function Modal({ isOpen, setIsOpen, validation, input, setInput, 
                                 options={userOptions}
                                 autoFocus={true}
                                 onChange={e => setInput({ ...input, user_id: e.value })}
+                                defaultValue={{ label: "Select User", value: '' }}
                             />
 
-                        </div>
-
-                        <div className="mb-1">
-                            <label className="form-label" htmlFor="basic-icon-default-post">
-                                Tipe Unit
-                            </label>
-                            <div className="table-responsive">
-                                <table className="table table-flush-spacing">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className="d-flex">
-                                                    <div className="form-check me-3 me-lg-5">
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="radio"
-                                                            name="type"
-                                                            onChange={handleChangeType}
-                                                            value="academic"
-                                                        />
-                                                        <label className="form-check-label" htmlFor="userManagementRead">
-                                                            {" "}
-                                                            Akademik{" "}
-                                                        </label>
-                                                    </div>
-                                                    <div className="form-check me-3 me-lg-5">
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="radio"
-                                                            name="type"
-                                                            onChange={handleChangeType}
-                                                            value="non_academic"
-                                                        />
-                                                        <label className="form-check-label" htmlFor="userManagementWrite">
-                                                            {" "}
-                                                            Non Akademik{" "}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
 
                         <button type="button" className="btn btn-primary data-submit me-1" onClick={valEdit ? e => submitUpdate(e) : e => submitCreate(e)}>

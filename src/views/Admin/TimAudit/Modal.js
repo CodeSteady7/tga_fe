@@ -236,6 +236,7 @@ export default function Modal({isOpen, setIsOpen, fecthDataAudit}) {
                                     className="form-control"
                                     onChange={date => setAuditDate(date)}
                                     selected={auditDate}
+                                    minDate={new Date()}
                                 />
                             </div>
                             <div className="col-12 col-md-6">

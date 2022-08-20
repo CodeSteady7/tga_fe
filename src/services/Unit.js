@@ -10,13 +10,14 @@ const getAll = async (params = {}) => {
     })
 }
 
-const create = async ({ name, user_id, level, type }) => {
+const create = async ({ name, major_id, user_id, level, type }) => {
     return axios.post(
         `${process.env.REACT_APP_API_URL}departments`, {
         name: name,
         user_id: user_id,
         level: level === '' ? null : level,
-        scope_type: type
+        scope_type: type,
+        major_id: type === 'academic' ? major_id : null
     }, {
         timeout: 1000 * 5,
         headers: {
@@ -39,7 +40,7 @@ const update = async ({ id, input }) => {
         name: input.name,
         user_id: input.user_id,
         level: input.level === '' ? null : input.level,
-        scope_type: input.type
+        scope_type: input.type,
     }, {
         timeout: 1000 * 5,
         headers: {

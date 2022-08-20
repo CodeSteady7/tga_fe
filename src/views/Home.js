@@ -33,6 +33,9 @@ function Home() {
 		});
 	};
 
+	// console.log(dataAudit)
+	// console.log(dataRejection)
+
 	useEffect(() => {
 		getAuditChart();
 	}, []);

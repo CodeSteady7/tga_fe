@@ -27,7 +27,7 @@ export default function LineChart({ categoryTitle, categoryLabel, lineBarLabel, 
 							datasets: [
 								{
 									label: categoryLabel,
-									data: [lineBarData],
+									data: lineBarData,
 									backgroundColor: ['#28DAC6'],
 									borderColor: ['#28DAC6'],
 									borderWidth: 3,

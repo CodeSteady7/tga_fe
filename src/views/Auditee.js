@@ -18,18 +18,20 @@ export default function Auditee() {
 
 	const getPeriods = async () => {
 		await Period.getAll()
-			.then(response => {
-				const periods = response.data.result.map((prop, index) => {
-					return {
-						value: prop.id,
-						label: `Periode ${prop.name}`,
-					};
-				});
-
-				setPeriodOption(periods);
+		.then((response) => {
+			const periods = response.data.result.map((prop, index) => {
+				return {
+					value: prop.id,
+					label: `Periode ${prop.name}`
+				}
 			})
-			.catch(error => {});
-	};
+
+			setPeriodOption(periods)
+
+		}).catch((error) => {
+			
+		});
+	}
 
 	const getAudits = async () => {
 		await Audit.getAll(params)
@@ -45,8 +47,8 @@ export default function Auditee() {
 			pagination: 0,
 		};
 
-		getAudits();
-	};
+		getAudits()
+	}
 
 	const formattedStatus = status => {
 		return HTMLReactParser(AuditLib.formattedStatus(status));
@@ -99,58 +101,54 @@ export default function Auditee() {
 													</tr>
 												</thead>
 												<tbody>
-													{typeof audits !== 'undefined' && audits.length > 0 ? (
-														audits.map((prop, index) => {
-															return (
-																<tr key={index}>
-																	<td>{index + 1} </td>
-																	<td>{prop.document_no} </td>
-																	<td>{prop.audit_type}</td>
-																	<td>{format(new Date(prop.audit_at), 'dd-MM-yyyy')}</td>
-																	<td>{prop.auditor.name}</td>
-																	<td>{formattedStatus(prop.audit_status)}</td>
-																	<td>
-																		<div className="dropdown">
-																			<a
-																				type="button"
-																				className="btn btn-sm dropdown-toggle hide-arrow py-0"
-																				data-bs-toggle="dropdown"
-																				id="dropdownMenuLink"
-																				aria-expanded="false"
-																			>
-																				<i data-feather="more-vertical">Click</i>
-																			</a>
-																			<div
-																				className="dropdown-menu dropdown-menu-end"
-																				aria-labelledby="dropdownMenuLink"
-																			>
-																				{AuditLib.isAuditeeMenuShown(prop.audit_status) ? (
-																					<Link
-																						className="dropdown-item"
-																						to={`/auditee/form-audit/${prop.id}`}
-																					>
-																						<span>Lakukan Pengisian </span>
-																					</Link>
-																				) : (
-																					''
-																				)}
+
+													{typeof audits !== 'undefined' && audits.length > 0 
+													? audits.map((prop, index) => {
+														return (
+															<tr key={index}>
+																<td>{index + 1} </td>
+																<td>{prop.document_no} </td>
+																<td>{prop.audit_type}</td>
+																<td>{format(new Date(prop.audit_at), "dd MMM yyyy")}</td>
+																<td>{prop.auditor.name}</td>
+																<td>{ formattedStatus(prop.audit_status) }</td>
+																<td><div className="dropdown">
+																		<a
+																			type="button"
+																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
+																			data-bs-toggle="dropdown"
+																			id="dropdownMenuLink"
+																			aria-expanded="false"
+																		>
+																			<i data-feather="more-vertical">
+																				Click
+																			</i>
+																		</a>
+																		<div
+																			className="dropdown-menu dropdown-menu-end"
+																			aria-labelledby="dropdownMenuLink"
+																		>
+																			{AuditLib.isAuditeeMenuShown(prop.audit_status) ? (
+																				<Link
+																					className="dropdown-item"
+																					to={`/auditee/form-audit/${prop.id}`}
+																				>
+																					<span>Lakukan Pengisian </span>
+																				</Link>
+																			) : 
 																				<a className="dropdown-item" onClick={handleDetail}>
 																					<span>Detail Form</span>
 																				</a>
-																			</div>
+																			}
 																		</div>
-																	</td>
-																</tr>
-															);
-														})
-													) : (
-														<tr>
-															<td colSpan={7} align="center">
-																{' '}
-																-- Belum Tersedia --
-															</td>
-														</tr>
-													)}
+																	</div></td>
+															</tr>
+														)
+													})  
+													: <tr>
+														<td colSpan={7} align="center"> -- Belum Tersedia --</td>
+													</tr>
+													}
 												</tbody>
 											</table>
 										</div>

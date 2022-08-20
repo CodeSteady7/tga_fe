@@ -10,10 +10,9 @@ import Modal from "./Period/Modal.js"
 export default function PeriodeAudit() {
 	const [isOpen, setIsOpen] = useState(false)
 	const [periods, setPeriods] = useState([])
-	
 	const [period, setPeriod] = useState("")
+	const [periodID, setPeriodID] = useState("")
 	const [update, setUpdate] = useState(false)
-	const [nampungData, setNampungData] = useState("")
 
 	const fetchPeriods = async () => {
 		await Period.getAll()
@@ -32,20 +31,19 @@ export default function PeriodeAudit() {
 		}
 
 		await Period.create(data).then(response => {
-			fetchPeriods()
+			// fetchPeriods()
 			setIsOpen(false)
+			setPeriod('')
 		})
 	}
 
 	const handleOnEdit = async e => {
-		e.preventDefault()
-
 		if (period === "" && periodStart === "" && periodEnd === "") {
 			alert("harap di isi")
 		}
 
 		let data = {
-			id: nampungData.id,
+			id: periodID,
 			name: period,
 		}
 		await Period.update(data)
@@ -53,24 +51,24 @@ export default function PeriodeAudit() {
 				fetchPeriods()
 				setIsOpen(false)
 				setUpdate(false)
-				console.log("response", response)
+				setPeriod('')
+				setPeriodID('')
 			})
 			.catch(error => console.log("error", error))
 	}
 
 	const handleEdit = async (data, e) => {
-		try {
-			e.preventDefault()
 			setUpdate(true)
 			setIsOpen(true)
-			setNampungData(data)
-
-		} catch (error) {}
+			setPeriod(data.name)
+			setPeriodID(data.id)
 	}
 
 	const handleClose = () => {
 		setUpdate(false)
 		setIsOpen(false)
+		setPeriod('')
+		setPeriodID('')
 	}
 
 	const handleDelete = async (data, e) => {
@@ -78,10 +76,8 @@ export default function PeriodeAudit() {
 			const datas = {
 				id: data.id,
 			}
-			console.log("masuk data", datas)
 			let info = await Period.destroy(datas)
 				.then(response => {
-					console.log("response", response)
 					fetchPeriods()
 					setIsOpen(false)
 				})
@@ -92,7 +88,7 @@ export default function PeriodeAudit() {
 
 	useEffect(() => {
 		fetchPeriods()
-	}, [])
+	}, [period])
 
 	return (
 		<>
@@ -139,7 +135,7 @@ export default function PeriodeAudit() {
 					</div>
 				</div>
 			</div>
-			<Modal isOpen={isOpen} nampungData={nampungData} setIsOpen={setIsOpen} update={update} setPeriod={setPeriod} handleOnEdit={handleOnEdit} handleCreate={handleCreate} handleClose={handleClose} />
+			<Modal isOpen={isOpen}  setIsOpen={setIsOpen} update={update} period={period} setPeriod={setPeriod} handleOnEdit={handleOnEdit} handleCreate={handleCreate} handleClose={handleClose} />
 		</>
 	)
 }
