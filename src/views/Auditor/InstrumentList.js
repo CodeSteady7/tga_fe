@@ -128,7 +128,7 @@ export default function InstrumentList({auditID, setInput, input, getDetail, aud
     }
 
     const removeConclusion = (index) => {
-        let newConclusionList = [...ConclusionList]
+        let newConclusionList = [...conclusionList]
 		newConclusionList.splice(index, 1)
 		setConclusionList(newConclusionList)
     }
@@ -234,8 +234,8 @@ export default function InstrumentList({auditID, setInput, input, getDetail, aud
                         <div className='card'>
                             <div className='card-body'>
                                 <div className="mb-1">
-                                    <div className="input-group mb-3">
-                                        <input 
+                                    <div className="mb-3">
+                                        <textarea 
                                             type="text" 
                                             className="form-control" 
                                             placeholder="Input Temuan Positif ... " 
@@ -243,7 +243,7 @@ export default function InstrumentList({auditID, setInput, input, getDetail, aud
                                             value={positiveIssue} 
                                             onChange={e => setPositiveIssue(e.target.value)} 
                                             />
-                                        <div className="input-group-append">
+                                        <div className="input-group-append pt-1">
                                             <button style={{fontSize: '12px'}} className="input-group-text" id="basic-addon1" onClick={e => addPositiveIssue(e)}>
                                                 Tambah
                                             </button>
@@ -285,8 +285,8 @@ export default function InstrumentList({auditID, setInput, input, getDetail, aud
                         <div className='card'>
                             <div className='card-body'>
                                 <div className="mb-1">
-                                    <div className="input-group mb-3">
-                                        <input 
+                                    <div className="mb-3">
+                                        <textarea 
                                             type="text" 
                                             className="form-control" 
                                             placeholder="Input Kesimpulan ... " 
@@ -294,7 +294,7 @@ export default function InstrumentList({auditID, setInput, input, getDetail, aud
                                             value={conclusion} 
                                             onChange={e => setConclusion(e.target.value)} 
                                             />
-                                        <div className="input-group-append">
+                                        <div className="input-group-append pt-1">
                                             <button style={{fontSize: '12px'}} className="input-group-text" id="basic-addon1" onClick={e => addConclusion(e)}>
                                                 Tambah
                                             </button>

@@ -98,7 +98,7 @@ export default function InstrumentList({ auditID, setInput, input, getDetail, to
                                                                     <textarea className='form-control' placeholder='Diisi bila tidak sesuai...' data-id={instrument.id} data-index={key} onChange={handleInput} ></textarea>
                                                                 </div>
                                                                 <div className='col-12 pb-2'>
-                                                                    <input className='form-control' accept="image/gif, image/jpeg, application/pdf" data-id={instrument.id} data-index={key} type={'file'} onChange={inputFile}></input>
+                                                                    <input className='form-control'  data-id={instrument.id} data-index={key} type={'file'} onChange={inputFile}></input>
                                                                 </div>
                                                             </div>
                                                         </td>

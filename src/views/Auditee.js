@@ -106,13 +106,13 @@ export default function Auditee() {
 													? audits.map((prop, index) => {
 														return (
 															<tr key={index}>
-																<td>{index + 1} </td>
-																<td>{prop.document_no} </td>
-																<td>{prop.audit_type}</td>
-																<td>{format(new Date(prop.audit_at), "dd MMM yyyy")}</td>
-																<td>{prop.auditor.name}</td>
-																<td>{ formattedStatus(prop.audit_status) }</td>
-																<td><div className="dropdown">
+																<td style={{fontSize: '13px'}}>{index + 1} </td>
+																<td style={{fontSize: '13px'}}>{prop.document_no} </td>
+																<td style={{fontSize: '13px'}}>{prop.audit_type}</td>
+																<td style={{fontSize: '13px'}}>{format(new Date(prop.audit_at), "dd MMM yyyy")}</td>
+																<td style={{fontSize: '13px'}}>{prop.auditor.name}</td>
+																<td style={{fontSize: '13px'}}>{ formattedStatus(prop.audit_status) }</td>
+																<td style={{fontSize: '13px'}}><div className="dropdown">
 																		<a
 																			type="button"
 																			className="btn btn-sm dropdown-toggle hide-arrow py-0"
@@ -146,7 +146,7 @@ export default function Auditee() {
 														)
 													})  
 													: <tr>
-														<td colSpan={7} align="center"> -- Belum Tersedia --</td>
+														<td style={{fontSize: '13px'}} colSpan={7} align="center"> -- Belum Tersedia --</td>
 													</tr>
 													}
 												</tbody>
