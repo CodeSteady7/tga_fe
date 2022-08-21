@@ -93,7 +93,7 @@ export default function Modal({ isOpen, setIsOpen, fecthDataAudit }) {
 			auditor_member_list_json: auditorMembers,
 			audit_title: auditTitle,
 			audit_type: auditType,
-			audit_at: format(new Date(auditDate), 'MM/dd/yyyy HH:mm:ss'),
+			audit_at: format(new Date(auditDate), 'yyyy/MM/dd HH:mm:ss'),
 			audit_standart: auditStandart,
 		};
 

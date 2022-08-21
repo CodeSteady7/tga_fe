@@ -123,6 +123,8 @@ export default function Modal({ isOpen, setIsOpen, getUsers, setOpenEdit, setDat
                                         value={user.email}
                                     />
                                 </div>
+                            </div>
+                            <div className='row mt-1'>
                                 <div className="col-6">
                                     <label
                                         className="form-label"

@@ -4,14 +4,22 @@ import FormLaporan from './FormLaporan';
 import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import PageTemplate from './PageTemplate';
 import Content from './content';
+import Report from 'services/Report';
 
 export default function List({ periods, dataAudits, handleEdit, handleDelete }) {
 	const pdfExportComponent = React.useRef(null);
 
-	const onDownload = () => {
-		if (pdfExportComponent.current) {
-			pdfExportComponent.current.save();
-		}
+	const onDownload = (ID, document_no) => {
+		Report.PdfAuditGenerate(ID)
+		.then((response) => {
+			console.log(response);
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement("a");
+			link.href = url;
+			link.setAttribute("download", `${document_no}.pdf`);
+			document.body.appendChild(link);
+			link.click();
+		})
 	};
 	return (
 		<>
@@ -62,9 +70,8 @@ export default function List({ periods, dataAudits, handleEdit, handleDelete }) 
 														<a
 															className="dropdown-item"
 															href="#"
-															// href="/manager/laporanaudit/view"
 															type="button"
-															onClick={e => onDownload()}
+															onClick={e => onDownload(prop.id, prop.document_no)}
 														>
 															<span>Download</span>
 														</a>

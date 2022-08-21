@@ -45,7 +45,7 @@ export default function Detail({auditForm}) {
                     <label className="form-label" >
                         Ruang Lingkup
                     </label>
-                    <p>{auditForm.scope_type}</p>
+                    <p className='text-uppercase'>{ Object.keys(auditForm).length > 0 ? auditForm.scope_type.replace('_', ' ') : ''}</p>
                 </div>
             </div>
             <div className='row pb-2'>

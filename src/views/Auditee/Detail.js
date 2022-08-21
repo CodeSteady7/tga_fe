@@ -1,10 +1,11 @@
 import AuditLib from 'components/Library/AuditLib'
 import HTMLReactParser from 'html-react-parser'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Detail({auditForm}) {
+    
   return (
-    <div className="card">
+    <div className="card" >
         <div className="card-header border-bottom">
             <h4 className="card-title">Form Audit {auditForm.department_name}</h4>
         </div>
@@ -18,7 +19,7 @@ export default function Detail({auditForm}) {
                 </div>
                 <div className='col-6'>
                     <label className="form-label" >
-                        { HTMLReactParser(AuditLib.formattedStatus(auditForm.audit_status)) }
+                        {  Object.keys(auditForm).length > 0 ? HTMLReactParser(AuditLib.formattedStatus(auditForm.audit_status)) : ''}
                     </label>
                 </div>
             </div>
@@ -45,7 +46,7 @@ export default function Detail({auditForm}) {
                     <label className="form-label" >
                         Ruang Lingkup
                     </label>
-                    <p>{auditForm.scope_type}</p>
+                    <p className='text-uppercase'>{ Object.keys(auditForm).length > 0 ? auditForm.scope_type.replace('_', ' ') : ''}</p>
                 </div>
             </div>
             <div className='row pb-2'>
