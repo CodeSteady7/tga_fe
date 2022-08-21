@@ -46,7 +46,7 @@ export default function Modal({ isOpen, setIsOpen, fecthDataAudit }) {
 				let options = res.data.result.map((prop, index) => {
 					return {
 						value: prop.id,
-						label: `${prop.name}: ${prop.user.name}`,
+						label: `${prop.name}`,
 					};
 				});
 
