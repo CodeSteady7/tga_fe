@@ -1,150 +1,156 @@
-import Header from "components/Header/Header"
-import Navbar from "components/Navbar/Navbar"
-import React, { useEffect, useState } from "react"
-import { Plus } from "react-feather"
-import Unit from "services/Unit"
-import User from "services/User"
-import List from "./Unit/List"
-import Modal from "./Unit/Modal"
+import Header from 'components/Header/Header';
+import Navbar from 'components/Navbar/Navbar';
+import React, { useEffect, useState } from 'react';
+import { Plus } from 'react-feather';
+import Unit from 'services/Unit';
+import User from 'services/User';
+import List from './Unit/List';
+import Modal from './Unit/Modal';
 
 function UnitLembaga() {
-	const [edit, setEdit] = useState(false)
-	const [dataUpdate, setDataUpdate] = useState()
-	const [units, setUnits] = useState([])
+	const [edit, setEdit] = useState(false);
+	const [dataUpdate, setDataUpdate] = useState();
+	const [units, setUnits] = useState([]);
 	const [input, setInput] = useState({
 		level: '',
 		name: '',
 		user_id: '',
 		type: 'academic',
-		major_id: null
-	})
+		major_id: null,
+	});
 
-	const [isOpen, setIsOpen] = useState(false)
-	const [majorOptions, setMajorOptions] = useState([])
+	const [isOpen, setIsOpen] = useState(false);
+	const [majorOptions, setMajorOptions] = useState([]);
 
 	const [levelOptions, setLevelOptions] = useState([
 		{ value: 'D1', label: 'D1' },
 		{ value: 'D2', label: 'D2' },
 		{ value: 'D3', label: 'D3' },
 		{ value: 'D4', label: 'D4' },
-		{ value: '', label: '-- Tidak Ada Jenjang --' }
-	])
+		{ value: '', label: '-- Tidak Ada Jenjang --' },
+	]);
 
-	const [userOptions, setUserOptions] = useState([])
-	const [validation, setValidation] = useState('')
+	const [userOptions, setUserOptions] = useState([]);
+	const [validation, setValidation] = useState('');
 
 	const getMajors = async () => {
-		await Unit.majors() 
-		.then((res) => {
-			let options = res.data.result.map((prop, index) => {
-				return {
-					value: prop.id,
-					label: `${prop.name}`
-				}
-			})
+		await Unit.majors()
+			.then(res => {
+				let options = res.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `${prop.name}`,
+					};
+				});
 
-			setMajorOptions(options)
-		}).catch((err) => {
-			
-		});
-	}
+				setMajorOptions(options);
+			})
+			.catch(err => {});
+	};
 
 	const getUsers = async () => {
 		let params = {
 			role: 'auditee',
-			pagination: 0
-		}
-		await User.getAll(params).then(res => {
-			let options = res.data.result.map((prop, index) => {
-				return {
-					value: prop.id,
-					label: `${prop.name}`
-				}
+			pagination: 0,
+		};
+		await User.getAll(params)
+			.then(res => {
+				let options = res.data.result.map((prop, index) => {
+					return {
+						value: prop.id,
+						label: `${prop.name}`,
+					};
+				});
+
+				setUserOptions(options);
 			})
-
-			setUserOptions(options)
-		}).catch(error => {
-
-		})
-	}
+			.catch(error => {});
+	};
 
 	const submitCreate = async e => {
-		e.preventDefault()
-		await Unit.create(input).then((response) => {
-			setInput({
-				level: '',
-				name: '',
-				user_id: '',
-				type: 'academic',
-				major_id: null
+		e.preventDefault();
+		await Unit.create(input)
+			.then(response => {
+				setInput({
+					level: '',
+					name: '',
+					user_id: '',
+					type: 'academic',
+					major_id: null,
+				});
+				setIsOpen(false);
+				getUnits();
 			})
-			setIsOpen(false)
-			getUnits()
-		}).catch(error => {
-			setValidation(error.response.data);
-		})
-	}
+			.catch(error => {
+				setValidation(error.response.data);
+			});
+	};
 
 	const submitUpdate = async e => {
-		e.preventDefault()
-		console.log('update', input, dataUpdate.id)
-		await Unit.update({ id: dataUpdate.id, input }).then((response) => {
-			setInput({
-				level: '',
-				name: '',
-				user_id: '',
-				type: 'academic'
+		e.preventDefault();
+		console.log('update', input, dataUpdate.id);
+		await Unit.update({ id: dataUpdate.id, input })
+			.then(response => {
+				setInput({
+					level: '',
+					name: '',
+					user_id: '',
+					type: 'academic',
+					major_id: '',
+				});
+				setIsOpen(false);
+				getUnits();
+				setEdit(true);
 			})
-			setIsOpen(false)
-			getUnits()
-			setEdit(true)
-		}).catch(error => {
-			console.log(error)
-			setValidation(error.response.data);
-		})
-	}
+			.catch(error => {
+				console.log(error);
+				setValidation(error.response.data);
+			});
+	};
 
 	const getUnits = async (params = {}) => {
-		await Unit.getAll(params).then(res => {
-			setUnits(res.data.result)
-		}).catch(error => {
+		await Unit.getAll(params)
+			.then(res => {
+				setUnits(res.data.result);
+			})
+			.catch(error => {});
+	};
 
-		})
-	}
-
-	const paginationLink = (e) => {
+	const paginationLink = e => {
 		let params = {
-			page: e.target.getAttribute('data-page')
-		}
-		getUnits(params)
-	}
+			page: e.target.getAttribute('data-page'),
+		};
+		getUnits(params);
+	};
 
 	const showEdit = (prop, e) => {
-		console.log('masuk', prop)
-		setIsOpen(true)
-		setEdit(true)
-		setDataUpdate(prop)
-	}
+		console.log('masuk', prop);
+		setIsOpen(true);
+		setEdit(true);
+		setDataUpdate(prop);
+	};
 
 	const funcOnCancel = () => {
-		setIsOpen(false)
-		setEdit(false)
-	}
+		setIsOpen(false);
+		setEdit(false);
+	};
 
-	const onDelete = async (prop) => {
-		await Unit.destroy({ id: prop.id }).then(res => {
-			getUnits()
-		}).catch(err => {
-			alert(err)
-			console.log(err)
-		})
-	}
+	const onDelete = async prop => {
+		await Unit.destroy({ id: prop.id })
+			.then(res => {
+				getUnits();
+			})
+			.catch(err => {
+				alert(err);
+				console.log(err);
+			});
+	};
 
 	useEffect(() => {
-		getUnits()
-		getUsers()
-		getMajors()
-	}, [])
+		getUnits();
+		getUsers();
+		getMajors();
+	}, []);
 
 	return (
 		<div>
@@ -180,7 +186,12 @@ function UnitLembaga() {
 														</div>
 													</button>
 												</div>
-												<List units={units} paginationLink={paginationLink} showEdit={showEdit} onDelete={onDelete} />
+												<List
+													units={units}
+													paginationLink={paginationLink}
+													showEdit={showEdit}
+													onDelete={onDelete}
+												/>
 											</div>
 										</div>
 									</div>
@@ -207,7 +218,7 @@ function UnitLembaga() {
 				getUnits={getUnits}
 			/>
 		</div>
-	)
+	);
 }
 
-export default UnitLembaga
+export default UnitLembaga;
