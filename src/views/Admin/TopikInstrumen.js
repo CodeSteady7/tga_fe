@@ -97,10 +97,14 @@ function TopikInstrumen() {
 
 	}
 
-	useEffect(() => {
+	const reloadData = () => {
 		getPeriods()
 		getInstrumentTopics()
-	}, [])
+	}
+
+	useEffect(() => {
+		reloadData()
+	},[])
 
 	return (
 		<>
@@ -155,7 +159,7 @@ function TopikInstrumen() {
 										</div>
 									</div>
 								) : (
-									<InstrumentList subTopicID={subTopicID} setIsMainPage={setIsMainPage} />
+									<InstrumentList subTopicID={subTopicID} setIsMainPage={setIsMainPage} reloadData={reloadData} />
 								)}
 							</section>
 						</div>

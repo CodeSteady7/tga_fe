@@ -28,7 +28,12 @@ export default function List({topicList, showInstrument}) {
                     ? topic.sub_topics.map((sub_topic, index) => {
                       return (
                       <li key={index} className={'pb-1'}>
-                        <a style={{color: 'blue'}} onClick={ e => showInstrument(sub_topic.id) } > {sub_topic.name}</a>
+                        <div className=''>
+                        <a style={{color: 'blue'}} onClick={ e => showInstrument(sub_topic.id) } > {sub_topic.name} </a> 
+                        </div>
+                        <div className=''>
+                          {sub_topic.instruments.length > 0 ? `Total ${sub_topic.instruments.length } instrument` : ''}
+                        </div>
                       </li>
                       )
                     }) : '-- Belum dimasukkan --'}

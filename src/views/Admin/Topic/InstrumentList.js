@@ -165,7 +165,7 @@ function Modal({subTopicID, getSubTopic, isOpen, setIsOpen}) {
     )
 }
 
-export default function InstrumentList({subTopicID, setIsMainPage}) {
+export default function InstrumentList({subTopicID, setIsMainPage, reloadData}) {
     const [isOpen, setIsOpen] = useState(false)
     const [subTopic, setSubTopic] = useState({
         name: '',
@@ -175,6 +175,7 @@ export default function InstrumentList({subTopicID, setIsMainPage}) {
 
     const handleBackToMainPage = () => {
         setIsMainPage(true)
+        reloadData()
     }
 
     const getSubTopic = async (id) => {
