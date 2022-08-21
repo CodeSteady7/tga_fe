@@ -1,18 +1,21 @@
 import Header from 'components/Header/Header';
 import Navbar from 'components/Navbar/Navbar';
+import Spinner from 'components/Spinner/Spinner';
 import React, { useEffect, useState } from 'react';
 import Audit from 'services/Audit';
 import RejectedList from './RejectedList';
 
 export default function Rejected() {
 	const [listData, setListData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
+
 	let params = {};
 
 	const getRejectedAudit = async () => {
 		await Audit.getRejectedAudit(params)
 			.then(result => {
-				console.log(result.data.result);
 				setListData(result.data.result);
+				setIsLoading(false)
 			})
 			.catch(err => {});
 	};
@@ -36,7 +39,11 @@ export default function Rejected() {
 										<div className="card-header border-bottom">
 											<h4 className="card-title">Daftar Formulir</h4>
 										</div>
-										<RejectedList listData={listData} />
+										{isLoading ? <Spinner/> : 
+										<>
+											<RejectedList listData={listData} />
+										</>
+										}
 									</div>
 								</div>
 							</div>

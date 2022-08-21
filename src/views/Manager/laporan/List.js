@@ -44,13 +44,13 @@ export default function List({ periods, dataAudits, handleEdit, handleDelete }) 
 									console.log('prop', prop);
 									return (
 										<tr key={key}>
-											<td scope="row">{key + 1}</td>
-											<td>{prop.document_no}</td>
-											<td>{prop.audit_type}</td>
-											<td>{prop.department.name}</td>
-											<td>{prop.department.scope_type.toUpperCase().replace('_', ' ')}</td>
-											<td>{format(new Date(prop.audit_at), 'dd-MM-yyyy')}</td>
-											<td>{prop.auditor.name}</td>
+											<td style={{fontSize: '13px'}} scope="row">{key + 1}</td>
+											<td style={{fontSize: '13px'}}>{prop.document_no}</td>
+											<td style={{fontSize: '13px'}}>{prop.audit_type}</td>
+											<td style={{fontSize: '13px'}}>{prop.department.name}</td>
+											<td style={{fontSize: '13px'}}>{prop.department.scope_type.toUpperCase().replace('_', ' ')}</td>
+											<td style={{fontSize: '13px'}}>{format(new Date(prop.audit_at), 'dd-MM-yyyy')}</td>
+											<td style={{fontSize: '13px'}}>{prop.auditor.name}</td>
 											<td>
 												{' '}
 												<div className="dropdown">

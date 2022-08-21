@@ -1,11 +1,10 @@
 import AuditLib from 'components/Library/AuditLib'
 import HTMLReactParser from 'html-react-parser'
-import React from 'react'
+import React, { useState } from 'react'
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom'
 
 export default function RejectedList({listData}) {
-
   const formatrejectedStatus = (status: bool) => {
     return HTMLReactParser(AuditLib.auditRejectedStatus(status))
   }
@@ -28,15 +27,15 @@ export default function RejectedList({listData}) {
               {typeof listData.data != "undefined" && listData.data.length > 0 ? listData.data.map((prop, key) => {
                 return (
                   <tr key={key}>
-                    <td>{key + 1}</td>
-                    <td>
+                    <td style={{fontSize: '13px'}}>{key + 1}</td>
+                    <td style={{fontSize: '13px'}}>
                       <Link to={`/auditee/form-rejected/${prop.id}`}>{prop.document_no} </Link>
                     </td>
-                    <td>{prop.audit_form.document_no} </td>
-                    <td>{format(new Date(prop.created_at), "dd MMM yyyy HH:mm:ss")} </td>
-                    <td>{prop.auditor_name} </td>
-                    <td>{prop.instrument.sub_topic.topic.name} </td>
-                    <td>{formatrejectedStatus(prop.is_set_action_plan)} </td>
+                    <td style={{fontSize: '13px'}}>{prop.audit_form.document_no} </td>
+                    <td style={{fontSize: '13px'}}>{format(new Date(prop.created_at), "dd MMM yyyy HH:mm:ss")} </td>
+                    <td style={{fontSize: '13px'}}>{prop.auditor_name} </td>
+                    <td style={{fontSize: '13px'}}>{prop.instrument.sub_topic.topic.name} </td>
+                    <td style={{fontSize: '13px'}}>{formatrejectedStatus(prop.is_set_action_plan)} </td>
                 </tr>
                 )
               }) : '' }

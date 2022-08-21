@@ -5,12 +5,15 @@ import { useParams } from 'react-router-dom';
 import Audit from 'services/Audit';
 import Detail from './Detail';
 import InstrumentList from './InstrumentList';
+import Spinner from 'components/Spinner/Spinner';
 
 export default function Form() {
 	const { id } = useParams();
 	const [auditForm, setAuditForm] = useState({});
 	const [topics, setTopics] = useState([]);
 	const [input, setInput] = useState([]);
+
+	const [isLoading, setIsLoading] = useState(true)
 
 	const getDetail = async () => {
 		await Audit.getDetail(id)
@@ -36,6 +39,8 @@ export default function Form() {
 				});
 
 				setInput(defaultInput);
+
+				setIsLoading(false)
 			})
 			.catch(err => {});
 	};
@@ -56,17 +61,23 @@ export default function Form() {
 						<section id="basic-datatable">
 							<div className="row">
 								<div className="col-12">
-									<Detail auditForm={auditForm} />
-									<p className="text-danger">
-										Anda hanya dapat mengisi instrument satu kali. Pastikan mengisi dengan benar!
-									</p>
-									<InstrumentList
-										auditID={id}
-										setInput={setInput}
-										input={input}
-										getDetail={getDetail}
-										topics={topics}
-									/>
+									{isLoading ? 
+									<Spinner /> : 
+									<>
+										<Detail auditForm={auditForm} />
+										<p className="text-danger">
+											Anda hanya dapat mengisi instrument satu kali. Pastikan mengisi dengan benar!
+										</p>
+										<InstrumentList
+											auditID={id}
+											setInput={setInput}
+											input={input}
+											getDetail={getDetail}
+											topics={topics}
+										/>
+									</>
+									}
+									
 								</div>
 							</div>
 						</section>

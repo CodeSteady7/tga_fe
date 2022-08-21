@@ -107,12 +107,12 @@ export default function Auditor() {
 													? audits.map((prop, index) => {
 														return (
 															<tr key={index}>
-																<td>{index + 1} </td>
-																<td>{prop.document_no} </td>
-																<td>{prop.audit_type}</td>
-																<td>{format(new Date(prop.audit_at), "dd MMM yyyy")}</td>
-																<td>{prop.auditor.name}</td>
-																<td> { HTMLReactParser(AuditLib.formattedStatus(prop.audit_status)) }</td>
+																<td style={{fontSize: '13px'}}>{index + 1} </td>
+																<td style={{fontSize: '13px'}}>{prop.document_no} </td>
+																<td style={{fontSize: '13px'}}>{prop.audit_type}</td>
+																<td style={{fontSize: '13px'}}>{format(new Date(prop.audit_at), "dd MMM yyyy")}</td>
+																<td style={{fontSize: '13px'}}>{prop.auditor.name}</td>
+																<td style={{fontSize: '13px'}}> { HTMLReactParser(AuditLib.formattedStatus(prop.audit_status)) }</td>
 																<td><div className="dropdown">
 																		<a
 																			type="button"
