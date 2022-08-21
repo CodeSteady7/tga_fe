@@ -20,22 +20,22 @@ export default function List({topicList, showInstrument}) {
             ? topicList.data.map((topic, key) => {
               return (
                 <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{topic.name}</td>
-                  <td>
+                  <td valign='top' style={{fontSize: '13px'}}>{key + 1}</td>
+                  <td valign='top' style={{fontSize: '13px'}}>{topic.name}</td>
+                  <td style={{fontSize: '13px'}}>
                     <ul>
                     {topic.sub_topics.length > 0 
                     ? topic.sub_topics.map((sub_topic, index) => {
                       return (
-                      <li key={index} className={'py-1'}>
+                      <li key={index} className={'pb-1'}>
                         <a style={{color: 'blue'}} onClick={ e => showInstrument(sub_topic.id) } > {sub_topic.name}</a>
                       </li>
                       )
                     }) : '-- Belum dimasukkan --'}
                     </ul>
                   </td>
-                  <td>{topic.period.name}</td>
-                  <td>
+                  <td valign='top' style={{fontSize: '13px'}}>{topic.period.name}</td>
+                  <td valign='top' style={{fontSize: '13px'}}>
                     <div className="dropdown">
                       <a
                         type="button"

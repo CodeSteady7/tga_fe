@@ -20,8 +20,8 @@ export default function List({ periods, handleEdit, handleDelete }) {
                             <tr key={data.id}>
                                 <td key={data.id}>{i + 1}</td>
                                 <td>{data.name}</td>
-                                <td>{format(new Date(data.created_at), "HH:ii, dd-MM-yyyy")}</td>
-                                <td>{format(new Date(data.updated_at), "HH:ii, dd-MM-yyyy")}</td>
+                                <td>{format(new Date(data.created_at), "HH:ii, dd MMM yyyy")}</td>
+                                <td>{format(new Date(data.updated_at), "HH:ii, dd MMM yyyy")}</td>
                                 <td>
                                     <div className="dropdown">
                                         <a

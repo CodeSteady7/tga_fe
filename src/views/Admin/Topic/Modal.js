@@ -5,7 +5,7 @@ import Select from 'react-select'
 export default function Modal({isOpen, setIsOpen, validation, name, setName, periodOptions, setPeriod, subTopicInput, setSubTopicInput, addSubTopicList, subTopicList, removeSubTopicList, handleSubmit }) {
   return (
     <div className={`modal modal-slide-in fade ${isOpen ? 'show' : ''}`} style={{display: isOpen ? 'block' : 'none'}} id="modals-slide-in">
-        <div className="modal-dialog sidebar-sm">
+        <div className="modal-dialog sidebar-lg">
             <form className="add-new-record modal-content pt-0">
                 <button
                     type="button"
@@ -76,10 +76,10 @@ export default function Modal({isOpen, setIsOpen, validation, name, setName, per
                                     subTopicList.map(((prop, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td>{prop}</td>
+                                                <td style={{fontSize: "13px", textAlign: "justify"}}>{prop}</td>
                                                 <td align="right">
                                                     <button className="btn btn-sm btn-outline-danger" onClick={e => removeSubTopicList(e, index)} >
-                                                        <Trash color="red" size={15} />
+                                                        <Trash color="red" size={12} />
                                                     </button>
                                                 </td>
                                             </tr>

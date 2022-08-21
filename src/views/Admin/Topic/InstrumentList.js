@@ -118,11 +118,12 @@ function Modal({subTopicID, getSubTopic, isOpen, setIsOpen}) {
 								<label className="form-label" htmlFor="basic-icon-default-post">
 									Pertanyaan
 								</label>
-								<div className="input-group mb-3">
-									<input type="text" className="form-control" placeholder="Instrument..." value={instrumentInput} onChange={e => setInstrumentInput(e.target.value)} />
-									<div className="input-group-append">
+								<div className="mb-3">
+									<textarea type="text" className="form-control" placeholder="Instrument..." value={instrumentInput} onChange={e => setInstrumentInput(e.target.value)} />
+									<div className="input-group-append pt-1">
 										<button className="input-group-text" id="basic-addon1" onClick={(e) => addInstrumentList(e)}>
-											<Plus color="#28c76f" />
+                                        <Plus color="#28c76f" size={12} />
+                                            Tambah
 										</button>
 									</div>
 								</div>
@@ -135,13 +136,13 @@ function Modal({subTopicID, getSubTopic, isOpen, setIsOpen}) {
 											instrumentList.map(((prop, index) => {
 												return (
 													<tr key={index}>
-														<td>{index + 1}</td>
-														<td>{prop}</td>
-														<td align="right">
-															<button className="btn btn-sm btn-outline-danger" onClick={e => removeInstrumentList(e, index)} >
-																<Trash color="red" size={15} />
-															</button>
-														</td>
+                                                        <td style={{fontSize: "13px", textAlign: "center"}}>{index+1}</td>
+                                                        <td style={{fontSize: "13px", textAlign: "justify"}}>{prop}</td>
+                                                        <td align="right" style={{fontSize: "13px"}}>
+                                                            <button className="btn btn-sm btn-outline-danger" onClick={e => removeInstrumentList(e, index)} >
+                                                                <Trash color="red" size={12} />
+                                                            </button>
+                                                        </td>
 													</tr>
 												)
 											}))
@@ -224,20 +225,27 @@ export default function InstrumentList({subTopicID, setIsMainPage}) {
             <div className="row gy-2">
                 <div className="col-12">
                     <div className="bg-light-secondary position-relative rounded p-2">
-                        <div className="d-flex align-items-center flex-wrap">
-                            <ol>
-                                <h4>{subTopic.topic} - {subTopic.name} </h4>
-                                { subTopic.instruments.length > 0 ? subTopic.instruments.map((instrument, index) => {
-                                    return (
-                                        <li key={index} className="align-items-center fw-bolder p-1">
-                                            {instrument.scope_type.replace('_', ' ').toUpperCase()} : {instrument.matrix}
-                                        </li>
-                                    )
-                                }) : '-- belum Menambahkan Pertanyaan --'
-                                }
-                            </ol>
+                        <h5>{subTopic.topic} - {subTopic.name} </h5>
+                        <div className="flex-wrap">
+                            <div className='row'>
+                                <div className='col-12'>
+                                <ol>
+                                    { subTopic.instruments.length > 0 ? subTopic.instruments.map((instrument, index) => {
+                                        return (
+                                            <li style={{fontSize: '13px'}}
+                                                key={index} 
+                                                className="align-items-center  p-1">
+                                                <div style={{fontWeight: 'bold'}}>{instrument.scope_type.replace('_', ' ').toUpperCase()} </div>
+                                                <div>{instrument.matrix}</div>
+                                            </li>
+                                        )
+                                    }) : '-- belum Menambahkan Pertanyaan --'
+                                    }
+                                </ol>
+                                </div>
+                            </div>
                         </div>
-                        <h6 className="d-flex align-items-center fw-bolder">
+                        <h6 className="fw-bolder">
                             <span className="me-50"></span>
                         </h6>
                     </div>
