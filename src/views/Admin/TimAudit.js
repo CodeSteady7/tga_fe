@@ -1,59 +1,56 @@
-import Header from "components/Header/Header"
-import Navbar from "components/Navbar/Navbar"
-import React, { useState, useEffect } from "react"
-import { Plus } from "react-feather"
-import Audit from "services/Audit"
-import List from "./TimAudit/List"
-import Modal from "./TimAudit/Modal"
-import Select from 'react-select'
-import Period from "services/Period"
+import Header from 'components/Header/Header';
+import Navbar from 'components/Navbar/Navbar';
+import React, { useState, useEffect } from 'react';
+import { Plus } from 'react-feather';
+import Audit from 'services/Audit';
+import List from './TimAudit/List';
+import Modal from './TimAudit/Modal';
+import Select from 'react-select';
+import Period from 'services/Period';
 
 function TimAudit() {
-    const [isOpen, setIsOpen] = useState(false)
-	const [audits, setAudits] = useState([]) 
-	const [periodOptions, setPeriodOptions] = useState([])
+	const [isOpen, setIsOpen] = useState(false);
+	const [audits, setAudits] = useState([]);
+	const [periodOptions, setPeriodOptions] = useState([]);
 
-	
-	let params = {}
+	let params = {};
 
-	const handleSelectPeriod = (event) => {
+	const handleSelectPeriod = event => {
 		params = {
-			period_id: event.value
-		}
+			period_id: event.value,
+		};
 
-		getAudits()
-	}
+		getAudits();
+	};
 
 	const getPeriods = async () => {
 		await Period.getAll()
-			.then((response) => {
+			.then(response => {
 				const periods = response.data.result.map((prop, index) => {
 					return {
 						value: prop.id,
-						label: `Periode ${prop.name}`
-					}
-				})
+						label: `Periode ${prop.name}`,
+					};
+				});
 
-				setPeriodOptions(periods)
-
-			}).catch((error) => {
-
-			});
-	}
+				setPeriodOptions(periods);
+			})
+			.catch(error => {});
+	};
 
 	const getAudits = async () => {
-		await Audit.getAll(params).then(res => {
-			setAudits(res.data.result)
-		}).catch(err => {
-			
-		})
-	}
+		await Audit.getAll(params)
+			.then(res => {
+				setAudits(res.data.result);
+			})
+			.catch(err => {});
+	};
 
 	useEffect(() => {
-		getAudits()
-		getPeriods()
-	}, [])
-	
+		getAudits();
+		getPeriods();
+	}, []);
+
 	return (
 		<div>
 			<div>
@@ -75,18 +72,14 @@ function TimAudit() {
 									<div className="row">
 										<div className="col-12">
 											<div className="card">
-											<div className="card-body pt-2">
+												<div className="card-body pt-2">
 													<div className="row">
 														<label className="form-label" htmlFor="basic-icon-default-post">
 															Cari Berdasarkan Periode
 														</label>
 														<div className="col-4">
-															<Select 
-																options={periodOptions}
-																onChange={handleSelectPeriod}
-															/>
+															<Select options={periodOptions} onChange={handleSelectPeriod} />
 														</div>
-														
 													</div>
 												</div>
 												<div className="card-header border-bottom">
@@ -114,7 +107,7 @@ function TimAudit() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default TimAudit
+export default TimAudit;
